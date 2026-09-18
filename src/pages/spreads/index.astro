@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content'
+import DraftBadge from '../../components/DraftBadge.astro'
+import type { PieceStatus } from '../../lib/content/compose'
+import type { SpreadId } from '../../lib/spreads'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+/**
+ * The spreads index: one entry per spread, sorted ascending by the
+ * declared `order` field (never filename or array order), with a
+ * structural marker that each spread extends the previous one on the
+ * ladder.
+ *
+ * `spreads` may be supplied as a prop (the tests do this, deliberately
+ * out of order); the real route falls back to `getCollection('spreads')`.
+ */
+
+export interface SpreadIndexEntry {
+    id: SpreadId
+    name: string
+    summary: string
+    /** Declared ladder position. The index must sort by this, never by filename or array order. */
+    order: number
+    status: PieceStatus
+}
+
+export interface Props {
+    spreads: SpreadIndexEntry[]
+}
+
+let { spreads } = Astro.props
+
+if (!spreads) {
+    const collection = await getCollection('spreads')
+    spreads = collection.map((entry) => ({
+        id: entry.id as SpreadId,
+        name: entry.data.name,
+        summary: entry.data.summary,
+        order: entry.data.order,
+        status: entry.data.status,
+    }))
+}
+
+const sortedSpreads = [...spreads].sort((a, b) => a.order - b.order)
+---
+
+<BaseLayout title="Spreads">
+    <ul>
+        {sortedSpreads.map((spread, index) => (
+            <li>
+                <a
+                    data-testid="spread-index-entry"
+                    data-spread-id={spread.id}
+                    href={`/spreads/${spread.id}/`}
+                >
+                    {spread.name}
+                </a>
+                <p>{spread.summary}</p>
+                <DraftBadge status={spread.status} />
+                {index > 0 && (
+                    <p
+                        data-testid="spread-extends"
+                        data-spread-id={spread.id}
+                        data-extends-id={sortedSpreads[index - 1]!.id}
+                    >
+                        Extends {sortedSpreads[index - 1]!.name}
+                    </p>
+                )}
+            </li>
+        ))}
+    </ul>
+</BaseLayout>

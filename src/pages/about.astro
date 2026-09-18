@@ -1,0 +1,74 @@
+---
+import { SITE_NAME, SITE_TAGLINE } from '../config/site'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+/**
+ * The about page: what the site teaches, how it works, what it commits not
+ * to do. Finished prose, not a draft stub — see the voice guide for the
+ * register this is written in and why the mechanism is stated once here
+ * rather than repeated on every card page.
+ */
+---
+
+<BaseLayout title="About" description={SITE_TAGLINE}>
+    <article>
+        <h1>About {SITE_NAME}</h1>
+
+        <p>
+            {SITE_NAME} teaches tarot as structure rather than as a list to
+            memorize. Every card is built from the same small set of parts — its
+            suit, its number, and the symbols drawn in its artwork — and those
+            parts combine the same way from card to card. Learn how suits,
+            numbers, and symbols compose, and you can work out what a card is
+            doing rather than recalling a caption for it. Forty shared pieces,
+            combined, cover all seventy-eight cards.
+        </p>
+
+        <p>
+            Here is the whole mechanism, stated plainly and only once: a card's
+            structure was composed on purpose, so reading one is closer to
+            reading a deliberately built visual argument than to predicting what
+            will happen. The cards are a prompt for reflection — a way of
+            turning a specific question over in a structured way — not a source
+            of forecasts. What a reader does with that prompt is theirs to
+            decide.
+        </p>
+
+        <h2>The deck</h2>
+        <p>
+            The card images throughout the site come from the classic 1909 deck
+            illustrated by Pamela Colman Smith. That deck is in the public
+            domain, and every card shown here is scanned from a single coherent
+            source, so the artwork stays consistent from card to card rather
+            than mixing printings.
+        </p>
+
+        <h2>Where things stand</h2>
+        <p>
+            Most of the written material on this site — card readings, suit and
+            number essays, spread instructions — is still a draft. Draft pieces
+            are marked as such where they appear, rather than left for a reader
+            to discover on their own. Expect the depth and polish of individual
+            pages to vary while that work continues.
+        </p>
+
+        <h2>What this site won't do</h2>
+        <p>A few things are commitments here, not just missing features:</p>
+        <ul>
+            <li>
+                No streaks, counters, or "you haven't read today's card yet" —
+                the practice is offered, not owed, and skipping a day costs
+                nothing.
+            </li>
+            <li>
+                No prediction. Readings describe a common way of thinking about
+                a card, not what is going to happen.
+            </li>
+            <li>
+                No fixed reversed meanings for individual cards. Reversal is
+                taught as a general technique you can apply on top of a card's
+                upright meaning, not baked into each card as a second answer.
+            </li>
+        </ul>
+    </article>
+</BaseLayout>

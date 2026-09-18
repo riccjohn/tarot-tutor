@@ -383,7 +383,13 @@ describe('card page: no Rider-Waite mention, no reversed interpretation', () => 
 describe('card index page', () => {
     it('emits exactly 78 links, one per deck id', async () => {
         const doc = await renderIndexPage()
-        const links = Array.from(doc.querySelectorAll('a[href]'))
+        // Scoped to the card list, not every anchor on the page. Counting
+        // all anchors also counted the site header and footer, so the
+        // assertion broke the moment the site got navigation -- which is a
+        // fact about the test, not about the index.
+        const index = doc.querySelector('[data-testid="card-index"]')
+        expect(index).not.toBeNull()
+        const links = Array.from(index!.querySelectorAll('a[href]'))
         expect(links).toHaveLength(78)
 
         const hrefs = links.map((a) => a.getAttribute('href') ?? '')

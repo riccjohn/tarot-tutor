@@ -16,7 +16,15 @@ const { cards = DECK } = Astro.props
 ---
 
 <BaseLayout title="All Cards">
-    <ul>
+    <p class="eyebrow">The deck</p>
+    <h1>Seventy-eight cards</h1>
+    <p class="card-index__lede">
+        Twenty-two majors, then four suits of fourteen. Every minor card is its
+        suit and its number combined, which is why forty written pieces cover
+        all seventy-eight.
+    </p>
+
+    <ul class="card-index" data-testid="card-index">
         {cards.map((card) => (
             <li>
                 <a href={`/cards/${card.id}/`}>{card.name}</a>
@@ -24,3 +32,55 @@ const { cards = DECK } = Astro.props
         ))}
     </ul>
 </BaseLayout>
+
+<style>
+    .card-index__lede {
+        color: var(--color-ink-soft);
+        margin-bottom: 2.5rem;
+    }
+
+    /*
+     * A 78-item bullet list is a wall. Columns turn it into something
+     * scannable, and the deck's own order (majors, then suit by suit) gives
+     * it structure without needing headings.
+     */
+    .card-index {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        columns: 1;
+        column-gap: 2.5rem;
+    }
+
+    .card-index li {
+        break-inside: avoid;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .card-index a {
+        display: block;
+        padding-block: 0.6rem;
+        color: var(--color-ink);
+        text-decoration: none;
+        transition:
+            color 0.25s var(--ease-brand),
+            padding-left 0.25s var(--ease-brand);
+    }
+
+    .card-index a:hover {
+        color: var(--color-accent);
+        padding-left: 0.4rem;
+    }
+
+    @media (min-width: 34rem) {
+        .card-index {
+            columns: 2;
+        }
+    }
+
+    @media (min-width: 60rem) {
+        .card-index {
+            columns: 3;
+        }
+    }
+</style>

@@ -21,10 +21,13 @@ const { composed } = Astro.props
 const { card, own, suit, number, rank, majorArc } = composed
 ---
 
+<h1 data-testid="card-name">{card.name}</h1>
+
 <CardImage id={card.id} name={card.name} />
 
 {suit && (
     <section data-testid="suit-info">
+        <p class="eyebrow">Suit</p>
         <h2>{suit.name}</h2>
         <p>{suit.domain}</p>
     </section>

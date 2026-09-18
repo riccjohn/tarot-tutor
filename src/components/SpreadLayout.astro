@@ -1,0 +1,145 @@
+---
+import CardImage from './CardImage.astro'
+import type { Card } from '../lib/deck'
+
+/**
+ * Renders one spread's card slots on a CSS grid driven by the abstract
+ * `x`/`y` coordinates from `src/lib/spreads.ts` (Phase 8's geometry source
+ * of truth). This component never redefines or re-derives geometry — it
+ * only consumes the coordinates it's handed.
+ *
+ * Each slot links out to the drawn card's own page (`/cards/{id}/`) rather
+ * than inlining card content, per the Phase 9 contract.
+ *
+ * Mobile-first: below the breakpoint the grid collapses to a single
+ * vertical column, in the same source order the slots were given in, so
+ * position labels and their order survive the reflow even on the
+ * five-card cross (the widest layout, 3x3 grid units).
+ */
+
+export interface SpreadLayoutSlot {
+    /** This position's name, e.g. "Past". */
+    label: string
+    /** This position's prose meaning, from the spreads content collection. */
+    meaning: string
+    /** Abstract grid coordinates, from `src/lib/spreads.ts`. */
+    x: number
+    y: number
+    /** The card drawn for this position. */
+    card: Card
+    reversed: boolean
+}
+
+export interface Props {
+    slots: SpreadLayoutSlot[]
+}
+
+const { slots } = Astro.props
+---
+
+<div class="spread-layout">
+    {slots.map((slot) => (
+        <div
+            class="spread-layout__slot"
+            data-testid="spread-position"
+            data-x={slot.x}
+            data-y={slot.y}
+            data-card-id={slot.card.id}
+            data-reversed={String(slot.reversed)}
+            style={`--slot-column: ${slot.x + 1}; --slot-row: ${slot.y + 1};`}
+        >
+            <p class="spread-layout__label eyebrow">{slot.label}</p>
+            <a data-testid="spread-card-link" href={`/cards/${slot.card.id}/`}>
+                <CardImage id={slot.card.id} name={slot.card.name} />
+                <span class="spread-layout__name">{slot.card.name}</span>
+            </a>
+            {/*
+                Generic framing, identical for every reversed card, matching
+                `DailyDraw.tsx`'s reversal-note and `FreePull.tsx`'s
+                reversal-badge. Without it a reversed card in a spread reads
+                as upright, which contradicts how the same draw is presented
+                on the other two surfaces. Never card-specific text — there
+                is no per-card reversed meaning anywhere in the payload.
+            */}
+            {slot.reversed && (
+                <p data-testid="spread-reversal-note">
+                    Reversed — read the same meaning turned inward or blocked,
+                    not a different card.
+                </p>
+            )}
+            <p class="spread-layout__meaning">{slot.meaning}</p>
+        </div>
+    ))}
+</div>
+
+<style>
+    .spread-layout {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.75rem 1.25rem;
+        margin-block: 2.5rem 3rem;
+    }
+
+    .spread-layout__slot a {
+        display: block;
+        text-decoration: none;
+    }
+
+    /*
+     * Slot art is thumbnail-scale, unlike the single hero card on a card
+     * page, so the cross reads as a layout rather than five full-size cards
+     * stacked down the page.
+     */
+    .spread-layout__slot :global([data-testid='card-image']) {
+        max-width: 100%;
+        margin-bottom: 0.6rem;
+        box-shadow: var(--shadow-2);
+        transition:
+            transform 0.4s var(--ease-brand),
+            box-shadow 0.4s var(--ease-brand);
+    }
+
+    .spread-layout__slot a:hover :global([data-testid='card-image']) {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-3);
+    }
+
+    .spread-layout__name {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        color: var(--color-ink);
+        letter-spacing: -0.01em;
+    }
+
+    .spread-layout__slot a:hover .spread-layout__name {
+        color: var(--color-accent);
+    }
+
+    .spread-layout__label {
+        margin-bottom: 0.5rem;
+    }
+
+    .spread-layout__meaning {
+        font-size: 0.9rem;
+        color: var(--color-ink-soft);
+        margin-top: 0.5rem;
+    }
+
+    .spread-layout__slot {
+        grid-column: var(--slot-column);
+        grid-row: var(--slot-row);
+    }
+
+    @media (max-width: 480px) {
+        .spread-layout {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spread-layout__slot {
+            grid-column: auto;
+            grid-row: auto;
+        }
+    }
+</style>

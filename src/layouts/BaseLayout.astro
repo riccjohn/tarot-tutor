@@ -1,4 +1,6 @@
 ---
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from '../config/site'
 import '../styles/global.css'
 
@@ -24,13 +26,22 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL)
             content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
         <meta name="generator" content={Astro.generator} />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="canonical" href={canonicalUrl} />
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@300;400;600&family=DM+Mono:wght@400&display=swap"
+        />
     </head>
     <body>
+        <SiteHeader />
         <main>
             <slot />
         </main>
+        <SiteFooter />
     </body>
 </html>

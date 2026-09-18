@@ -21,6 +21,9 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
+# playwright mcp scratch output
+.playwright-mcp/
+
 # lightfactory
 .light
 # yaks task graph

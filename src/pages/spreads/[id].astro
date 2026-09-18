@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content'
+import DraftBadge from '../../components/DraftBadge.astro'
+import SpreadLayout, {
+    type SpreadLayoutSlot,
+} from '../../components/SpreadLayout.astro'
+import type { PieceStatus } from '../../lib/content/compose'
+import { drawForDate } from '../../lib/draw'
+import { getSpread, type SpreadId } from '../../lib/spreads'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+/**
+ * One spread's page: the date-locked draw laid out by position, plus the
+ * spread's summary and (where the content declares one) its variant note.
+ *
+ * `positions` carries each position's prose (`label`/`meaning`) from the
+ * `spreads` content collection alongside the `x`/`y` geometry copied from
+ * `src/lib/spreads.ts` (never re-derived here). `dateKey` locks the card
+ * draw to a specific day — `drawForDate` folds this page's own spread `id`
+ * into the seed, so each spread stays independently stable on the same
+ * date (see `src/lib/draw.ts#drawForDate`).
+ */
+
+export interface SpreadPositionContent {
+    label: string
+    meaning: string
+    x: number
+    y: number
+}
+
+export interface Props {
+    id: SpreadId
+    name: string
+    summary: string
+    /** Present only for spreads whose content declares one. */
+    variantNote?: string
+    status: PieceStatus
+    positions: SpreadPositionContent[]
+    /** Injectable date key so the draw never touches the real clock in tests. */
+    dateKey?: string
+}
+
+export async function getStaticPaths() {
+    const spreads = await getCollection('spreads')
+
+    return spreads.map((entry) => {
+        const id = entry.id as SpreadId
+        const geometry = getSpread(id)
+
+        const positions: SpreadPositionContent[] = geometry.positions.map(
+            (position, index) => ({
+                label: position.label,
+                meaning: entry.data.positions[index]!.meaning,
+                x: position.x,
+                y: position.y,
+            })
+        )
+
+        const props: Props = {
+            id,
+            name: entry.data.name,
+            summary: entry.data.summary,
+            variantNote: entry.data.variantNote,
+            status: entry.data.status,
+            positions,
+        }
+
+        return { params: { id }, props }
+    })
+}
+
+const { id, name, summary, variantNote, status, positions, dateKey } =
+    Astro.props
+
+const draws = drawForDate(id, positions.length, dateKey)
+
+const slots: SpreadLayoutSlot[] = positions.map((position, index) => ({
+    label: position.label,
+    meaning: position.meaning,
+    x: position.x,
+    y: position.y,
+    card: draws[index]!.card,
+    reversed: draws[index]!.reversed,
+}))
+---
+
+<BaseLayout title={name}>
+    <DraftBadge status={status} />
+    <p class="eyebrow">Spread</p>
+    <h1>{name}</h1>
+    <p class="spread-summary">{summary}</p>
+    <SpreadLayout slots={slots} />
+    {variantNote && <p data-testid="spread-variant-note">{variantNote}</p>}
+</BaseLayout>

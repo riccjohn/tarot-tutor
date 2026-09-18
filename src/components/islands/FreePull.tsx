@@ -81,6 +81,8 @@ function DrawnCard({
                 </p>
             )}
 
+            <h1 data-testid="card-name">{card.name}</h1>
+
             <img
                 data-testid="card-image"
                 src={image.src}

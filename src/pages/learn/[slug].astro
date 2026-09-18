@@ -6,12 +6,8 @@
  * `order` field to compute `prev`/`next` (null at each end), and renders
  * each entry's markdown to an HTML string for `bodyHtml`.
  *
- * Note on that stringification: the tests take `bodyHtml` as a string, so
- * the body is rendered here via `astro/container` rather than by dropping
- * `<Content />` into the template. That API is still marked experimental,
- * so an Astro upgrade could break this build path — the idiomatic
- * alternative is to pass the `Content` component through and render it
- * directly, which would mean changing the prop contract the tests assert.
+ * The HTML comes straight off `entry.rendered.html`, which Astro's loader
+ * has already produced — no `astro/container` in the build path.
  *
  * Learn entries are currently frontmatter-only drafts, so `learn-body`
  * renders empty in the built pages today. That is missing prose, not a
@@ -20,7 +16,6 @@
  */
 
 import { getCollection, render } from 'astro:content'
-import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import DraftBadge from '../../components/DraftBadge.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
@@ -49,12 +44,15 @@ export interface Props {
 export async function getStaticPaths() {
     const learnEntries = await getCollection('learn')
     const sorted = [...learnEntries].sort((a, b) => a.data.order - b.data.order)
-    const container = await AstroContainer.create()
 
     const views: LearnEntryView[] = await Promise.all(
         sorted.map(async (entry) => {
-            const { Content } = await render(entry)
-            const bodyHtml = await container.renderToString(Content)
+            // Astro's loader already renders each entry's markdown and hands
+            // back the HTML on `entry.rendered`. Reaching for that is both
+            // cheaper and stabler than rendering `<Content />` through
+            // `astro/container`, which is an experimental testing API that
+            // has no business running in a production build path.
+            const bodyHtml = entry.rendered?.html ?? ''
             return {
                 slug: entry.id,
                 title: entry.data.title,

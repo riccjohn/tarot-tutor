@@ -1,26 +1,44 @@
 @import 'tailwindcss';
 
 /*
- * Theme tokens for Daily Tarot Tutor.
+ * Design language: Warm Editorial / Craft.
+ *
+ * The reference point is a well-set book about tarot, not an occult site and
+ * not a dashboard. That is a direct consequence of the voice guide: mystical
+ * styling would ask for belief the reader does not have, and clinical styling
+ * would debunk the practice while asking them to keep using it. Parchment
+ * ground, warm ink, one muted plum accent, an editorial serif that carries an
+ * italic voice for display.
+ *
+ * Two-colour discipline: the parchment ground and the ink carry the page. The
+ * plum accent is the only saturated colour, and the card artwork is allowed to
+ * be the brightest thing on screen — it is 1909 linework in flat primaries and
+ * it should win.
  *
  * Mobile-first: everything below targets a small screen by default. Wider
- * layouts are opt-in via `min-width` media queries in individual components,
- * never the other way around.
+ * layouts are opt-in via `min-width` queries, never the other way around.
  */
-@theme {
-    --font-serif:
-        'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
-    --font-sans:
-        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    /* Warm, low-saturation palette. Calm rather than mystical or clinical. */
-    --color-ink: #211a1e;
-    --color-paper: #faf6f1;
-    --color-muted: #8a7d74;
-    --color-accent: #6b4a63;
-    --color-accent-soft: #e7dde3;
-    --color-border: #ded2c6;
-    --color-draft: #b8752f;
+@theme {
+    /*
+     * Instrument Serif carries the display voice (it has a genuine italic,
+     * which the hero uses). Source Sans 3 sets body text. Neither is a
+     * default-grotesque tell.
+     */
+    --font-display: 'Instrument Serif', 'Iowan Old Style', Palatino, serif;
+    --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* OKLCH throughout: perceptually even, no HSL blue-shift. */
+    --color-paper: oklch(0.971 0.008 84);
+    --color-paper-sunk: oklch(0.945 0.012 82);
+    --color-ink: oklch(0.243 0.017 348);
+    --color-ink-soft: oklch(0.452 0.018 350);
+    --color-muted: oklch(0.606 0.019 63);
+    --color-accent: oklch(0.452 0.062 341);
+    --color-accent-soft: oklch(0.898 0.021 341);
+    --color-border: oklch(0.868 0.016 73);
+    --color-draft: oklch(0.586 0.106 62);
 
     /*
      * The normalised aspect ratio every card image ladder is built to, so
@@ -28,6 +46,18 @@
      * this is the shared target, not a measurement of any one scan.
      */
     --aspect-card: 5 / 8;
+
+    /* Three levels, applied consistently — never ad hoc per component. */
+    --shadow-1: 0 1px 2px oklch(0.243 0.017 348 / 0.07);
+    --shadow-2:
+        0 4px 12px oklch(0.243 0.017 348 / 0.09),
+        0 1px 3px oklch(0.243 0.017 348 / 0.05);
+    --shadow-3:
+        0 16px 40px oklch(0.243 0.017 348 / 0.13),
+        0 4px 12px oklch(0.243 0.017 348 / 0.07);
+
+    /* The curve is the personality. Never bare `ease`. */
+    --ease-brand: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @layer base {
@@ -37,30 +67,354 @@
 
     body {
         margin: 0;
+        /*
+         * Layered, not flat: two very low-opacity washes over parchment so
+         * the ground has some depth under the card art.
+         */
         background-color: var(--color-paper);
+        background-image:
+            radial-gradient(
+                ellipse 70% 45% at 78% 8%,
+                oklch(0.452 0.062 341 / 0.05),
+                transparent
+            ),
+            radial-gradient(
+                ellipse 85% 55% at 12% 92%,
+                oklch(0.586 0.106 62 / 0.045),
+                transparent
+            );
+        background-attachment: fixed;
         color: var(--color-ink);
-        font-family: var(--font-sans);
-        line-height: 1.5;
+        font-family: var(--font-body);
+        font-size: 1.0625rem;
+        line-height: 1.65;
         -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    /*
+     * Paper grain. Humanises the flat ground and keeps the parchment from
+     * reading as a plain beige fill.
+     */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.035;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     h1,
     h2,
     h3 {
-        font-family: var(--font-serif);
-        line-height: 1.2;
+        font-family: var(--font-display);
+        font-weight: 400;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+        color: var(--color-ink);
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 7vw, 4.25rem);
+        margin-block: 0 0.5em;
+    }
+
+    h2 {
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+        margin-block: 2rem 0.4em;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        margin-block: 1.5rem 0.3em;
+    }
+
+    p {
+        max-width: 62ch;
+        margin-block: 0 1em;
+    }
+
+    a {
+        color: var(--color-accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+        transition: color 0.25s var(--ease-brand);
+    }
+
+    a:hover {
+        color: oklch(from var(--color-accent) calc(l - 0.08) c h);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 3px;
+        border-radius: 2px;
     }
 
     /* Small screens first: a single, generous reading column. */
     main {
+        position: relative;
+        z-index: 1;
         margin-inline: auto;
-        max-width: 42rem;
-        padding-inline: 1rem;
+        max-width: 46rem;
+        padding-inline: 1.25rem;
+        padding-block: 2.5rem 4rem;
     }
 
     @media (min-width: 48rem) {
         main {
-            padding-inline: 1.5rem;
+            padding-inline: 2rem;
+            padding-block: 4rem 6rem;
         }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Small-caps metadata label, used for structural sections. */
+    .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+        margin-block: 0 0.5rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+        }
+    }
+}
+
+/*
+ * Island and page furniture.
+ *
+ * `DailyDraw.tsx` and `FreePull.tsx` are React, so they cannot carry Astro's
+ * scoped `<style>` blocks. Their structure is already a stable `data-testid`
+ * contract asserted by the page tests, so styling against those attributes is
+ * the honest seam rather than sprinkling class names the tests do not know
+ * about.
+ */
+@layer components {
+    /* --- Daily draw (home) --- */
+    [data-testid='daily-mechanism-note'] {
+        font-size: 0.92rem;
+        color: var(--color-muted);
+        max-width: 44ch;
+        margin-block: 0 2rem;
+    }
+
+    /* The card name is the page's hero on the daily draw. */
+    [data-testid='daily-draw'] [data-testid='card-name'],
+    [data-testid='free-pull'] [data-testid='card-name'] {
+        margin-block: 0.5rem 1.75rem;
+    }
+
+    /*
+     * A caption, not a banner. Reversal is a reading technique here, not an
+     * alarm, and a full-width pill between the art and the structural
+     * sections read as one.
+     */
+    [data-testid='reversal-note'],
+    [data-testid='reversal-badge'],
+    [data-testid='spread-reversal-note'] {
+        display: block;
+        max-width: 34ch;
+        margin-block: -1.25rem 2rem;
+        padding-left: 0.75rem;
+        border-left: 2px solid var(--color-accent-soft);
+        color: var(--color-ink-soft);
+        font-size: 0.85rem;
+        line-height: 1.45;
+    }
+
+    [data-testid='second-card-button'],
+    [data-testid='free-pull'] button {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-paper);
+        background-color: var(--color-accent);
+        border: none;
+        border-radius: 999px;
+        padding: 0.7rem 1.4rem;
+        margin-block: 1.5rem;
+        cursor: pointer;
+        transition:
+            background-color 0.25s var(--ease-brand),
+            transform 0.25s var(--ease-brand);
+    }
+
+    [data-testid='second-card-button']:hover,
+    [data-testid='free-pull'] button:hover {
+        background-color: oklch(from var(--color-accent) calc(l - 0.07) c h);
+        transform: translateY(-1px);
+    }
+
+    [data-testid='second-card'],
+    [data-testid='drawn-card'] + [data-testid='drawn-card'] {
+        margin-top: 3rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    /* --- Index listings (spreads, learn) --- */
+    [data-testid='spread-index-entry'],
+    [data-testid='learn-index-entry'] {
+        display: block;
+        padding-block: 1.1rem;
+        border-bottom: 1px solid var(--color-border);
+        color: var(--color-ink);
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        letter-spacing: -0.015em;
+        text-decoration: none;
+        transition:
+            color 0.25s var(--ease-brand),
+            padding-left 0.25s var(--ease-brand);
+    }
+
+    [data-testid='spread-index-entry']:hover,
+    [data-testid='learn-index-entry']:hover {
+        color: var(--color-accent);
+        padding-left: 0.4rem;
+    }
+
+    [data-testid='spread-extends'] {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+        margin-block: -0.5rem 0.75rem;
+    }
+
+    /* --- Variant notes: contested material, shown as disagreement --- */
+    [data-testid='spread-variant-note'] {
+        margin-top: 2.5rem;
+        padding: 1.1rem 1.25rem;
+        background-color: var(--color-paper-sunk);
+        border-left: 2px solid var(--color-border);
+        color: var(--color-ink-soft);
+        font-size: 0.92rem;
+        max-width: none;
+    }
+
+    /* --- Learn entry navigation --- */
+    [data-testid='learn-prev-link'],
+    [data-testid='learn-next-link'] {
+        font-size: 0.9rem;
+    }
+
+    [data-testid='learn-body'] > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+/*
+ * The card unit, styled against its `data-testid` contract rather than in a
+ * scoped block.
+ *
+ * `CardSections.astro` and the two React islands emit the same contract by
+ * design, because an Astro component cannot render inside a React island.
+ * Scoped `<style>` in the Astro component therefore reached the card pages
+ * and silently missed the home page and /draw entirely — the card rendered
+ * at full source width there. Styling the contract keeps the three renderers
+ * looking like one product.
+ */
+@layer components {
+    [data-testid='card-image'] {
+        display: block;
+        width: 100%;
+        max-width: 20rem;
+        aspect-ratio: var(--aspect-card);
+        object-fit: cover;
+        background-color: var(--color-paper-sunk);
+        border: 1px solid var(--color-border);
+        border-radius: 3px;
+        box-shadow: var(--shadow-3);
+        margin-bottom: 2rem;
+    }
+
+    [data-testid='card-name'] {
+        margin-block: 0 1.5rem;
+    }
+
+    [data-testid='suit-info'],
+    [data-testid='number-info'],
+    [data-testid='rank-info'],
+    [data-testid='arc-context'],
+    [data-testid='symbol-walkthrough'] {
+        margin-block: 2rem;
+    }
+
+    [data-testid='symbol-walkthrough'] ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 1.1rem;
+    }
+
+    [data-testid='symbol-walkthrough'] li {
+        padding-left: 1rem;
+        border-left: 1px solid var(--color-border);
+    }
+
+    [data-testid='common-reading'] p {
+        font-weight: 300;
+        font-size: 1.08rem;
+    }
+
+    [data-testid='symbol-walkthrough'] strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.15rem;
+    }
+
+    /* The reading is the interpretive part, set apart from the structural part. */
+    [data-testid='common-reading'] {
+        padding-top: 1.75rem;
+        margin-top: 2.5rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    [data-testid='reading-framing'] {
+        font-style: italic;
+        font-size: 1.2rem;
+        color: var(--color-accent);
+        margin-block: 0 0.75rem;
+    }
+
+    /* The invitation is a question, so it is set like a pull quote. */
+    [data-testid='invitation-prompt'] {
+        margin-top: 2.5rem;
+    }
+
+    [data-testid='invitation-prompt'] p {
+        font-family: var(--font-display);
+        font-size: clamp(1.3rem, 3vw, 1.65rem);
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+        color: var(--color-ink);
+        text-wrap: balance;
+        padding-left: 1.1rem;
+        border-left: 2px solid var(--color-accent-soft);
+        margin-bottom: 0;
     }
 }

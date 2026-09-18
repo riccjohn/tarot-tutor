@@ -1,0 +1,105 @@
+---
+import { SITE_NAME } from '../config/site'
+
+/**
+ * The site's only navigation.
+ *
+ * Every route existed before this component did and none of them were
+ * reachable: the layout rendered a bare `<main>`, so the home page shipped
+ * zero internal links. Routes existing in the build is not the same thing as
+ * a reader being able to get to them.
+ *
+ * Deliberately small — a wordmark and four destinations. The product asks for
+ * a daily card, not a session, so the chrome should get out of the way.
+ */
+
+const links = [
+    { href: '/cards/', label: 'Cards' },
+    { href: '/spreads/', label: 'Spreads' },
+    { href: '/draw/', label: 'Draw' },
+    { href: '/learn/', label: 'Learn' },
+    { href: '/about/', label: 'About' },
+]
+
+/** Marks the section the reader is in, matching on the path prefix. */
+const path = Astro.url.pathname
+const isCurrent = (href: string) => path === href || path.startsWith(href)
+---
+
+<header class="site-header">
+    <a class="site-header__mark" href="/">
+        {SITE_NAME}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+        {links.map((link) => (
+            <a
+                href={link.href}
+                aria-current={isCurrent(link.href) ? 'page' : undefined}
+            >
+                {link.label}
+            </a>
+        ))}
+    </nav>
+</header>
+
+<style>
+    .site-header {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+        margin-inline: auto;
+        max-width: 46rem;
+        padding: 1.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .site-header__mark {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        letter-spacing: -0.015em;
+        color: var(--color-ink);
+        text-decoration: none;
+    }
+
+    .site-header__nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 1.15rem;
+    }
+
+    .site-header__nav a {
+        font-size: 0.9rem;
+        color: var(--color-ink-soft);
+        text-decoration: none;
+        padding-block: 0.15rem;
+        border-bottom: 1px solid transparent;
+        transition:
+            color 0.25s var(--ease-brand),
+            border-color 0.25s var(--ease-brand);
+    }
+
+    .site-header__nav a:hover {
+        color: var(--color-accent);
+        border-bottom-color: var(--color-accent-soft);
+    }
+
+    .site-header__nav a[aria-current='page'] {
+        color: var(--color-accent);
+        border-bottom-color: var(--color-accent);
+    }
+
+    /* Wordmark and nav sit on one line once there is room for both. */
+    @media (min-width: 34rem) {
+        .site-header {
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 2rem;
+            padding-inline: 2rem;
+        }
+    }
+</style>

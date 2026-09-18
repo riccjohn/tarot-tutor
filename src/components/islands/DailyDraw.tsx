@@ -69,6 +69,8 @@ function DrawnCardSections({
 
     return (
         <>
+            <h1 data-testid="card-name">{card.name}</h1>
+
             <img
                 data-testid="card-image"
                 src={image.src}
@@ -90,6 +92,7 @@ function DrawnCardSections({
 
             {suit && (
                 <section data-testid="suit-info">
+                    <p className="eyebrow">Suit</p>
                     <h2>{suit.name}</h2>
                     <p>{suit.domain}</p>
                 </section>
@@ -97,23 +100,27 @@ function DrawnCardSections({
 
             {number && (
                 <section data-testid="number-info">
+                    <p className="eyebrow">Number</p>
                     <p>{number.stage}</p>
                 </section>
             )}
 
             {rank && (
                 <section data-testid="rank-info">
+                    <p className="eyebrow">Rank</p>
                     <p>{rank.ladderPosition}</p>
                 </section>
             )}
 
             {majorArc && (
                 <section data-testid="arc-context">
+                    <p className="eyebrow">Major arc</p>
                     <p>Septenary {majorArc.septenary}</p>
                 </section>
             )}
 
             <section data-testid="symbol-walkthrough">
+                <p className="eyebrow">What is drawn</p>
                 <ul>
                     {own.symbols.map((symbol) => (
                         <li key={symbol.element}>
@@ -147,6 +154,7 @@ export default function DailyDraw({ dateKey, collections }: DailyDrawProps) {
 
     return (
         <div data-testid="daily-draw">
+            <p className="eyebrow">{readableDate(dateKey)}</p>
             <p data-testid="daily-mechanism-note">
                 This card is locked to today&rsquo;s date — it stays the same no
                 matter how many times you reload or come back later today.
@@ -185,4 +193,19 @@ function SecondCard({
     const composed = composeCard(draw.card, collections)
 
     return <DrawnCardSections composed={composed} reversed={draw.reversed} />
+}
+
+/**
+ * Formats the injected date key for display. Parsed as parts rather than
+ * `new Date(key)`, which would read the key as UTC and show the previous day
+ * for anyone west of Greenwich — the draw is local by design.
+ */
+function readableDate(dateKey: string): string {
+    const [y, m, d] = dateKey.split('-').map(Number)
+    if (!y || !m || !d) return ''
+    return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+    })
 }
