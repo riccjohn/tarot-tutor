@@ -1,0 +1,27 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# original card scans (~306MB); the optimised derivatives are committed.
+# Kept outside public/ so Astro does not copy them into dist/ on build.
+assets/card-scans/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# environment
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# lightfactory
+.light
+# yaks task graph
+.yaks/

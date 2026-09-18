@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content'
+import FreePull from '../components/islands/FreePull'
+import {
+    composeCard,
+    type ComposedCard,
+    type ContentCollections,
+} from '../lib/content/compose'
+import { DECK } from '../lib/deck'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+/**
+ * The self-directed reading page: unlimited pulls via `drawFreely`, never
+ * `drawForDate` (that's the daily draw's page, not this one).
+ *
+ * `FreePull`'s `compose` prop is a function, and Astro serializes island
+ * props across the client boundary — a function can't survive that. So
+ * instead of passing `compose` here, this frontmatter does the composition
+ * once for the whole deck (mirroring `src/pages/cards/[id].astro`'s
+ * content-wiring) and hands the island a plain, serializable
+ * `Record<card id, ComposedCard>` to look up from after each pull.
+ */
+const [cards, suits, numbers, ranks, majorsArc] = await Promise.all([
+    getCollection('cards'),
+    getCollection('suits'),
+    getCollection('numbers'),
+    getCollection('ranks'),
+    getCollection('majorsArc'),
+])
+
+const collections: ContentCollections = {
+    cards,
+    suits,
+    numbers,
+    ranks,
+    majorsArc,
+}
+
+const composedById: Record<string, ComposedCard> = {}
+for (const card of DECK) {
+    composedById[card.id] = composeCard(card, collections)
+}
+---
+
+<BaseLayout title="Free Pull">
+    <FreePull composedById={composedById} client:idle />
+</BaseLayout>

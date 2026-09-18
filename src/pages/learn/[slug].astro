@@ -1,0 +1,110 @@
+---
+/**
+ * One beginner-track lesson page.
+ *
+ * `getStaticPaths` reads `getCollection('learn')`, sorts by the declared
+ * `order` field to compute `prev`/`next` (null at each end), and renders
+ * each entry's markdown to an HTML string for `bodyHtml`.
+ *
+ * Note on that stringification: the tests take `bodyHtml` as a string, so
+ * the body is rendered here via `astro/container` rather than by dropping
+ * `<Content />` into the template. That API is still marked experimental,
+ * so an Astro upgrade could break this build path — the idiomatic
+ * alternative is to pass the `Content` component through and render it
+ * directly, which would mean changing the prop contract the tests assert.
+ *
+ * Learn entries are currently frontmatter-only drafts, so `learn-body`
+ * renders empty in the built pages today. That is missing prose, not a
+ * broken pipeline: adding a markdown body to an entry renders it
+ * correctly (verified).
+ */
+
+import { getCollection, render } from 'astro:content'
+import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import DraftBadge from '../../components/DraftBadge.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export interface LearnEntryNavLink {
+    slug: string
+    title: string
+}
+
+export interface LearnEntryView {
+    slug: string
+    title: string
+    description: string
+    status: 'draft' | 'edited'
+    /** Pre-rendered body markup for this lesson. */
+    bodyHtml: string
+}
+
+export interface Props {
+    entry: LearnEntryView
+    /** `null` when this is the first entry in declared order. */
+    prev: LearnEntryNavLink | null
+    /** `null` when this is the last entry in declared order. */
+    next: LearnEntryNavLink | null
+}
+
+export async function getStaticPaths() {
+    const learnEntries = await getCollection('learn')
+    const sorted = [...learnEntries].sort((a, b) => a.data.order - b.data.order)
+    const container = await AstroContainer.create()
+
+    const views: LearnEntryView[] = await Promise.all(
+        sorted.map(async (entry) => {
+            const { Content } = await render(entry)
+            const bodyHtml = await container.renderToString(Content)
+            return {
+                slug: entry.id,
+                title: entry.data.title,
+                description: entry.data.description,
+                status: entry.data.status,
+                bodyHtml,
+            }
+        })
+    )
+
+    return views.map((view, index) => ({
+        params: { slug: view.slug },
+        props: {
+            entry: view,
+            prev:
+                index > 0
+                    ? {
+                          slug: views[index - 1]!.slug,
+                          title: views[index - 1]!.title,
+                      }
+                    : null,
+            next:
+                index < views.length - 1
+                    ? {
+                          slug: views[index + 1]!.slug,
+                          title: views[index + 1]!.title,
+                      }
+                    : null,
+        },
+    }))
+}
+
+const { entry, prev, next } = Astro.props
+---
+
+<BaseLayout title={entry.title} description={entry.description}>
+    <DraftBadge status={entry.status} />
+    <h1 data-testid="learn-title">{entry.title}</h1>
+    <p data-testid="learn-description">{entry.description}</p>
+    <div data-testid="learn-body" set:html={entry.bodyHtml} />
+    <nav>
+        {prev && (
+            <a data-testid="learn-prev-link" href={`/learn/${prev.slug}/`}>
+                {prev.title}
+            </a>
+        )}
+        {next && (
+            <a data-testid="learn-next-link" href={`/learn/${next.slug}/`}>
+                {next.title}
+            </a>
+        )}
+    </nav>
+</BaseLayout>

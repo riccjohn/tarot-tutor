@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { DECK, type Card } from '../../lib/deck'
+
+export interface Props {
+    /** Every deck card, in deck order, for the index to link to. */
+    cards: Card[]
+}
+
+/**
+ * `cards` defaults to `DECK` because this is a static route: Astro's router
+ * never supplies props to it (unlike `[id].astro`'s `getStaticPaths`), so
+ * the real build must supply its own data. Tests pass `cards` explicitly.
+ */
+const { cards = DECK } = Astro.props
+---
+
+<BaseLayout title="All Cards">
+    <ul>
+        {cards.map((card) => (
+            <li>
+                <a href={`/cards/${card.id}/`}>{card.name}</a>
+            </li>
+        ))}
+    </ul>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+/**
+ * The beginner learning track index.
+ *
+ * Renders one link per entry, sorted ascending by the declared `order`
+ * field — never by filename or array order. `entries` may be supplied as
+ * a prop (the tests do this, deliberately out of order); the real route
+ * falls back to `getCollection('learn')`.
+ */
+
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export interface LearnIndexEntry {
+    slug: string
+    title: string
+    description: string
+    /** Declared position in the track. The index must sort by this, not by filesystem or alphabetical order. */
+    order: number
+    status: 'draft' | 'edited'
+}
+
+export interface Props {
+    entries: LearnIndexEntry[]
+}
+
+let { entries } = Astro.props
+
+if (!entries) {
+    const learnEntries = await getCollection('learn')
+    entries = learnEntries.map((entry) => ({
+        slug: entry.id,
+        title: entry.data.title,
+        description: entry.data.description,
+        order: entry.data.order,
+        status: entry.data.status,
+    }))
+}
+
+const sortedEntries = [...entries].sort((a, b) => a.order - b.order)
+---
+
+<BaseLayout title="Learn">
+    <ul>
+        {sortedEntries.map((entry) => (
+            <li>
+                <a
+                    data-testid="learn-index-entry"
+                    data-slug={entry.slug}
+                    href={`/learn/${entry.slug}/`}
+                >
+                    {entry.title}
+                </a>
+                <p>{entry.description}</p>
+            </li>
+        ))}
+    </ul>
+</BaseLayout>

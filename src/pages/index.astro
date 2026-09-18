@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content'
+import DailyDraw from '../components/islands/DailyDraw'
+import type { ContentCollections } from '../lib/content/compose'
+import { localDateKey } from '../lib/draw'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+/**
+ * The home page: today's daily draw, locked to the viewer's local date.
+ *
+ * Mirrors the content-wiring pattern in `src/pages/cards/[id].astro` and
+ * `src/pages/draw.astro` — `getCollection`s all five collections here in the
+ * page frontmatter and hands the plain, serializable result down to the
+ * island. Unlike `FreePull`'s `compose` prop (a function, which cannot
+ * survive Astro's island prop serialization), `DailyDraw`'s `collections`
+ * prop is already plain `{ id, data }` entries with no functions in it, so
+ * it crosses the client boundary unchanged; `composeCard` itself runs inside
+ * the island as imported code, not as a prop value.
+ */
+const [cards, suits, numbers, ranks, majorsArc] = await Promise.all([
+    getCollection('cards'),
+    getCollection('suits'),
+    getCollection('numbers'),
+    getCollection('ranks'),
+    getCollection('majorsArc'),
+])
+
+const collections: ContentCollections = {
+    cards,
+    suits,
+    numbers,
+    ranks,
+    majorsArc,
+}
+
+const dateKey = localDateKey()
+---
+
+<BaseLayout>
+    <DailyDraw dateKey={dateKey} collections={collections} client:idle />
+</BaseLayout>

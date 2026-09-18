@@ -1,0 +1,25 @@
+---
+import { getCardImage } from '../lib/images'
+
+export interface Props {
+    /** Deck id, e.g. "three-of-swords" — used to look up the image manifest. */
+    id: string
+    /** Card display name, used to build descriptive alt text. */
+    name: string
+}
+
+const { id, name } = Astro.props
+const image = getCardImage(id)
+---
+
+<img
+    data-testid="card-image"
+    src={image.src}
+    srcset={image.srcset}
+    sizes={image.sizes}
+    width={image.width}
+    height={image.height}
+    alt={`${name} tarot card`}
+    loading="lazy"
+    decoding="async"
+/>

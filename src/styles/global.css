@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+/*
+ * Theme tokens for Daily Tarot Tutor.
+ *
+ * Mobile-first: everything below targets a small screen by default. Wider
+ * layouts are opt-in via `min-width` media queries in individual components,
+ * never the other way around.
+ */
+@theme {
+    --font-serif:
+        'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --font-sans:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Warm, low-saturation palette. Calm rather than mystical or clinical. */
+    --color-ink: #211a1e;
+    --color-paper: #faf6f1;
+    --color-muted: #8a7d74;
+    --color-accent: #6b4a63;
+    --color-accent-soft: #e7dde3;
+    --color-border: #ded2c6;
+    --color-draft: #b8752f;
+
+    /*
+     * The normalised aspect ratio every card image ladder is built to, so
+     * cards align edge to edge in a spread. Scanned cards vary slightly;
+     * this is the shared target, not a measurement of any one scan.
+     */
+    --aspect-card: 5 / 8;
+}
+
+@layer base {
+    :root {
+        color-scheme: light;
+    }
+
+    body {
+        margin: 0;
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: var(--font-serif);
+        line-height: 1.2;
+    }
+
+    /* Small screens first: a single, generous reading column. */
+    main {
+        margin-inline: auto;
+        max-width: 42rem;
+        padding-inline: 1rem;
+    }
+
+    @media (min-width: 48rem) {
+        main {
+            padding-inline: 1.5rem;
+        }
+    }
+}

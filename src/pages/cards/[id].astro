@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content'
+import CardSections from '../../components/CardSections.astro'
+import DraftBadge from '../../components/DraftBadge.astro'
+import {
+    composeCard,
+    type ComposedCard,
+    type ContentCollections,
+} from '../../lib/content/compose'
+import { DECK } from '../../lib/deck'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export interface Props {
+    /**
+     * The fully composed card payload for this route: the card's own piece
+     * plus whichever shared suit/number/rank/arc piece its kind depends on
+     * (see `composeCard` in `src/lib/content/compose.ts`).
+     *
+     * Passed in directly as a prop rather than read from `astro:content`
+     * here, so this component has no content-layer dependency of its own —
+     * the real route wires `astro:content` to `composeCard` and hands the
+     * result down, and tests can hand it a fixture the same way.
+     */
+    composed: ComposedCard
+}
+
+export async function getStaticPaths() {
+    const [cards, suits, numbers, ranks, majorsArc] = await Promise.all([
+        getCollection('cards'),
+        getCollection('suits'),
+        getCollection('numbers'),
+        getCollection('ranks'),
+        getCollection('majorsArc'),
+    ])
+
+    const collections: ContentCollections = {
+        cards,
+        suits,
+        numbers,
+        ranks,
+        majorsArc,
+    }
+
+    return DECK.map((card) => ({
+        params: { id: card.id },
+        props: { composed: composeCard(card, collections) },
+    }))
+}
+
+const { composed } = Astro.props
+---
+
+<BaseLayout title={composed.card.name}>
+    <DraftBadge status={composed.status} />
+    <CardSections composed={composed} />
+</BaseLayout>

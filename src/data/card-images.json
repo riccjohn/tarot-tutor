@@ -1,0 +1,2810 @@
+{
+    "the-fool": {
+        "name": "The Fool",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-fool-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-fool-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-fool-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-fool-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-fool-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-fool-640.jpg"
+        }
+    },
+    "the-magician": {
+        "name": "The Magician",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-magician-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-magician-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-magician-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-magician-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-magician-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-magician-640.jpg"
+        }
+    },
+    "the-high-priestess": {
+        "name": "The High Priestess",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-high-priestess-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-high-priestess-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-high-priestess-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-high-priestess-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-high-priestess-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-high-priestess-640.jpg"
+        }
+    },
+    "the-empress": {
+        "name": "The Empress",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-empress-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-empress-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-empress-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-empress-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-empress-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-empress-640.jpg"
+        }
+    },
+    "the-emperor": {
+        "name": "The Emperor",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-emperor-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-emperor-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-emperor-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-emperor-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-emperor-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-emperor-640.jpg"
+        }
+    },
+    "the-hierophant": {
+        "name": "The Hierophant",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-hierophant-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-hierophant-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-hierophant-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-hierophant-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-hierophant-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-hierophant-640.jpg"
+        }
+    },
+    "the-lovers": {
+        "name": "The Lovers",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-lovers-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-lovers-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-lovers-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-lovers-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-lovers-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-lovers-640.jpg"
+        }
+    },
+    "the-chariot": {
+        "name": "The Chariot",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-chariot-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-chariot-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-chariot-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-chariot-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-chariot-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-chariot-640.jpg"
+        }
+    },
+    "strength": {
+        "name": "Strength",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/strength-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/strength-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/strength-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/strength-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/strength-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/strength-640.jpg"
+        }
+    },
+    "the-hermit": {
+        "name": "The Hermit",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-hermit-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-hermit-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-hermit-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-hermit-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-hermit-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-hermit-640.jpg"
+        }
+    },
+    "wheel-of-fortune": {
+        "name": "Wheel of Fortune",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/wheel-of-fortune-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/wheel-of-fortune-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/wheel-of-fortune-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/wheel-of-fortune-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/wheel-of-fortune-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/wheel-of-fortune-640.jpg"
+        }
+    },
+    "justice": {
+        "name": "Justice",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/justice-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/justice-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/justice-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/justice-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/justice-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/justice-640.jpg"
+        }
+    },
+    "the-hanged-man": {
+        "name": "The Hanged Man",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-hanged-man-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-hanged-man-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-hanged-man-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-hanged-man-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-hanged-man-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-hanged-man-640.jpg"
+        }
+    },
+    "death": {
+        "name": "Death",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/death-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/death-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/death-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/death-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/death-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/death-640.jpg"
+        }
+    },
+    "temperance": {
+        "name": "Temperance",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/temperance-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/temperance-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/temperance-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/temperance-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/temperance-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/temperance-640.jpg"
+        }
+    },
+    "the-devil": {
+        "name": "The Devil",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-devil-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-devil-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-devil-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-devil-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-devil-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-devil-640.jpg"
+        }
+    },
+    "the-tower": {
+        "name": "The Tower",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-tower-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-tower-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-tower-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-tower-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-tower-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-tower-640.jpg"
+        }
+    },
+    "the-star": {
+        "name": "The Star",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-star-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-star-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-star-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-star-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-star-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-star-640.jpg"
+        }
+    },
+    "the-moon": {
+        "name": "The Moon",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-moon-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-moon-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-moon-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-moon-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-moon-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-moon-640.jpg"
+        }
+    },
+    "the-sun": {
+        "name": "The Sun",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-sun-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-sun-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-sun-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-sun-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-sun-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-sun-640.jpg"
+        }
+    },
+    "judgement": {
+        "name": "Judgement",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/judgement-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/judgement-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/judgement-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/judgement-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/judgement-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/judgement-640.jpg"
+        }
+    },
+    "the-world": {
+        "name": "The World",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/the-world-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/the-world-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/the-world-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/the-world-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/the-world-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/the-world-640.jpg"
+        }
+    },
+    "ace-of-wands": {
+        "name": "Ace of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ace-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ace-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ace-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ace-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ace-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ace-of-wands-640.jpg"
+        }
+    },
+    "two-of-wands": {
+        "name": "Two of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/two-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/two-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/two-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/two-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/two-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/two-of-wands-640.jpg"
+        }
+    },
+    "three-of-wands": {
+        "name": "Three of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/three-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/three-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/three-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/three-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/three-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/three-of-wands-640.jpg"
+        }
+    },
+    "four-of-wands": {
+        "name": "Four of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/four-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/four-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/four-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/four-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/four-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/four-of-wands-640.jpg"
+        }
+    },
+    "five-of-wands": {
+        "name": "Five of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/five-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/five-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/five-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/five-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/five-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/five-of-wands-640.jpg"
+        }
+    },
+    "six-of-wands": {
+        "name": "Six of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/six-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/six-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/six-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/six-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/six-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/six-of-wands-640.jpg"
+        }
+    },
+    "seven-of-wands": {
+        "name": "Seven of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/seven-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/seven-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/seven-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/seven-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/seven-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/seven-of-wands-640.jpg"
+        }
+    },
+    "eight-of-wands": {
+        "name": "Eight of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/eight-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/eight-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/eight-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/eight-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/eight-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/eight-of-wands-640.jpg"
+        }
+    },
+    "nine-of-wands": {
+        "name": "Nine of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/nine-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/nine-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/nine-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/nine-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/nine-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/nine-of-wands-640.jpg"
+        }
+    },
+    "ten-of-wands": {
+        "name": "Ten of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ten-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ten-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ten-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ten-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ten-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ten-of-wands-640.jpg"
+        }
+    },
+    "ace-of-cups": {
+        "name": "Ace of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ace-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ace-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ace-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ace-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ace-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ace-of-cups-640.jpg"
+        }
+    },
+    "two-of-cups": {
+        "name": "Two of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/two-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/two-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/two-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/two-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/two-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/two-of-cups-640.jpg"
+        }
+    },
+    "three-of-cups": {
+        "name": "Three of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/three-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/three-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/three-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/three-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/three-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/three-of-cups-640.jpg"
+        }
+    },
+    "four-of-cups": {
+        "name": "Four of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/four-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/four-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/four-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/four-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/four-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/four-of-cups-640.jpg"
+        }
+    },
+    "five-of-cups": {
+        "name": "Five of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/five-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/five-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/five-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/five-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/five-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/five-of-cups-640.jpg"
+        }
+    },
+    "six-of-cups": {
+        "name": "Six of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/six-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/six-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/six-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/six-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/six-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/six-of-cups-640.jpg"
+        }
+    },
+    "seven-of-cups": {
+        "name": "Seven of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/seven-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/seven-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/seven-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/seven-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/seven-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/seven-of-cups-640.jpg"
+        }
+    },
+    "eight-of-cups": {
+        "name": "Eight of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/eight-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/eight-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/eight-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/eight-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/eight-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/eight-of-cups-640.jpg"
+        }
+    },
+    "nine-of-cups": {
+        "name": "Nine of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/nine-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/nine-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/nine-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/nine-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/nine-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/nine-of-cups-640.jpg"
+        }
+    },
+    "ten-of-cups": {
+        "name": "Ten of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ten-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ten-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ten-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ten-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ten-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ten-of-cups-640.jpg"
+        }
+    },
+    "ace-of-swords": {
+        "name": "Ace of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ace-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ace-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ace-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ace-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ace-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ace-of-swords-640.jpg"
+        }
+    },
+    "two-of-swords": {
+        "name": "Two of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/two-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/two-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/two-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/two-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/two-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/two-of-swords-640.jpg"
+        }
+    },
+    "three-of-swords": {
+        "name": "Three of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/three-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/three-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/three-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/three-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/three-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/three-of-swords-640.jpg"
+        }
+    },
+    "four-of-swords": {
+        "name": "Four of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/four-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/four-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/four-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/four-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/four-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/four-of-swords-640.jpg"
+        }
+    },
+    "five-of-swords": {
+        "name": "Five of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/five-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/five-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/five-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/five-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/five-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/five-of-swords-640.jpg"
+        }
+    },
+    "six-of-swords": {
+        "name": "Six of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/six-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/six-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/six-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/six-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/six-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/six-of-swords-640.jpg"
+        }
+    },
+    "seven-of-swords": {
+        "name": "Seven of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/seven-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/seven-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/seven-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/seven-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/seven-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/seven-of-swords-640.jpg"
+        }
+    },
+    "eight-of-swords": {
+        "name": "Eight of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/eight-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/eight-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/eight-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/eight-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/eight-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/eight-of-swords-640.jpg"
+        }
+    },
+    "nine-of-swords": {
+        "name": "Nine of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/nine-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/nine-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/nine-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/nine-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/nine-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/nine-of-swords-640.jpg"
+        }
+    },
+    "ten-of-swords": {
+        "name": "Ten of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ten-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ten-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ten-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ten-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ten-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ten-of-swords-640.jpg"
+        }
+    },
+    "ace-of-pentacles": {
+        "name": "Ace of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ace-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ace-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ace-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ace-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ace-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ace-of-pentacles-640.jpg"
+        }
+    },
+    "two-of-pentacles": {
+        "name": "Two of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/two-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/two-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/two-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/two-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/two-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/two-of-pentacles-640.jpg"
+        }
+    },
+    "three-of-pentacles": {
+        "name": "Three of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/three-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/three-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/three-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/three-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/three-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/three-of-pentacles-640.jpg"
+        }
+    },
+    "four-of-pentacles": {
+        "name": "Four of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/four-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/four-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/four-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/four-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/four-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/four-of-pentacles-640.jpg"
+        }
+    },
+    "five-of-pentacles": {
+        "name": "Five of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/five-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/five-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/five-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/five-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/five-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/five-of-pentacles-640.jpg"
+        }
+    },
+    "six-of-pentacles": {
+        "name": "Six of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/six-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/six-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/six-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/six-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/six-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/six-of-pentacles-640.jpg"
+        }
+    },
+    "seven-of-pentacles": {
+        "name": "Seven of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/seven-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/seven-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/seven-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/seven-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/seven-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/seven-of-pentacles-640.jpg"
+        }
+    },
+    "eight-of-pentacles": {
+        "name": "Eight of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/eight-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/eight-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/eight-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/eight-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/eight-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/eight-of-pentacles-640.jpg"
+        }
+    },
+    "nine-of-pentacles": {
+        "name": "Nine of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/nine-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/nine-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/nine-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/nine-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/nine-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/nine-of-pentacles-640.jpg"
+        }
+    },
+    "ten-of-pentacles": {
+        "name": "Ten of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/ten-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/ten-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/ten-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/ten-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/ten-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/ten-of-pentacles-640.jpg"
+        }
+    },
+    "page-of-wands": {
+        "name": "Page of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/page-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/page-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/page-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/page-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/page-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/page-of-wands-640.jpg"
+        }
+    },
+    "knight-of-wands": {
+        "name": "Knight of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/knight-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/knight-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/knight-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/knight-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/knight-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/knight-of-wands-640.jpg"
+        }
+    },
+    "queen-of-wands": {
+        "name": "Queen of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/queen-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/queen-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/queen-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/queen-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/queen-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/queen-of-wands-640.jpg"
+        }
+    },
+    "king-of-wands": {
+        "name": "King of Wands",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/king-of-wands-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/king-of-wands-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/king-of-wands-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/king-of-wands-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/king-of-wands-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/king-of-wands-640.jpg"
+        }
+    },
+    "page-of-cups": {
+        "name": "Page of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/page-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/page-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/page-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/page-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/page-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/page-of-cups-640.jpg"
+        }
+    },
+    "knight-of-cups": {
+        "name": "Knight of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/knight-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/knight-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/knight-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/knight-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/knight-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/knight-of-cups-640.jpg"
+        }
+    },
+    "queen-of-cups": {
+        "name": "Queen of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/queen-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/queen-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/queen-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/queen-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/queen-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/queen-of-cups-640.jpg"
+        }
+    },
+    "king-of-cups": {
+        "name": "King of Cups",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/king-of-cups-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/king-of-cups-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/king-of-cups-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/king-of-cups-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/king-of-cups-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/king-of-cups-640.jpg"
+        }
+    },
+    "page-of-swords": {
+        "name": "Page of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/page-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/page-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/page-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/page-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/page-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/page-of-swords-640.jpg"
+        }
+    },
+    "knight-of-swords": {
+        "name": "Knight of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/knight-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/knight-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/knight-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/knight-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/knight-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/knight-of-swords-640.jpg"
+        }
+    },
+    "queen-of-swords": {
+        "name": "Queen of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/queen-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/queen-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/queen-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/queen-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/queen-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/queen-of-swords-640.jpg"
+        }
+    },
+    "king-of-swords": {
+        "name": "King of Swords",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/king-of-swords-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/king-of-swords-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/king-of-swords-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/king-of-swords-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/king-of-swords-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/king-of-swords-640.jpg"
+        }
+    },
+    "page-of-pentacles": {
+        "name": "Page of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/page-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/page-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/page-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/page-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/page-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/page-of-pentacles-640.jpg"
+        }
+    },
+    "knight-of-pentacles": {
+        "name": "Knight of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/knight-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/knight-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/knight-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/knight-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/knight-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/knight-of-pentacles-640.jpg"
+        }
+    },
+    "queen-of-pentacles": {
+        "name": "Queen of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/queen-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/queen-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/queen-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/queen-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/queen-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/queen-of-pentacles-640.jpg"
+        }
+    },
+    "king-of-pentacles": {
+        "name": "King of Pentacles",
+        "aspectRatio": 0.578125,
+        "avif": [
+            {
+                "width": 160,
+                "height": 277,
+                "src": "/cards/avif/king-of-pentacles-160.avif"
+            },
+            {
+                "width": 320,
+                "height": 554,
+                "src": "/cards/avif/king-of-pentacles-320.avif"
+            },
+            {
+                "width": 480,
+                "height": 830,
+                "src": "/cards/avif/king-of-pentacles-480.avif"
+            },
+            {
+                "width": 640,
+                "height": 1107,
+                "src": "/cards/avif/king-of-pentacles-640.avif"
+            },
+            {
+                "width": 960,
+                "height": 1661,
+                "src": "/cards/avif/king-of-pentacles-960.avif"
+            }
+        ],
+        "fallback": {
+            "width": 640,
+            "height": 1107,
+            "src": "/cards/jpeg/king-of-pentacles-640.jpg"
+        }
+    }
+}

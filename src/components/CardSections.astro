@@ -1,0 +1,79 @@
+---
+import type { ComposedCard } from '../lib/content/compose'
+import CardImage from './CardImage.astro'
+
+export interface Props {
+    /** A card's fully assembled teaching payload (see `composeCard`). */
+    composed: ComposedCard
+}
+
+/**
+ * Renders one card's full teaching content in the locked order: image,
+ * then whichever structural section(s) its kind carries (suit+number for
+ * pips, suit+rank for courts, arc context for majors), then the symbol
+ * walkthrough, then the common reading, then the invitation prompt.
+ *
+ * This order is enforced here — inside the one component every card page
+ * renders through — rather than left to page-level markup, so no future
+ * page can reorder it by accident.
+ */
+const { composed } = Astro.props
+const { card, own, suit, number, rank, majorArc } = composed
+---
+
+<CardImage id={card.id} name={card.name} />
+
+{suit && (
+    <section data-testid="suit-info">
+        <h2>{suit.name}</h2>
+        <p>{suit.domain}</p>
+    </section>
+)}
+
+{number && (
+    <section data-testid="number-info">
+        <p>{number.stage}</p>
+    </section>
+)}
+
+{rank && (
+    <section data-testid="rank-info">
+        <p>{rank.ladderPosition}</p>
+    </section>
+)}
+
+{majorArc && (
+    <section data-testid="arc-context">
+        <p>Septenary {majorArc.septenary}</p>
+    </section>
+)}
+
+<section data-testid="symbol-walkthrough">
+    <ul>
+        {own.symbols.map((symbol) => (
+            <li>
+                <strong>{symbol.element}</strong> — {symbol.note}
+            </li>
+        ))}
+    </ul>
+</section>
+
+<section data-testid="common-reading">
+    {/*
+        The framing is a heading stated once, before the reading — not a
+        caveat appended after it. The voice guide is explicit that the
+        mechanism is stated once, early; a trailing boilerplate sentence
+        doubled the hedge on written cards and hedged the placeholder on
+        unwritten ones ("has not been written yet. This is one reading
+        among many"). It is suppressed on drafts, where there is no reading
+        to frame.
+    */}
+    {composed.status !== 'draft' && (
+        <h2 data-testid="reading-framing">One reading among many</h2>
+    )}
+    <p>{own.commonReading}</p>
+</section>
+
+<section data-testid="invitation-prompt">
+    <p>{own.invitationPrompt}</p>
+</section>

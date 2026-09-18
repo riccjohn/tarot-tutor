@@ -1,0 +1,57 @@
+{
+    "name": "daily-tarot",
+    "type": "module",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "check": "astro check",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "prettier:write": "prettier . --write",
+        "cards:fetch": "node --experimental-strip-types scripts/fetch-cards.ts",
+        "cards:optimize": "node --experimental-strip-types scripts/optimize-images.ts",
+        "images:manifest": "node --experimental-strip-types scripts/build-image-manifest.ts",
+        "content:scaffold": "node --experimental-strip-types scripts/scaffold-content.ts"
+    },
+    "packageManager": "pnpm@10.33.0",
+    "dependencies": {
+        "@astrojs/mdx": "^8.0.1",
+        "@astrojs/react": "^6.0.6",
+        "@astrojs/sitemap": "^3.7.4",
+        "@tailwindcss/vite": "^4.3.3",
+        "astro": "^7.3.3",
+        "dexie": "^4.4.6",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
+        "tailwindcss": "^4.3.3",
+        "zod": "^4.6.5"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "sharp"
+        ]
+    },
+    "devDependencies": {
+        "@astrojs/check": "^0.9.10",
+        "@testing-library/dom": "^10.4.2",
+        "@testing-library/react": "^16.3.3",
+        "@types/jsdom": "^30.0.0",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "fast-check": "^4.10.1",
+        "jsdom": "^30.1.0",
+        "linkedom": "^0.18.13",
+        "prettier": "^3.9.7",
+        "prettier-plugin-astro": "^1.0.1",
+        "prettier-plugin-organize-imports": "^4.3.0",
+        "prettier-plugin-tailwindcss": "^0.8.1",
+        "sharp": "^0.35.4",
+        "typescript": "^6.0.3",
+        "vitest": "^5.0.1"
+    }
+}

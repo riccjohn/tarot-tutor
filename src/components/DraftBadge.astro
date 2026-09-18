@@ -1,0 +1,15 @@
+---
+import type { PieceStatus } from '../lib/content/compose'
+
+export interface Props {
+    status: PieceStatus
+}
+
+const { status } = Astro.props
+---
+
+{status === 'draft' && (
+    <p data-testid="draft-badge">
+        Draft — this reading is still being written and may change.
+    </p>
+)}
