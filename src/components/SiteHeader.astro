@@ -90,13 +90,14 @@ const isCurrent = (href: string) => path === href || path.startsWith(href)
             border-color 0.25s var(--ease-brand);
     }
 
+    /* Small text stays bone; gilt only marks state through the rule. */
     .site-header__nav a:hover {
-        color: var(--color-accent);
+        color: var(--color-ink);
         border-bottom-color: var(--color-accent-soft);
     }
 
     .site-header__nav a[aria-current='page'] {
-        color: var(--color-accent);
+        color: var(--color-ink);
         border-bottom-color: var(--color-accent);
     }
 
