@@ -1,0 +1,48 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(pnpm check)",
+            "Bash(pnpm test)",
+            "Bash(pnpm test:*)",
+            "Bash(pnpm build)",
+            "Bash(pnpm preview)",
+            "Bash(pnpm prettier:write)",
+            "Bash(pnpm install)",
+            "Bash(pnpm install:*)",
+            "Bash(git status:*)",
+            "Bash(git diff:*)",
+            "Bash(git log:*)",
+            "Bash(git show:*)",
+            "Bash(git ls-files:*)",
+            "Bash(git branch:*)",
+            "Bash(rg:*)",
+            "Bash(find:*)"
+        ]
+    },
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-tracked-tests.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/verify.sh\"",
+                        "timeout": 180
+                    }
+                ]
+            }
+        ]
+    }
+}
