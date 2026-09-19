@@ -1,0 +1,19 @@
+---
+import type { Suit } from '../lib/deck'
+import Ornament from './Ornament.astro'
+
+export interface Props {
+    /** Suit accent to expose via `data-suit`. Defaults to `"major"`. */
+    suit?: Suit | 'major'
+}
+
+const { suit = 'major' } = Astro.props
+---
+
+<div class="plate" data-testid="card-frame" data-suit={suit}>
+    <slot />
+    <Ornament kind="corner" class="corner corner-tl" />
+    <Ornament kind="corner" class="corner corner-tr" />
+    <Ornament kind="corner" class="corner corner-bl" />
+    <Ornament kind="corner" class="corner corner-br" />
+</div>

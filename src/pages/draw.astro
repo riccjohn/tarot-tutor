@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import FreePull from '../components/islands/FreePull'
+import PageHeader from '../components/PageHeader.astro'
 import {
     composeCard,
     type ComposedCard,
@@ -42,6 +43,26 @@ for (const card of DECK) {
 }
 ---
 
+<!--
+  `PageHeader`'s plain title stage stands in for the daily draw's
+  candle-lit hero here (no full-viewport `.daily-hero` wrapper, no
+  `Ornament kind="hero"` watermark centred behind a date) — this page pulls
+  on demand, never locked to a date, so it reads cooler than the ritual
+  home page rather than borrowing its glow.
+-->
 <BaseLayout title="Free Pull">
+    <PageHeader eyebrow="Self-directed reading" title="Free pull" />
+    <p class="draw-lede">
+        Pull one card, or several — as many times as you like. Nothing here is
+        locked to today.
+    </p>
     <FreePull composedById={composedById} client:idle />
 </BaseLayout>
+
+<style>
+    .draw-lede {
+        max-width: 46ch;
+        color: var(--color-ink-soft);
+        margin-block: -0.5rem 1rem;
+    }
+</style>

@@ -9,6 +9,8 @@
  */
 
 import { getCollection } from 'astro:content'
+import PageHeader from '../../components/PageHeader.astro'
+import { toRoman } from '../../lib/ornament'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
 export interface LearnIndexEntry {
@@ -41,18 +43,78 @@ const sortedEntries = [...entries].sort((a, b) => a.order - b.order)
 ---
 
 <BaseLayout title="Learn">
-    <ul>
-        {sortedEntries.map((entry) => (
-            <li>
+    <PageHeader eyebrow="The beginner track" title="Learn" />
+    <ul class="toc">
+        {sortedEntries.map((entry, index) => (
+            <li class="toc__row">
                 <a
+                    class="toc__link"
                     data-testid="learn-index-entry"
                     data-slug={entry.slug}
                     href={`/learn/${entry.slug}/`}
                 >
-                    {entry.title}
+                    <span class="toc__number" aria-hidden="true">
+                        {toRoman(index + 1)}
+                    </span>
+                    <span class="toc__title">{entry.title}</span>
+                    <span class="toc__leader" aria-hidden="true" />
                 </a>
-                <p>{entry.description}</p>
+                <p class="toc__description">{entry.description}</p>
             </li>
         ))}
     </ul>
 </BaseLayout>
+
+<style>
+    /*
+     * A table-of-contents reading: roman folio, title, a dotted leader
+     * filling the gap, then the (already-styled) description underneath.
+     * These rules are unlayered Astro-scoped styles, so they win over the
+     * shared `[data-testid='learn-index-entry']` look in global.css
+     * property-by-property (Tailwind's `@import` puts that rule in
+     * `@layer components`, and unlayered styles always outrank layered
+     * ones regardless of source order or specificity) — this file only
+     * overrides `display` and layout, leaving colour/typography/hover
+     * transitions to the shared rule.
+     */
+    .toc {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .toc__row {
+        list-style: none;
+    }
+
+    .toc__link {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6em;
+        min-width: 0;
+    }
+
+    .toc__number {
+        flex-shrink: 0;
+        font-family: var(--font-label);
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        color: var(--color-accent);
+    }
+
+    .toc__title {
+        flex-shrink: 1;
+    }
+
+    .toc__leader {
+        flex: 1 1 auto;
+        min-width: 1rem;
+        margin-bottom: 0.35em;
+        border-bottom: 1px dotted var(--color-border);
+    }
+
+    .toc__description {
+        margin-top: 0.15rem;
+        color: var(--color-ink-soft);
+    }
+</style>

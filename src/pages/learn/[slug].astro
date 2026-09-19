@@ -15,13 +15,16 @@
  * correctly (verified).
  */
 
-import { getCollection, render } from 'astro:content'
+import { getCollection } from 'astro:content'
 import DraftBadge from '../../components/DraftBadge.astro'
+import { toRoman } from '../../lib/ornament'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
 export interface LearnEntryNavLink {
     slug: string
     title: string
+    /** 1-based rank in the declared track order, for the nav plate's roman folio. Optional: fixtures may omit it. */
+    order?: number
 }
 
 export interface LearnEntryView {
@@ -72,6 +75,7 @@ export async function getStaticPaths() {
                     ? {
                           slug: views[index - 1]!.slug,
                           title: views[index - 1]!.title,
+                          order: index,
                       }
                     : null,
             next:
@@ -79,6 +83,7 @@ export async function getStaticPaths() {
                     ? {
                           slug: views[index + 1]!.slug,
                           title: views[index + 1]!.title,
+                          order: index + 2,
                       }
                     : null,
         },
@@ -93,16 +98,94 @@ const { entry, prev, next } = Astro.props
     <h1 data-testid="learn-title">{entry.title}</h1>
     <p data-testid="learn-description">{entry.description}</p>
     <div data-testid="learn-body" set:html={entry.bodyHtml} />
-    <nav>
+    <nav class="lesson-nav" aria-label="Lesson navigation">
         {prev && (
-            <a data-testid="learn-prev-link" href={`/learn/${prev.slug}/`}>
-                {prev.title}
-            </a>
+            <p class="lesson-nav__plate lesson-nav__plate--prev">
+                <span class="lesson-nav__meta" aria-hidden="true">
+                    {'← '}
+                    {prev.order !== undefined && `${toRoman(prev.order)} · `}
+                </span>
+                <a
+                    data-testid="learn-prev-link"
+                    href={`/learn/${prev.slug}/`}
+                    aria-label={`Previous lesson: ${prev.title}`}
+                >
+                    {prev.title}
+                </a>
+            </p>
         )}
         {next && (
-            <a data-testid="learn-next-link" href={`/learn/${next.slug}/`}>
-                {next.title}
-            </a>
+            <p class="lesson-nav__plate lesson-nav__plate--next">
+                <a
+                    data-testid="learn-next-link"
+                    href={`/learn/${next.slug}/`}
+                    aria-label={`Next lesson: ${next.title}`}
+                >
+                    {next.title}
+                </a>
+                <span class="lesson-nav__meta" aria-hidden="true">
+                    {next.order !== undefined && `${toRoman(next.order)} · `}
+                    {'→'}
+                </span>
+            </p>
         )}
     </nav>
 </BaseLayout>
+
+<style>
+    /*
+     * The prose panel and drop cap live in global.css against
+     * `[data-testid='learn-body']`, not here: its content arrives via
+     * `set:html`, a raw HTML string the Astro compiler never touches, so a
+     * scoped selector in this file would never match anything inside it
+     * (see global.css's own note on the pre-existing drop-cap rule).
+     *
+     * The nav plates below ARE compiled by Astro (no `set:html`), so they
+     * can be scoped normally. The roman folio and arrow glyphs are rendered
+     * as siblings of the `<a>`, never as its children, so each link's
+     * `textContent` stays exactly its title — `learn.test.ts` asserts that
+     * verbatim and must keep passing unmodified.
+     */
+    .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 1.4rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .lesson-nav__plate {
+        max-width: 46%;
+        margin: 0;
+    }
+
+    .lesson-nav__plate--next {
+        margin-left: auto;
+        text-align: right;
+    }
+
+    .lesson-nav__meta {
+        display: block;
+        font-family: var(--font-label);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+    }
+
+    .lesson-nav__plate a {
+        display: block;
+        margin-top: 0.15rem;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.05rem;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        color: var(--color-ink);
+    }
+
+    .lesson-nav__plate a:hover {
+        color: var(--color-accent);
+    }
+</style>

@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
 import DraftBadge from '../../components/DraftBadge.astro'
+import PageHeader from '../../components/PageHeader.astro'
 import type { PieceStatus } from '../../lib/content/compose'
-import type { SpreadId } from '../../lib/spreads'
+import { getSpread, type SpreadId } from '../../lib/spreads'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
 /**
@@ -42,31 +43,90 @@ if (!spreads) {
 }
 
 const sortedSpreads = [...spreads].sort((a, b) => a.order - b.order)
+
+/**
+ * Maps one coordinate onto a 0-100 percent position for the miniature
+ * geometry diagram below. `max` is the largest x (or y) any position in
+ * that spread actually uses — a spread with only one position (whose sole
+ * x/y is always 0) would divide by zero, so that case centers the single
+ * marker instead.
+ */
+function markerPercent(value: number, max: number): number {
+    return max > 0 ? (value / max) * 100 : 50
+}
 ---
 
 <BaseLayout title="Spreads">
+    <PageHeader eyebrow="The spread ladder" title="Spreads" />
     <ul>
-        {sortedSpreads.map((spread, index) => (
-            <li>
-                <a
-                    data-testid="spread-index-entry"
-                    data-spread-id={spread.id}
-                    href={`/spreads/${spread.id}/`}
-                >
-                    {spread.name}
-                </a>
-                <p>{spread.summary}</p>
-                <DraftBadge status={spread.status} />
-                {index > 0 && (
-                    <p
-                        data-testid="spread-extends"
+        {sortedSpreads.map((spread, index) => {
+            const geometry = getSpread(spread.id)
+            const maxX = Math.max(...geometry.positions.map((p) => p.x))
+            const maxY = Math.max(...geometry.positions.map((p) => p.y))
+
+            return (
+                <li>
+                    <a
+                        data-testid="spread-index-entry"
                         data-spread-id={spread.id}
-                        data-extends-id={sortedSpreads[index - 1]!.id}
+                        href={`/spreads/${spread.id}/`}
                     >
-                        Extends {sortedSpreads[index - 1]!.name}
-                    </p>
-                )}
-            </li>
-        ))}
+                        {spread.name}
+                    </a>
+                    <div
+                        class="spread-diagram"
+                        data-testid="spread-diagram"
+                        aria-hidden="true"
+                    >
+                        {geometry.positions.map((position) => (
+                            <span
+                                class="spread-diagram__marker"
+                                data-testid="spread-marker"
+                                data-x={position.x}
+                                data-y={position.y}
+                                style={`--marker-x: ${markerPercent(position.x, maxX)}%; --marker-y: ${markerPercent(position.y, maxY)}%;`}
+                            />
+                        ))}
+                    </div>
+                    <p>{spread.summary}</p>
+                    <DraftBadge status={spread.status} />
+                    {index > 0 && (
+                        <p
+                            data-testid="spread-extends"
+                            data-spread-id={spread.id}
+                            data-extends-id={sortedSpreads[index - 1]!.id}
+                        >
+                            Extends {sortedSpreads[index - 1]!.name}
+                        </p>
+                    )}
+                </li>
+            )
+        })}
     </ul>
 </BaseLayout>
+
+<style>
+    /*
+     * A tiny abstract preview of the spread's geometry — not the real card
+     * art (the row's own title and summary already say what the spread is)
+     * so it is `aria-hidden` and drawn as plain marker rectangles rather
+     * than a `CardBack` plate, which would be far too heavy at this scale.
+     */
+    .spread-diagram {
+        position: relative;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-block: 0.35rem 0.85rem;
+    }
+
+    .spread-diagram__marker {
+        position: absolute;
+        left: var(--marker-x);
+        top: var(--marker-y);
+        translate: -50% -50%;
+        width: 0.5rem;
+        aspect-ratio: var(--aspect-card);
+        background-color: var(--color-paper-sunk);
+        border: 1px solid var(--color-accent-soft);
+    }
+</style>

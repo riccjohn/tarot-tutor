@@ -1,5 +1,7 @@
 ---
+import Ornament from './Ornament.astro'
 import { SITE_NAME } from '../config/site'
+import { toRoman } from '../lib/ornament'
 
 /**
  * Carries the two things a reader deserves on every page: that much of the
@@ -11,43 +13,63 @@ import { SITE_NAME } from '../config/site'
  * the familiar two-word deck name is a live trademark.
  */
 const year = new Date().getFullYear()
+const romanYear = toRoman(year)
 ---
 
-<footer class="site-footer">
+<footer class="site-footer shell">
+    <Ornament kind="pentacles" />
+    <div class="site-footer__hairline"></div>
     <p>
         Much of the writing here is still a draft, and is marked as such where
         it appears. <a href="/about/">What this site is</a>.
     </p>
     <p class="site-footer__fine">
         Card images from the classic 1909 deck illustrated by Pamela Colman
-        Smith, in the public domain. {SITE_NAME} &copy; {year}.
+        Smith, in the public domain. {SITE_NAME} &copy; {romanYear}.
     </p>
 </footer>
 
 <style>
+    /*
+     * The sigil's own size and colour are styled from global.css against
+     * `.site-footer [data-testid='ornament']`, not from a scoped rule here:
+     * `Ornament` is a separate component, and a class passed to it as a
+     * prop never carries this file's Astro style scope, so a scoped rule
+     * targeting it would silently never match.
+     */
     .site-footer {
         position: relative;
         z-index: 1;
-        margin-inline: auto;
-        max-width: 46rem;
-        padding: 2rem 1.25rem 3rem;
-        border-top: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-block: 2rem 3rem;
+        text-align: center;
         color: var(--color-ink-soft);
         font-size: 0.9rem;
     }
 
+    .site-footer__hairline {
+        width: 100%;
+        max-width: 12rem;
+        height: 1px;
+        background-color: var(--color-border);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Small-caps caveat and attribution, matching the `.eyebrow` treatment
+     * used for structural labels elsewhere. */
     .site-footer p {
+        max-width: 34rem;
+        font-family: var(--font-label);
+        font-size: 0.72rem;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--color-muted);
         margin-block: 0 0.6rem;
     }
 
     .site-footer__fine {
-        color: var(--color-muted);
-        font-size: 0.8rem;
-    }
-
-    @media (min-width: 48rem) {
-        .site-footer {
-            padding-inline: 2rem;
-        }
+        font-size: 0.66rem;
     }
 </style>
