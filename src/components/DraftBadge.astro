@@ -18,14 +18,17 @@ const { status } = Astro.props
     /*
      * Honest, not alarming. Draft status is the norm across most of the site
      * right now, so a loud warning colour would shout on nearly every page.
-     * A quiet amber rule reads as a note from the author.
+     * A quiet verdigris seal reads as a note from the author, not an alarm —
+     * `--color-draft` and `--color-draft-wash` alias `--color-verdigris-500`
+     * in global.css, which is also where the relative-color math lives —
+     * this file only ever reaches for a `var()`.
      */
     p {
         display: inline-block;
         margin-block: 0 1.75rem;
         padding: 0.4rem 0.75rem 0.4rem 0.7rem;
         border-left: 2px solid var(--color-draft);
-        background-color: oklch(0.586 0.106 62 / 0.07);
+        background-color: var(--color-draft-wash);
         color: var(--color-ink-soft);
         font-size: 0.85rem;
         max-width: none;

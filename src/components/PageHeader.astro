@@ -1,0 +1,43 @@
+---
+import Ornament from './Ornament.astro'
+
+export interface Props {
+    /** Small-caps label above the title, e.g. "Major Arcana · XVIII". */
+    eyebrow?: string
+    /** Title text, when not supplied via the `title` slot. */
+    title?: string
+}
+
+const { eyebrow, title } = Astro.props
+---
+
+<header class="page-header">
+    <Ornament kind="hero" />
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>
+        <slot name="title">{title}</slot>
+    </h1>
+</header>
+
+<style>
+    /*
+     * Only the layout rule for the header itself lives here. The ornament's
+     * own look (position, size, faint wash) is styled from global.css
+     * against `.page-header [data-testid='ornament']` rather than from a
+     * scoped style here: `Ornament` is a separate component, and a class
+     * passed to it as a prop never receives this file's scope attribute,
+     * so a scoped rule targeting it silently never matches — the ornament
+     * would render at full size and full opacity instead of as a background
+     * wash. See `global.css` for the actual rule.
+     *
+     * `overflow: hidden` clips that sigil, which global.css deliberately
+     * sizes to `min(600px, 140%)` so it bleeds off both edges of this
+     * header. Without clipping here, the overhang widens the document past
+     * the viewport on narrow screens — the same overflow `.daily-hero` in
+     * `index.astro` already guards against for its own oversized watermark.
+     */
+    .page-header {
+        position: relative;
+        overflow: hidden;
+    }
+</style>

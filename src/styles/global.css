@@ -1,19 +1,19 @@
 @import 'tailwindcss';
 
 /*
- * Design language: Warm Editorial / Craft.
+ * Design language: Grimoire Nocturne.
  *
- * The reference point is a well-set book about tarot, not an occult site and
- * not a dashboard. That is a direct consequence of the voice guide: mystical
- * styling would ask for belief the reader does not have, and clinical styling
- * would debunk the practice while asking them to keep using it. Parchment
- * ground, warm ink, one muted plum accent, an editorial serif that carries an
- * italic voice for display.
+ * The reference point is an engraved, candlelit manuscript set with
+ * editorial restraint — not a jump-scare occult site and not a dashboard.
+ * Near-black ink ground, bone text, tarnished gilt reserved for large type
+ * and ornament, with oxblood and verdigris held back for rare emphasis.
+ * Per-suit accent hues appear only on sigils, numerals, eyebrows and
+ * thumbnail frame rules; everything else in a suit-scoped section still
+ * reads through the shared ink/bone/gilt vocabulary.
  *
- * Two-colour discipline: the parchment ground and the ink carry the page. The
- * plum accent is the only saturated colour, and the card artwork is allowed to
- * be the brightest thing on screen — it is 1909 linework in flat primaries and
- * it should win.
+ * Token values are ported from the direction-A mockup
+ * (`.light/sessions/mockups/index.html?dir=a&suits=on&body=fraunces`)
+ * rather than re-derived, so what ships matches what was approved.
  *
  * Mobile-first: everything below targets a small screen by default. Wider
  * layouts are opt-in via `min-width` queries, never the other way around.
@@ -21,40 +21,83 @@
 
 @theme {
     /*
-     * Instrument Serif carries the display voice (it has a genuine italic,
-     * which the hero uses). Source Sans 3 sets body text. Neither is a
-     * default-grotesque tell.
+     * Four voices, each doing one job. Cinzel sets labels, numerals and
+     * nav (small caps energy without faking small caps). Cormorant
+     * Garamond's genuine italic carries headings and card names at 40px
+     * and up. Fraunces sets body copy. UnifrakturMaguntia is reserved for
+     * the wordmark and lesson drop caps — never for word-scale body text.
+     * All four are self-hosted and preloaded through the Astro Fonts API
+     * (see the `fonts:` array in astro.config.mjs and `<Font>` in
+     * BaseLayout.astro), never a Google Fonts <link>.
      */
-    --font-display: 'Instrument Serif', 'Iowan Old Style', Palatino, serif;
-    --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
-    /* OKLCH throughout: perceptually even, no HSL blue-shift. */
-    --color-paper: oklch(0.971 0.008 84);
-    --color-paper-sunk: oklch(0.945 0.012 82);
-    --color-ink: oklch(0.243 0.017 348);
-    --color-ink-soft: oklch(0.452 0.018 350);
-    --color-muted: oklch(0.606 0.019 63);
-    --color-accent: oklch(0.452 0.062 341);
-    --color-accent-soft: oklch(0.898 0.021 341);
-    --color-border: oklch(0.868 0.016 73);
-    --color-draft: oklch(0.586 0.106 62);
+    --font-label: var(--font-cinzel), Georgia, serif;
+    --font-display: var(--font-cormorant), 'Iowan Old Style', Palatino, serif;
+    --font-body: var(--font-fraunces), Georgia, serif;
+    --font-blackletter: var(--font-unifraktur), serif;
 
     /*
-     * The normalised aspect ratio every card image ladder is built to, so
-     * cards align edge to edge in a spread. Scanned cards vary slightly;
-     * this is the shared target, not a measurement of any one scan.
+     * OKLCH throughout: perceptually even, no HSL blue-shift. Base palette
+     * first, then the semantic aliases the rest of this file (and the
+     * component `data-testid` rules below) actually reach for.
      */
-    --aspect-card: 5 / 8;
+    --color-ink-950: oklch(0.157 0.007 55.8); /* #0F0C0A — page ground */
+    --color-ink-900: oklch(0.186 0.009 59.1); /* #16120F */
+    --color-ink-850: oklch(0.209 0.011 60.8); /* #1C1713 — sunken surfaces */
+    --color-ink-700: oklch(0.315 0.021 57.9); /* #3A2F27 — hairline rules */
+
+    --color-bone-100: oklch(0.918 0.028 86.6); /* #ECE3CF — primary text */
+    --color-bone-300: oklch(0.77 0.036 84.6); /* #BFB39B — secondary text */
+    --color-bone-500: oklch(0.61 0.029 82.3); /* #8C8270 — muted / labels */
+
+    /* Tarnished gilt: large text and decoration only, never body copy. */
+    --color-gilt-400: oklch(0.736 0.1 83.4); /* #C8A45C */
+    --color-gilt-600: oklch(0.567 0.086 84.3); /* #8E7236 — hover / shade */
+
+    --color-oxblood-600: oklch(0.496 0.141 27.7); /* #A33A32 — rare emphasis */
+    --color-verdigris-500: oklch(0.5 0.057 178); /* #3C6E63 — draft seal */
+
+    /* Suit accents: sigils, numerals, eyebrows and thumbnail frames only. */
+    --color-suit-wands: oklch(0.635 0.128 48.2); /* #C8703F */
+    --color-suit-cups: oklch(0.641 0.066 177.5); /* #5E9A8C */
+    --color-suit-swords: oklch(0.733 0.013 240); /* #A2AAB0 */
+    --color-suit-pentacles: oklch(0.736 0.1 83.4); /* #C8A45C — shares gilt */
+    --color-suit-major: oklch(0.736 0.1 83.4); /* #C8A45C — shares gilt */
+
+    /*
+     * Semantic aliases. The rest of this file (and every component's
+     * `data-testid` styling) reaches for these names, not the raw palette
+     * above, so a future direction change is a remap here rather than a
+     * repo-wide find and replace.
+     */
+    --color-paper: var(--color-ink-950);
+    --color-paper-sunk: var(--color-ink-900);
+    --color-ink: var(--color-bone-100);
+    --color-ink-soft: var(--color-bone-300);
+    --color-muted: var(--color-bone-500);
+    --color-accent: var(--color-gilt-400);
+    --color-accent-soft: var(--color-gilt-600);
+    --color-border: var(--color-ink-700);
+    --color-draft: var(--color-verdigris-500);
+    /* Low-opacity verdigris wash for the draft seal's fill, computed here
+     * (not inline in the component) so component styles never spell out a
+     * literal `oklch(`. */
+    --color-draft-wash: oklch(from var(--color-verdigris-500) l c h / 0.12);
+
+    /*
+     * The scans are 1110x1920, not 5/8. Every card image ladder is built to
+     * this ratio so cards align edge to edge in a spread. Scanned cards vary
+     * slightly; this is the shared target, not a measurement of any one scan.
+     */
+    --aspect-card: 1110 / 1920;
 
     /* Three levels, applied consistently — never ad hoc per component. */
-    --shadow-1: 0 1px 2px oklch(0.243 0.017 348 / 0.07);
+    --shadow-1: 0 1px 2px oklch(0.157 0.007 55.8 / 0.35);
     --shadow-2:
-        0 4px 12px oklch(0.243 0.017 348 / 0.09),
-        0 1px 3px oklch(0.243 0.017 348 / 0.05);
+        0 4px 12px oklch(0.157 0.007 55.8 / 0.45),
+        0 1px 3px oklch(0.157 0.007 55.8 / 0.3);
     --shadow-3:
-        0 16px 40px oklch(0.243 0.017 348 / 0.13),
-        0 4px 12px oklch(0.243 0.017 348 / 0.07);
+        0 16px 40px oklch(0.157 0.007 55.8 / 0.55),
+        0 4px 12px oklch(0.157 0.007 55.8 / 0.35);
 
     /* The curve is the personality. Never bare `ease`. */
     --ease-brand: cubic-bezier(0.77, 0, 0.175, 1);
@@ -62,39 +105,28 @@
 
 @layer base {
     :root {
-        color-scheme: light;
+        color-scheme: dark;
     }
 
     body {
         margin: 0;
-        /*
-         * Layered, not flat: two very low-opacity washes over parchment so
-         * the ground has some depth under the card art.
-         */
         background-color: var(--color-paper);
-        background-image:
-            radial-gradient(
-                ellipse 70% 45% at 78% 8%,
-                oklch(0.452 0.062 341 / 0.05),
-                transparent
-            ),
-            radial-gradient(
-                ellipse 85% 55% at 12% 92%,
-                oklch(0.586 0.106 62 / 0.045),
-                transparent
-            );
         background-attachment: fixed;
         color: var(--color-ink);
         font-family: var(--font-body);
         font-size: 1.0625rem;
-        line-height: 1.65;
+        font-weight: 380;
+        line-height: 1.7;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
     }
 
     /*
-     * Paper grain. Humanises the flat ground and keeps the parchment from
-     * reading as a plain beige fill.
+     * Baked candlelight grain. A single static tile (`public/textures/
+     * grain.png`), not a live SVG filter re-evaluated on the page — it is
+     * generated once by a build script and checked in like any other
+     * image asset. Soft-light at a low opacity reads as texture on the
+     * near-black ground without ever lightening it into grey.
      */
     body::before {
         content: '';
@@ -102,18 +134,35 @@
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        opacity: 0.035;
-        mix-blend-mode: multiply;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.05;
+        mix-blend-mode: soft-light;
+        background-image: url('/textures/grain.png');
+        background-repeat: repeat;
+        background-size: 128px 128px;
+    }
+
+    /* Candlelit vignette: the page reads as one lit surface, not a flat fill. */
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(
+            ellipse 120% 90% at 50% 30%,
+            transparent 55%,
+            oklch(0.157 0.007 55.8 / 0.55) 100%
+        );
     }
 
     h1,
     h2,
     h3 {
         font-family: var(--font-display);
-        font-weight: 400;
+        font-style: italic;
+        font-weight: 500;
         line-height: 1.05;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.01em;
         text-wrap: balance;
         color: var(--color-ink);
     }
@@ -149,25 +198,57 @@
         color: oklch(from var(--color-accent) calc(l - 0.08) c h);
     }
 
+    /*
+     * A solid 2px bone/gilt ring, always with an offset — legible against
+     * both the ink ground and the gilt-toned controls it sometimes sits on.
+     */
     :focus-visible {
-        outline: 2px solid var(--color-accent);
+        outline: 2px solid var(--color-ink);
         outline-offset: 3px;
         border-radius: 2px;
+    }
+
+    /*
+     * The site shell: a 12-column, 72rem-wide grid shared by header, main
+     * and footer, so the three frame elements stack to one consistent
+     * measure instead of each choosing its own column. Mobile gets a flat
+     * 16px gutter; header and footer layer their own `display: flex` on
+     * top of this (their own scoped styles win on specificity) and use
+     * the shell purely for the shared width and gutter. `main` is the one
+     * frame element that actually lays out its direct children in columns
+     * — each spans the full 12 by default, which is what every existing
+     * page (prose articles, index lists, React islands) already wants;
+     * a page opts a child into a narrower span with `grid-column` inline
+     * rather than the shell dictating one column width for every page.
+     */
+    .shell {
+        margin-inline: auto;
+        max-width: 72rem;
+        padding-inline: 1rem;
+    }
+
+    @media (min-width: 48rem) {
+        .shell {
+            padding-inline: 2rem;
+        }
     }
 
     /* Small screens first: a single, generous reading column. */
     main {
         position: relative;
         z-index: 1;
-        margin-inline: auto;
-        max-width: 46rem;
-        padding-inline: 1.25rem;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0 1.5rem;
         padding-block: 2.5rem 4rem;
+    }
+
+    main > * {
+        grid-column: 1 / -1;
     }
 
     @media (min-width: 48rem) {
         main {
-            padding-inline: 2rem;
             padding-block: 4rem 6rem;
         }
     }
@@ -179,12 +260,68 @@
 
     /* Small-caps metadata label, used for structural sections. */
     .eyebrow {
-        font-family: var(--font-mono);
+        font-family: var(--font-label);
         font-size: 0.7rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--color-muted);
         margin-block: 0 0.5rem;
+    }
+
+    /*
+     * `PageHeader`'s background sigil: a faint wash behind the eyebrow and
+     * title, never a loud graphic. Targeted structurally (by the ornament's
+     * own `data-testid`, scoped under `.page-header`) rather than from a
+     * scoped style in `PageHeader.astro`, because the ornament is a
+     * separate `Ornament` component instance and a class passed to a child
+     * component as a prop never carries the parent's Astro style scope.
+     */
+    .page-header [data-testid='ornament'] {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: min(600px, 140%);
+        opacity: 0.06;
+        color: var(--color-accent);
+        pointer-events: none;
+    }
+
+    /* The footer's centred sigil, styled the same structural way and for
+     * the same reason as the page-header ornament above. */
+    .site-footer [data-testid='ornament'] {
+        width: 1.75rem;
+        height: 1.75rem;
+        color: var(--color-accent-soft);
+        margin-bottom: 1.25rem;
+    }
+
+    /*
+     * The daily-draw hero's watermark: larger and fainter than
+     * `PageHeader`'s (a full-viewport hero can carry a bigger, quieter
+     * mark), styled the same structural way and for the same reason.
+     */
+    .daily-hero [data-testid='ornament'] {
+        position: absolute;
+        width: min(900px, 140vw);
+        left: 50%;
+        top: 50%;
+        translate: -50% -50%;
+        opacity: 0.04;
+        color: var(--color-accent);
+        pointer-events: none;
+    }
+
+    [data-testid='roman-date'] {
+        font-family: var(--font-label);
+        letter-spacing: 0.3em;
+        color: var(--color-accent);
+        font-size: 0.9rem;
+    }
+
+    [data-testid='readable-date'] {
+        color: var(--color-ink-soft);
+        margin-top: 0.35rem;
+        font-size: 1rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -241,9 +378,11 @@
 
     [data-testid='second-card-button'],
     [data-testid='free-pull'] button {
-        font-family: var(--font-body);
-        font-size: 0.9rem;
+        font-family: var(--font-label);
+        font-size: 0.78rem;
         font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
         color: var(--color-paper);
         background-color: var(--color-accent);
         border: none;
@@ -293,7 +432,7 @@
 
     [data-testid='spread-extends'] {
         display: block;
-        font-family: var(--font-mono);
+        font-family: var(--font-label);
         font-size: 0.7rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
@@ -318,8 +457,68 @@
         font-size: 0.9rem;
     }
 
+    /*
+     * The lesson body reads as a manuscript page: a sunken panel measured
+     * to a comfortable prose width, set apart from the page ground the
+     * title/description sit on. Its content arrives via `set:html` (raw
+     * markdown-rendered HTML the Astro compiler never sees), so every rule
+     * below is structural, against the `data-testid` contract, rather than
+     * a scoped style in `[slug].astro` — a scoped selector there would
+     * never match this content, the same reason the drop-cap rule already
+     * lived here before this phase.
+     */
+    [data-testid='learn-body'] {
+        max-width: 62ch;
+        margin-top: 2rem;
+        padding: clamp(1.5rem, 5vw, 3rem);
+        background-color: var(--color-ink-850);
+        border: 1px solid var(--color-border);
+    }
+
     [data-testid='learn-body'] > :last-child {
         margin-bottom: 0;
+    }
+
+    /*
+     * The one other place UnifrakturMaguntia appears (besides the
+     * wordmark): a manuscript drop cap on the lesson's opening paragraph.
+     */
+    [data-testid='learn-body'] > p:first-of-type::first-letter {
+        float: left;
+        font-family: var(--font-blackletter);
+        font-size: 4.6em;
+        line-height: 0.82;
+        padding: 0.06em 0.12em 0 0;
+        color: var(--color-accent);
+    }
+
+    /* Chapter headings inside the lesson body get a gilt rule beneath them. */
+    [data-testid='learn-body'] h2 {
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-accent-soft);
+    }
+
+    /* A quoted aside, set off with a gilt hairline rather than quote marks. */
+    [data-testid='learn-body'] blockquote {
+        margin: 2rem 0;
+        padding: 0.2rem 0 0.2rem 1.4rem;
+        border-left: 1px solid var(--color-accent);
+        font-style: italic;
+        color: var(--color-ink-soft);
+    }
+
+    [data-testid='learn-body'] ul {
+        padding-left: 1.2rem;
+    }
+
+    [data-testid='learn-body'] li {
+        margin-bottom: 0.5rem;
+    }
+
+    [data-testid='learn-body'] li::marker {
+        content: '\2726  ';
+        color: var(--color-accent);
+        font-size: 0.7em;
     }
 }
 
@@ -408,6 +607,7 @@
 
     [data-testid='invitation-prompt'] p {
         font-family: var(--font-display);
+        font-style: italic;
         font-size: clamp(1.3rem, 3vw, 1.65rem);
         line-height: 1.25;
         letter-spacing: -0.015em;
@@ -416,5 +616,376 @@
         padding-left: 1.1rem;
         border-left: 2px solid var(--color-accent-soft);
         margin-bottom: 0;
+    }
+}
+
+/*
+ * Card presentation primitives (Phase 3): the reversed rotation, the
+ * engraved `.plate` frame shared by `CardFrame` and `CardBack`, their
+ * corner ornaments, and the muted-thumb treatment for deck-grid listings.
+ * Rules target the components' `data-testid` contract, matching the
+ * pattern above rather than scoped `<style>`, since `CardImage` is reused
+ * bare (no frame) on some pages and framed on others.
+ */
+@layer components {
+    /* Reversal rotates the art element itself, never a wrapping container. */
+    [data-testid='card-image'][data-reversed='true'] {
+        rotate: 180deg;
+    }
+
+    /*
+     * Thumbs sleep in muted tone until the link they sit inside is hovered
+     * or focused, when the plate wakes to full colour.
+     */
+    [data-testid='card-image'][data-variant='thumb'] {
+        filter: sepia(0.4) saturate(0.6) brightness(0.8) contrast(1.05);
+        transition: filter 0.35s var(--ease-brand);
+    }
+
+    a:hover [data-testid='card-image'][data-variant='thumb'],
+    a:focus-visible [data-testid='card-image'][data-variant='thumb'] {
+        filter: none;
+    }
+
+    /* The engraved plate frame: a dark mat, gilt hairline, deep drop shadow. */
+    [data-testid='card-frame'],
+    [data-testid='card-back'] {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        max-width: 20rem;
+        background-color: var(--color-paper);
+        padding: 10px;
+        border: 1px solid var(--color-accent-soft);
+        box-shadow:
+            0 0 0 4px var(--color-paper),
+            0 0 0 5px var(--color-border),
+            var(--shadow-3);
+    }
+
+    [data-testid='card-frame'] [data-testid='card-image'] {
+        margin-bottom: 0;
+    }
+
+    [data-testid='card-back'] .card-back-art {
+        display: block;
+        width: 100%;
+        aspect-ratio: var(--aspect-card);
+        color: var(--color-accent);
+    }
+
+    /* Corner ornaments sit just outside the plate's own border, one per corner. */
+    [data-testid='card-frame'] [data-testid='ornament'].corner,
+    [data-testid='card-back'] [data-testid='ornament'].corner {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        color: var(--color-accent);
+    }
+
+    [data-testid='card-frame'] .corner-tl,
+    [data-testid='card-back'] .corner-tl {
+        top: -6px;
+        left: -6px;
+    }
+
+    [data-testid='card-frame'] .corner-tr,
+    [data-testid='card-back'] .corner-tr {
+        top: -6px;
+        right: -6px;
+        transform: scaleX(-1);
+    }
+
+    [data-testid='card-frame'] .corner-bl,
+    [data-testid='card-back'] .corner-bl {
+        bottom: -6px;
+        left: -6px;
+        transform: scaleY(-1);
+    }
+
+    [data-testid='card-frame'] .corner-br,
+    [data-testid='card-back'] .corner-br {
+        bottom: -6px;
+        right: -6px;
+        transform: scale(-1);
+    }
+}
+
+/*
+ * The daily draw's reveal (Phase 6): `CardPlate` (a React island component,
+ * since an Astro component cannot render inside a React island) turns a
+ * face-down `card-back` to reveal its `card-frame` front face, and the
+ * post-reveal teaching content fades up beneath it.
+ *
+ * The full markup contract stays in the DOM from first render — the reveal
+ * only ever toggles `data-revealed`. Hiding is `display`/`visibility`
+ * driven (removing the hidden side from the accessibility tree), not a
+ * conditional-render, so a `<noscript>` stylesheet elsewhere in the page can
+ * force the revealed presentation for visitors whose script never runs to
+ * flip the attribute.
+ */
+@layer components {
+    .card-plate {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        max-width: 20rem;
+        perspective: 1800px;
+    }
+
+    .card-plate__halo {
+        position: absolute;
+        inset: -30% -60%;
+        background: radial-gradient(
+            closest-side,
+            var(--color-accent-soft),
+            transparent 70%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* The halo flickers once, on the transition into the revealed state. */
+    .card-plate[data-revealed='true'] .card-plate__halo {
+        animation: card-plate-flicker 0.6s steps(6) 1;
+    }
+
+    @keyframes card-plate-flicker {
+        0% {
+            opacity: 0.4;
+        }
+        20% {
+            opacity: 1;
+        }
+        40% {
+            opacity: 0.6;
+        }
+        60% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 0.7;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .card-plate__flip {
+        position: relative;
+        width: 100%;
+        aspect-ratio: var(--aspect-card);
+        transform-style: preserve-3d;
+        transition: transform 0.9s var(--ease-brand);
+    }
+
+    .card-plate[data-revealed='true'] .card-plate__flip {
+        transform: rotateY(180deg);
+    }
+
+    .card-plate__face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    /*
+     * Pre-rotated so the turn lands right-reading: the flip container above
+     * carries the whole 180deg turn, this cancels it back out for the face
+     * that should end up facing the viewer.
+     */
+    .card-plate__face--front {
+        transform: rotateY(180deg);
+    }
+
+    .card-plate__face .card-back-art,
+    .card-plate__face [data-testid='card-image'] {
+        height: 100%;
+    }
+
+    /* Removed from the accessible surface (and paint) on the side not showing. */
+    .card-plate[data-revealed='false'] .card-plate__face--front {
+        visibility: hidden;
+    }
+
+    .card-plate[data-revealed='true'] .card-plate__face--back {
+        visibility: hidden;
+    }
+
+    .card-plate__plaque {
+        position: absolute;
+        left: 50%;
+        bottom: 0.85rem;
+        translate: -50% 0;
+        margin: 0;
+        font-family: var(--font-label);
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-ink);
+        background: var(--color-paper);
+        border: 1px solid var(--color-accent-soft);
+        padding: 0.3rem 0.7rem;
+    }
+
+    /* The stage is a plain layout wrapper; the flip visuals live on `.card-plate`. */
+    [data-testid='daily-stage'] {
+        display: flex;
+        justify-content: center;
+        margin-block: 2rem;
+    }
+
+    /* Post-reveal content is hidden — not merely dimmed — until revealed. */
+    [data-testid='daily-reveal-content'][data-revealed='false'] {
+        display: none;
+    }
+
+    [data-testid='daily-reveal-content'][data-revealed='true'] {
+        animation: card-plate-fade-up 0.6s var(--ease-brand) both;
+    }
+
+    [data-testid='daily-reveal-content'][data-revealed='true'] > * {
+        animation: card-plate-fade-up 0.6s var(--ease-brand) both;
+    }
+
+    [data-testid='daily-reveal-content'][data-revealed='true']
+        > *:nth-child(2) {
+        animation-delay: 0.08s;
+    }
+
+    [data-testid='daily-reveal-content'][data-revealed='true']
+        > *:nth-child(3) {
+        animation-delay: 0.16s;
+    }
+
+    [data-testid='daily-reveal-content'][data-revealed='true']
+        > *:nth-child(4) {
+        animation-delay: 0.24s;
+    }
+
+    @keyframes card-plate-fade-up {
+        from {
+            opacity: 0;
+            translate: 0 12px;
+        }
+        to {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    [data-testid='reveal-button'] {
+        display: block;
+        margin: 2.4rem auto 0;
+        font-family: var(--font-label);
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--color-paper);
+        background: var(--color-accent);
+        border: 1px solid var(--color-accent);
+        padding: 0.9rem 1.6rem;
+        cursor: pointer;
+        transition:
+            background-color 0.25s var(--ease-brand),
+            color 0.25s var(--ease-brand);
+    }
+
+    [data-testid='reveal-button']:hover {
+        background: transparent;
+        color: var(--color-accent);
+    }
+
+    [data-testid='second-card-button'] {
+        display: block;
+        margin: 2rem auto 0;
+        font-family: var(--font-label);
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        background: transparent;
+        border: 1px solid var(--color-accent);
+        padding: 0.9rem 1.6rem;
+        cursor: pointer;
+        transition:
+            background-color 0.25s var(--ease-brand),
+            color 0.25s var(--ease-brand);
+    }
+
+    [data-testid='second-card-button']:hover {
+        background: var(--color-accent);
+        color: var(--color-paper);
+    }
+
+    [data-testid='daily-mechanism-note'] {
+        max-width: 30rem;
+        margin-inline: auto;
+        font-size: 0.9rem;
+        color: var(--color-muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .card-plate__flip,
+        .card-plate__halo {
+            transition: none;
+        }
+
+        .card-plate[data-revealed='true'] .card-plate__halo {
+            animation: none;
+        }
+
+        [data-testid='daily-reveal-content'][data-revealed='true'],
+        [data-testid='daily-reveal-content'][data-revealed='true'] > * {
+            animation: none;
+        }
+    }
+}
+
+/*
+ * The free pull's row (Phase 7): plates fan into a row on wide screens —
+ * `pull-row` is a flex container so each `drawn-card` keeps its own
+ * intrinsic width rather than being stretched into equal grid tracks — and
+ * stack full-width on narrow screens, scrolling sideways rather than
+ * overflowing the page itself.
+ *
+ * Cooler than the daily draw: `CardPlate` always renders a `.card-plate__halo`
+ * div, but the free pull never lights it — no candle glow, no date, just the
+ * plate.
+ */
+@layer components {
+    [data-testid='free-pull'] .card-plate__halo {
+        display: none;
+    }
+
+    [data-testid='pull-row'] {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+        margin-block: 2rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    [data-testid='pull-row'] [data-testid='drawn-card'] {
+        flex: 1 1 18rem;
+        min-width: 16rem;
+        max-width: 22rem;
+    }
+
+    [data-testid='pull-row']
+        [data-testid='drawn-card']
+        + [data-testid='drawn-card'] {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    @media (min-width: 60rem) {
+        [data-testid='pull-row'] {
+            flex-wrap: wrap;
+            overflow-x: visible;
+        }
     }
 }

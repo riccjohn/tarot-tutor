@@ -1,5 +1,7 @@
 ---
 import type { ComposedCard } from '../lib/content/compose'
+import { cardEyebrow, toRoman } from '../lib/ornament'
+import CardFrame from './CardFrame.astro'
 import CardImage from './CardImage.astro'
 
 export interface Props {
@@ -15,68 +17,127 @@ export interface Props {
  *
  * This order is enforced here — inside the one component every card page
  * renders through — rather than left to page-level markup, so no future
- * page can reorder it by accident.
+ * page can reorder it by accident. Nothing about the asymmetric two-column
+ * plate/body layout below changes that order: `card-name`, `card-eyebrow`
+ * and the frame/plate markup all sit outside `CARD_PAGE_TESTIDS`
+ * (`section-order-contract.ts`), so moving them around the page never
+ * touches the locked sequence.
  */
 const { composed } = Astro.props
 const { card, own, suit, number, rank, majorArc } = composed
+const frameSuit = suit?.suit ?? 'major'
 ---
 
-<h1 data-testid="card-name">{card.name}</h1>
+<div class="card-detail">
+    <div class="card-detail__plate">
+        <p class="eyebrow" data-testid="card-eyebrow">
+            {cardEyebrow(card)}
+        </p>
+        <CardFrame suit={frameSuit}>
+            <CardImage id={card.id} name={card.name} variant="plate" />
+        </CardFrame>
+    </div>
 
-<CardImage id={card.id} name={card.name} />
+    <div class="card-detail__body">
+        <h1 data-testid="card-name">{card.name}</h1>
 
-{suit && (
-    <section data-testid="suit-info">
-        <p class="eyebrow">Suit</p>
-        <h2>{suit.name}</h2>
-        <p>{suit.domain}</p>
-    </section>
-)}
+        {suit && (
+            <section data-testid="suit-info">
+                <p class="eyebrow">Suit</p>
+                <h2>{suit.name}</h2>
+                <p>{suit.domain}</p>
+            </section>
+        )}
 
-{number && (
-    <section data-testid="number-info">
-        <p>{number.stage}</p>
-    </section>
-)}
+        {number && (
+            <section data-testid="number-info">
+                <p>{number.stage}</p>
+            </section>
+        )}
 
-{rank && (
-    <section data-testid="rank-info">
-        <p>{rank.ladderPosition}</p>
-    </section>
-)}
+        {rank && (
+            <section data-testid="rank-info">
+                <p>{rank.ladderPosition}</p>
+            </section>
+        )}
 
-{majorArc && (
-    <section data-testid="arc-context">
-        <p>Septenary {majorArc.septenary}</p>
-    </section>
-)}
+        {majorArc && (
+            <section data-testid="arc-context">
+                <p>Septenary {majorArc.septenary}</p>
+            </section>
+        )}
 
-<section data-testid="symbol-walkthrough">
-    <ul>
-        {own.symbols.map((symbol) => (
-            <li>
-                <strong>{symbol.element}</strong> — {symbol.note}
-            </li>
-        ))}
-    </ul>
-</section>
+        <section data-testid="symbol-walkthrough">
+            <ul>
+                {own.symbols.map((symbol, index) => (
+                    <li>
+                        <span
+                            class="card-detail__symbol-index"
+                            aria-hidden="true"
+                        >
+                            {toRoman(index + 1)}
+                        </span>
+                        <strong>{symbol.element}</strong> — {symbol.note}
+                    </li>
+                ))}
+            </ul>
+        </section>
 
-<section data-testid="common-reading">
-    {/*
-        The framing is a heading stated once, before the reading — not a
-        caveat appended after it. The voice guide is explicit that the
-        mechanism is stated once, early; a trailing boilerplate sentence
-        doubled the hedge on written cards and hedged the placeholder on
-        unwritten ones ("has not been written yet. This is one reading
-        among many"). It is suppressed on drafts, where there is no reading
-        to frame.
-    */}
-    {composed.status !== 'draft' && (
-        <h2 data-testid="reading-framing">One reading among many</h2>
-    )}
-    <p>{own.commonReading}</p>
-</section>
+        <section data-testid="common-reading">
+            {/*
+                The framing is a heading stated once, before the reading — not a
+                caveat appended after it. The voice guide is explicit that the
+                mechanism is stated once, early; a trailing boilerplate sentence
+                doubled the hedge on written cards and hedged the placeholder on
+                unwritten ones ("has not been written yet. This is one reading
+                among many"). It is suppressed on drafts, where there is no reading
+                to frame.
+            */}
+            {composed.status !== 'draft' && (
+                <h2 data-testid="reading-framing">One reading among many</h2>
+            )}
+            <p>{own.commonReading}</p>
+        </section>
 
-<section data-testid="invitation-prompt">
-    <p>{own.invitationPrompt}</p>
-</section>
+        <section data-testid="invitation-prompt">
+            <p>{own.invitationPrompt}</p>
+        </section>
+    </div>
+</div>
+
+<style>
+    .card-detail {
+        display: grid;
+        gap: 2.5rem;
+    }
+
+    .card-detail__plate {
+        max-width: 20rem;
+    }
+
+    .card-detail__symbol-index {
+        display: inline-block;
+        min-width: 1.6em;
+        font-family: var(--font-label);
+        font-size: 0.8em;
+        color: var(--color-accent);
+    }
+
+    /*
+     * Two columns from 60rem up: a sticky plate beside the scrolling body
+     * text. Below that, the plate simply sits above the body in source
+     * order — no separate narrow-viewport markup needed.
+     */
+    @media (min-width: 60rem) {
+        .card-detail {
+            grid-template-columns: minmax(0, 22rem) 1fr;
+            align-items: start;
+            gap: 3.5rem;
+        }
+
+        .card-detail__plate {
+            position: sticky;
+            top: 2.5rem;
+        }
+    }
+</style>

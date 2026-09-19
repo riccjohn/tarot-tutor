@@ -6,17 +6,34 @@ export interface Props {
     id: string
     /** Card display name, used to build descriptive alt text. */
     name: string
+    /**
+     * Presentation size: a full plate (card detail, hero) or a small
+     * muted thumb (deck grid, spread slot). Defaults to `'plate'`, which
+     * reproduces the original single-purpose contract exactly.
+     */
+    variant?: 'plate' | 'thumb'
+    /** Whether the card is drawn reversed. Rotates the art itself 180deg. */
+    reversed?: boolean
+    /** Explicit `sizes` override, taking precedence over the variant default. */
+    sizes?: string
 }
 
-const { id, name } = Astro.props
+const VARIANT_SIZES: Record<'plate' | 'thumb', string> = {
+    plate: '(min-width: 48rem) 320px, 45vw',
+    thumb: '(min-width: 48rem) 120px, 30vw',
+}
+
+const { id, name, variant = 'plate', reversed = false, sizes } = Astro.props
 const image = getCardImage(id)
 ---
 
 <img
     data-testid="card-image"
+    data-variant={variant}
+    data-reversed={reversed ? 'true' : undefined}
     src={image.src}
     srcset={image.srcset}
-    sizes={image.sizes}
+    sizes={sizes ?? VARIANT_SIZES[variant]}
     width={image.width}
     height={image.height}
     alt={`${name} tarot card`}

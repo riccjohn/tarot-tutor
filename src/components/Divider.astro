@@ -1,0 +1,30 @@
+---
+/**
+ * A decorative section break: two gilt hairlines with nothing between
+ * them, drawn entirely in CSS pseudo-elements so there is no text content
+ * for assistive tech to stumble over.
+ */
+---
+
+<div class="divider" data-testid="divider" aria-hidden="true"></div>
+
+<style>
+    .divider {
+        display: flex;
+        align-items: center;
+        margin-block: 3rem;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-accent-soft),
+            transparent
+        );
+    }
+</style>

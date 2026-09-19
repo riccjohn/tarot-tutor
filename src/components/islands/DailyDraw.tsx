@@ -17,9 +17,17 @@
  *
  * No reroll, reshuffle or "draw again" affordance exists anywhere in the
  * output — the date lock is the point.
+ *
+ * Ritual gate (Phase 6): the primary card's full markup contract — image,
+ * structural sections, symbol walkthrough, reading, invitation — stays in
+ * the DOM from first render. The reveal only ever toggles a boolean; CSS
+ * (not markup presence) hides the front face and the post-reveal content
+ * region until `daily-stage`'s `data-revealed` flips to `"true"`. A
+ * `<noscript>` stylesheet forces the revealed presentation for visitors
+ * without JavaScript, since the flip can never fire for them.
  */
 
-import { useState } from 'react'
+import { useEffect, useRef, useState, type Ref } from 'react'
 import {
     composeCard,
     type ComposedCard,
@@ -27,6 +35,8 @@ import {
 } from '../../lib/content/compose'
 import { drawForDate } from '../../lib/draw'
 import { getCardImage } from '../../lib/images'
+import { romanDate } from '../../lib/ornament'
+import CardPlate from './CardPlate'
 
 /** Seed component for the primary daily card. Folded into `drawForDate`'s hash. */
 export const DAILY_SPREAD_ID = 'daily'
@@ -42,6 +52,21 @@ export interface DailyDrawProps {
 }
 
 /**
+ * CSS that forces the revealed presentation, for visitors whose browser
+ * never runs the script that would otherwise flip `data-revealed` to
+ * `"true"`. Without this, `global.css`'s default (front face and
+ * post-reveal content hidden until revealed) would hide the card from
+ * no-JS visitors forever.
+ */
+const NOSCRIPT_REVEAL_CSS = `
+[data-testid='reveal-button'] { display: none; }
+.card-plate[data-revealed='false'] .card-plate__face--front { visibility: visible; }
+.card-plate[data-revealed='false'] .card-plate__face--back { display: none; }
+.card-plate[data-revealed='false'] .card-plate__flip { transform: rotateY(180deg); }
+[data-testid='daily-reveal-content'][data-revealed='false'] { display: block; }
+`.trim()
+
+/**
  * Renders one drawn card's teaching content in the same locked order as
  * `src/components/CardSections.astro`: image, then whichever structural
  * section(s) its kind carries (suit+number for pips, suit+rank for courts,
@@ -54,34 +79,28 @@ export interface DailyDrawProps {
  * remains the ordering authority for card pages; if its order ever changes,
  * this must change with it.
  *
+ * The card's own art (`card-image`) is rendered by `CardPlate`, not here —
+ * this only renders the sections that follow it.
+ *
  * Reversal is framed generically here (`reversal-note`) — identical text no
  * matter which card is reversed — never as card-specific interpretation.
  */
 function DrawnCardSections({
     composed,
     reversed,
+    nameRef,
 }: {
     composed: ComposedCard
     reversed: boolean
+    nameRef?: Ref<HTMLHeadingElement>
 }) {
-    const { card, own, suit, number, rank, majorArc } = composed
-    const image = getCardImage(card.id)
+    const { own, suit, number, rank, majorArc } = composed
 
     return (
         <>
-            <h1 data-testid="card-name">{card.name}</h1>
-
-            <img
-                data-testid="card-image"
-                src={image.src}
-                srcSet={image.srcset}
-                sizes={image.sizes}
-                width={image.width}
-                height={image.height}
-                alt={`${card.name} tarot card`}
-                loading="lazy"
-                decoding="async"
-            />
+            <h1 data-testid="card-name" tabIndex={-1} ref={nameRef}>
+                {composed.card.name}
+            </h1>
 
             {reversed && (
                 <p data-testid="reversal-note">
@@ -147,23 +166,69 @@ function DrawnCardSections({
 }
 
 export default function DailyDraw({ dateKey, collections }: DailyDrawProps) {
+    const [revealed, setRevealed] = useState(false)
     const [showSecond, setShowSecond] = useState(false)
+    const nameRef = useRef<HTMLHeadingElement>(null)
 
     const primaryDraw = drawForDate(DAILY_SPREAD_ID, 1, dateKey)[0]!
     const primaryComposed = composeCard(primaryDraw.card, collections)
+    const primarySuit = primaryComposed.suit?.suit ?? 'major'
+
+    useEffect(() => {
+        if (revealed) {
+            nameRef.current?.focus()
+        }
+    }, [revealed])
 
     return (
         <div data-testid="daily-draw">
-            <p className="eyebrow">{readableDate(dateKey)}</p>
+            <noscript>
+                <style>{NOSCRIPT_REVEAL_CSS}</style>
+            </noscript>
+
+            <p className="eyebrow" data-testid="roman-date">
+                {romanDate(dateKey)}
+            </p>
+            <p data-testid="readable-date">{readableDate(dateKey)}</p>
             <p data-testid="daily-mechanism-note">
                 This card is locked to today&rsquo;s date — it stays the same no
                 matter how many times you reload or come back later today.
             </p>
 
-            <DrawnCardSections
-                composed={primaryComposed}
-                reversed={primaryDraw.reversed}
-            />
+            <div
+                data-testid="daily-stage"
+                data-revealed={revealed ? 'true' : 'false'}
+            >
+                <CardPlate
+                    suit={primarySuit}
+                    cardId={primaryComposed.card.id}
+                    cardName={primaryComposed.card.name}
+                    image={getCardImage(primaryComposed.card.id)}
+                    reversed={primaryDraw.reversed}
+                    revealed={revealed}
+                />
+            </div>
+
+            {!revealed && (
+                <button
+                    type="button"
+                    data-testid="reveal-button"
+                    onClick={() => setRevealed(true)}
+                >
+                    Turn the card
+                </button>
+            )}
+
+            <div
+                data-testid="daily-reveal-content"
+                data-revealed={revealed ? 'true' : 'false'}
+            >
+                <DrawnCardSections
+                    composed={primaryComposed}
+                    reversed={primaryDraw.reversed}
+                    nameRef={nameRef}
+                />
+            </div>
 
             {showSecond ? (
                 <div data-testid="second-card">
@@ -191,8 +256,20 @@ function SecondCard({
 }) {
     const draw = drawForDate(DAILY_SECOND_SPREAD_ID, 1, dateKey)[0]!
     const composed = composeCard(draw.card, collections)
+    const suit = composed.suit?.suit ?? 'major'
 
-    return <DrawnCardSections composed={composed} reversed={draw.reversed} />
+    return (
+        <>
+            <CardPlate
+                suit={suit}
+                cardId={composed.card.id}
+                cardName={composed.card.name}
+                image={getCardImage(composed.card.id)}
+                reversed={draw.reversed}
+            />
+            <DrawnCardSections composed={composed} reversed={draw.reversed} />
+        </>
+    )
 }
 
 /**

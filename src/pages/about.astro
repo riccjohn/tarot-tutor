@@ -1,4 +1,6 @@
 ---
+import Divider from '../components/Divider.astro'
+import PageHeader from '../components/PageHeader.astro'
 import { SITE_NAME, SITE_TAGLINE } from '../config/site'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
@@ -12,7 +14,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 <BaseLayout title="About" description={SITE_TAGLINE}>
     <article>
-        <h1>About {SITE_NAME}</h1>
+        <PageHeader>
+            <Fragment slot="title">About {SITE_NAME}</Fragment>
+        </PageHeader>
 
         <p>
             {SITE_NAME} teaches tarot as structure rather than as a list to
@@ -70,5 +74,28 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                 upright meaning, not baked into each card as a second answer.
             </li>
         </ul>
+
+        <Divider />
+
+        <h2>Colophon</h2>
+        <p class="colophon">
+            Set in Cinzel for labels and numerals, Cormorant Garamond for
+            headings, Fraunces for body text, and UnifrakturMaguntia for the
+            wordmark and lesson drop caps. Card images are from the classic 1909
+            deck illustrated by Pamela Colman Smith, now in the public domain.
+        </p>
     </article>
 </BaseLayout>
+
+<style>
+    /*
+     * Understated, like a book's own colophon: same measure as the rest of
+     * the prose, quieter type. `Divider` above already supplies the visual
+     * break, styled from global.css against its own `data-testid` for the
+     * reason documented in `PageHeader.astro`.
+     */
+    .colophon {
+        color: var(--color-ink-soft);
+        font-size: 0.92rem;
+    }
+</style>

@@ -1,6 +1,8 @@
 ---
+import CardFrame from './CardFrame.astro'
 import CardImage from './CardImage.astro'
-import type { Card } from '../lib/deck'
+import { suitOf, type Card } from '../lib/deck'
+import { toRoman } from '../lib/ornament'
 
 /**
  * Renders one spread's card slots on a CSS grid driven by the abstract
@@ -15,6 +17,15 @@ import type { Card } from '../lib/deck'
  * vertical column, in the same source order the slots were given in, so
  * position labels and their order survive the reflow even on the
  * five-card cross (the widest layout, 3x3 grid units).
+ *
+ * The field the slots sit on ("altar cloth") and the faint line linking
+ * them in position order are decorative only — the real information is
+ * the slot geometry itself (`--slot-column`/`--slot-row`, `data-x`/
+ * `data-y`), never re-derived from the drawn line — so the connecting
+ * `<svg>` is `aria-hidden` and skipped outright for a one-position spread.
+ * Each placeholder frames its card with `CardFrame`, the same component
+ * the card detail page uses, so a spread slot reads as the same engraved
+ * plate as everywhere else in the deck.
  */
 
 export interface SpreadLayoutSlot {
@@ -35,10 +46,32 @@ export interface Props {
 }
 
 const { slots } = Astro.props
+
+/** Maps one coordinate onto a 0-100 percent point for the connecting line. */
+function linePercent(value: number, max: number): number {
+    return max > 0 ? (value / max) * 100 : 50
+}
+
+const maxX = Math.max(...slots.map((slot) => slot.x))
+const maxY = Math.max(...slots.map((slot) => slot.y))
+const linePoints = slots
+    .map((slot) => `${linePercent(slot.x, maxX)},${linePercent(slot.y, maxY)}`)
+    .join(' ')
 ---
 
 <div class="spread-layout">
-    {slots.map((slot) => (
+    {slots.length > 1 && (
+        <svg
+            class="spread-layout__geometry"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <polyline points={linePoints} fill="none" stroke="currentColor" />
+        </svg>
+    )}
+    {slots.map((slot, index) => (
         <div
             class="spread-layout__slot"
             data-testid="spread-position"
@@ -48,9 +81,20 @@ const { slots } = Astro.props
             data-reversed={String(slot.reversed)}
             style={`--slot-column: ${slot.x + 1}; --slot-row: ${slot.y + 1};`}
         >
-            <p class="spread-layout__label eyebrow">{slot.label}</p>
+            <p class="spread-layout__label eyebrow">
+                <span class="spread-layout__index" aria-hidden="true">
+                    {toRoman(index + 1)}
+                </span>
+                {slot.label}
+            </p>
             <a data-testid="spread-card-link" href={`/cards/${slot.card.id}/`}>
-                <CardImage id={slot.card.id} name={slot.card.name} />
+                <CardFrame suit={suitOf(slot.card) ?? 'major'}>
+                    <CardImage
+                        id={slot.card.id}
+                        name={slot.card.name}
+                        variant="thumb"
+                    />
+                </CardFrame>
                 <span class="spread-layout__name">{slot.card.name}</span>
             </a>
             {/*
@@ -73,11 +117,38 @@ const { slots } = Astro.props
 </div>
 
 <style>
+    /*
+     * The altar cloth: a sunken radial field the slots sit on, echoing
+     * `CardFrame`/`CardBack`'s own engraved-plate treatment at page scale.
+     */
     .spread-layout {
+        position: relative;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1.75rem 1.25rem;
         margin-block: 2.5rem 3rem;
+        padding: clamp(1.25rem, 4vw, 2.5rem);
+        background: radial-gradient(
+            ellipse at center,
+            var(--color-paper-sunk),
+            var(--color-paper) 70%
+        );
+        border: 1px solid var(--color-border);
+    }
+
+    /*
+     * A faint line through the positions in slot order — the geometry's
+     * own shape, never a separate decoration invented here. Sits behind
+     * the slots (`.spread-layout__slot` below is `z-index: 1`).
+     */
+    .spread-layout__geometry {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--color-accent-soft);
+        opacity: 0.4;
+        pointer-events: none;
     }
 
     .spread-layout__slot a {
@@ -86,22 +157,20 @@ const { slots } = Astro.props
     }
 
     /*
-     * Slot art is thumbnail-scale, unlike the single hero card on a card
-     * page, so the cross reads as a layout rather than five full-size cards
-     * stacked down the page.
+     * `CardFrame` already carries its own engraved-plate look (mat, gilt
+     * hairline, drop shadow, corner ornaments) from global.css — this
+     * component only adds the hover lift, targeting the frame's root via
+     * `:global()` because it is a separate component instance and never
+     * carries `SpreadLayout`'s own scope attribute.
      */
-    .spread-layout__slot :global([data-testid='card-image']) {
-        max-width: 100%;
-        margin-bottom: 0.6rem;
-        box-shadow: var(--shadow-2);
+    .spread-layout__slot :global([data-testid='card-frame']) {
         transition:
             transform 0.4s var(--ease-brand),
             box-shadow 0.4s var(--ease-brand);
     }
 
-    .spread-layout__slot a:hover :global([data-testid='card-image']) {
+    .spread-layout__slot a:hover :global([data-testid='card-frame']) {
         transform: translateY(-3px);
-        box-shadow: var(--shadow-3);
     }
 
     .spread-layout__name {
@@ -110,6 +179,7 @@ const { slots } = Astro.props
         font-size: 1.05rem;
         color: var(--color-ink);
         letter-spacing: -0.01em;
+        margin-top: 0.6rem;
     }
 
     .spread-layout__slot a:hover .spread-layout__name {
@@ -117,7 +187,16 @@ const { slots } = Astro.props
     }
 
     .spread-layout__label {
+        position: relative;
+        z-index: 1;
         margin-bottom: 0.5rem;
+    }
+
+    /* Roman numeral folio, the same decorative device as the deck index
+     * and the card detail page's symbol walkthrough (`toRoman`). */
+    .spread-layout__index {
+        margin-right: 0.5em;
+        color: var(--color-accent);
     }
 
     .spread-layout__meaning {
@@ -127,6 +206,8 @@ const { slots } = Astro.props
     }
 
     .spread-layout__slot {
+        position: relative;
+        z-index: 1;
         grid-column: var(--slot-column);
         grid-row: var(--slot-row);
     }
@@ -135,6 +216,10 @@ const { slots } = Astro.props
         .spread-layout {
             display: flex;
             flex-direction: column;
+        }
+
+        .spread-layout__geometry {
+            display: none;
         }
 
         .spread-layout__slot {

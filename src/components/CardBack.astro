@@ -1,0 +1,45 @@
+---
+import Ornament from './Ornament.astro'
+
+/**
+ * The face-down card, shown before a reveal (daily draw, spread slots
+ * before their flip). Purely decorative — the name/meaning is announced
+ * once the card is turned, never here — so the whole plate is
+ * `aria-hidden` and carries no `alt`-bearing image.
+ */
+---
+
+<div class="plate" data-testid="card-back" aria-hidden="true">
+    <svg class="card-back-art" viewBox="0 0 110 190">
+        <g fill="none" stroke="currentColor">
+            <rect x="4" y="4" width="102" height="182" stroke-width=".8" />
+            <rect x="8" y="8" width="94" height="174" stroke-width=".4" />
+            <g transform="translate(55 95)" stroke-width=".5">
+                <circle r="38" />
+                <circle r="34" stroke-dasharray="1 2" />
+                <circle r="14" />
+                <path d="M0-34 29.4 17 -29.4 17Z" />
+                <path d="M0 34 -29.4-17 29.4-17Z" />
+                <circle r="3" fill="currentColor" />
+                <path d="M0-80v34M0 46v34" stroke-width=".4" />
+            </g>
+            <g stroke-width=".5">
+                <path
+                    d="M55 18l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"
+                    fill="currentColor"
+                />
+                <path
+                    d="M55 158l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"
+                    fill="currentColor"
+                />
+            </g>
+            <g stroke-width=".5">
+                <path d="M8 20h8v-8M102 20h-8v-8M8 170h8v8M102 170h-8v8" />
+            </g>
+        </g>
+    </svg>
+    <Ornament kind="corner" class="corner corner-tl" />
+    <Ornament kind="corner" class="corner corner-tr" />
+    <Ornament kind="corner" class="corner corner-bl" />
+    <Ornament kind="corner" class="corner corner-br" />
+</div>

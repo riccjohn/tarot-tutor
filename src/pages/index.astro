@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import DailyDraw from '../components/islands/DailyDraw'
+import Ornament from '../components/Ornament.astro'
 import type { ContentCollections } from '../lib/content/compose'
 import { localDateKey } from '../lib/draw'
 import BaseLayout from '../layouts/BaseLayout.astro'
@@ -37,5 +38,28 @@ const dateKey = localDateKey()
 ---
 
 <BaseLayout>
-    <DailyDraw dateKey={dateKey} collections={collections} client:idle />
+    <section class="daily-hero">
+        <Ornament kind="hero" class="daily-hero__sigil" />
+        <DailyDraw dateKey={dateKey} collections={collections} client:idle />
+    </section>
 </BaseLayout>
+
+<style>
+    /*
+     * Full-viewport hero: the sigil watermark's own look (faint wash,
+     * centred, oversized) is styled from global.css against
+     * `.daily-hero [data-testid='ornament']`, the same pattern
+     * `PageHeader.astro` already establishes for its own hero ornament —
+     * a class passed as a prop never receives this file's scope
+     * attribute, so a scoped rule here would silently never match it.
+     */
+    .daily-hero {
+        position: relative;
+        min-height: min(calc(100svh - 6rem), 52rem);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        overflow: hidden;
+        padding-block: 3rem;
+    }
+</style>

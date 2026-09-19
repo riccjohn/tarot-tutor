@@ -1,6 +1,17 @@
 ---
+import CardImage from '../../components/CardImage.astro'
+import Ornament from '../../components/Ornament.astro'
+import PageHeader from '../../components/PageHeader.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import { DECK, type Card } from '../../lib/deck'
+import {
+    DECK,
+    SUITS,
+    isMajor,
+    isMinor,
+    type Card,
+    type Suit,
+} from '../../lib/deck'
+import { toRoman } from '../../lib/ornament'
 
 export interface Props {
     /** Every deck card, in deck order, for the index to link to. */
@@ -13,24 +24,95 @@ export interface Props {
  * the real build must supply its own data. Tests pass `cards` explicitly.
  */
 const { cards = DECK } = Astro.props
+
+const majors = cards.filter(isMajor)
+
+function minorsFor(suit: Suit): Card[] {
+    return cards.filter((card) => isMinor(card) && card.suit === suit)
+}
+
+const SUIT_LABELS: Record<Suit, string> = {
+    wands: 'Wands',
+    cups: 'Cups',
+    swords: 'Swords',
+    pentacles: 'Pentacles',
+}
+
+/**
+ * The section heading's sigil. `CardFrame` is deliberately not used for
+ * these thumbnails: its root always carries its own `data-suit` attribute
+ * (defaulting to `"major"`, see `card-presentation.test.ts`), and nesting
+ * 78 of those inside these five `[data-suit]` sections would make every
+ * suit's section match `[data-suit]` dozens of times over, not once —
+ * breaking the sectioned-index contract in `cards-index.test.ts`, which
+ * expects exactly five such elements. The plate look comes from
+ * `.card-index__thumb` below instead, styled the same way `CardFrame`'s
+ * `[data-testid="card-frame"]` is in `global.css`.
+ */
 ---
 
 <BaseLayout title="All Cards">
-    <p class="eyebrow">The deck</p>
-    <h1>Seventy-eight cards</h1>
+    <PageHeader eyebrow="The deck" title="Seventy-eight cards" />
     <p class="card-index__lede">
         Twenty-two majors, then four suits of fourteen. Every minor card is its
         suit and its number combined, which is why forty written pieces cover
         all seventy-eight.
     </p>
 
-    <ul class="card-index" data-testid="card-index">
-        {cards.map((card) => (
-            <li>
-                <a href={`/cards/${card.id}/`}>{card.name}</a>
-            </li>
+    <div class="card-index" data-testid="card-index">
+        <section class="card-index__section" data-suit="major">
+            <div class="card-index__heading">
+                <Ornament kind="hero" class="card-index__sigil" />
+                <h2>Major Arcana</h2>
+            </div>
+            <ul class="card-index__grid">
+                {majors.map((card) => (
+                    <li>
+                        <a href={`/cards/${card.id}/`}>
+                            <span class="card-index__thumb">
+                                <CardImage
+                                    id={card.id}
+                                    name={card.name}
+                                    variant="thumb"
+                                />
+                            </span>
+                            <span class="card-index__folio" aria-hidden="true">
+                                {toRoman(card.number)}
+                            </span>
+                            <span class="card-index__name">{card.name}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </section>
+
+        {SUITS.map((suit) => (
+            <section class="card-index__section" data-suit={suit}>
+                <div class="card-index__heading">
+                    <Ornament kind={suit} class="card-index__sigil" />
+                    <h2>{SUIT_LABELS[suit]}</h2>
+                </div>
+                <ul class="card-index__grid">
+                    {minorsFor(suit).map((card) => (
+                        <li>
+                            <a href={`/cards/${card.id}/`}>
+                                <span class="card-index__thumb">
+                                    <CardImage
+                                        id={card.id}
+                                        name={card.name}
+                                        variant="thumb"
+                                    />
+                                </span>
+                                <span class="card-index__name">
+                                    {card.name}
+                                </span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </section>
         ))}
-    </ul>
+    </div>
 </BaseLayout>
 
 <style>
@@ -39,48 +121,92 @@ const { cards = DECK } = Astro.props
         margin-bottom: 2.5rem;
     }
 
+    .card-index__section {
+        margin-bottom: 3.5rem;
+    }
+
+    .card-index__heading {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-index__heading h2 {
+        margin: 0;
+    }
+
+    .card-index__sigil {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: var(--color-accent);
+        flex-shrink: 0;
+    }
+
     /*
-     * A 78-item bullet list is a wall. Columns turn it into something
-     * scannable, and the deck's own order (majors, then suit by suit) gives
-     * it structure without needing headings.
+     * The deck grid. Thumbnails read as a plate (mat, gilt hairline, drop
+     * shadow) matching `[data-testid="card-frame"]`'s own look in
+     * global.css, without using that component — see the note above.
      */
-    .card-index {
+    .card-index__grid {
         list-style: none;
         margin: 0;
         padding: 0;
-        columns: 1;
-        column-gap: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
-    .card-index li {
-        break-inside: avoid;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .card-index a {
+    .card-index__grid a {
         display: block;
-        padding-block: 0.6rem;
-        color: var(--color-ink);
         text-decoration: none;
-        transition:
-            color 0.25s var(--ease-brand),
-            padding-left 0.25s var(--ease-brand);
+        color: var(--color-ink);
     }
 
-    .card-index a:hover {
+    .card-index__thumb {
+        position: relative;
+        display: block;
+        background-color: var(--color-paper);
+        padding: 6px;
+        border: 1px solid var(--color-accent-soft);
+        box-shadow:
+            0 0 0 3px var(--color-paper),
+            0 0 0 4px var(--color-border);
+        margin-bottom: 0.6rem;
+        transition: box-shadow 0.25s var(--ease-brand);
+    }
+
+    .card-index__grid a:hover .card-index__thumb,
+    .card-index__grid a:focus-visible .card-index__thumb {
+        box-shadow:
+            0 0 0 3px var(--color-paper),
+            0 0 0 4px var(--color-accent-soft);
+    }
+
+    .card-index__folio {
+        font-family: var(--font-label);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
         color: var(--color-accent);
-        padding-left: 0.4rem;
+        margin-right: 0.4em;
+    }
+
+    .card-index__name {
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        letter-spacing: -0.01em;
     }
 
     @media (min-width: 34rem) {
-        .card-index {
-            columns: 2;
+        .card-index__grid {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 
     @media (min-width: 60rem) {
-        .card-index {
-            columns: 3;
+        .card-index__grid {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 </style>

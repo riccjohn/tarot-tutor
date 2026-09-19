@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets'
 import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from '../config/site'
@@ -30,16 +31,15 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL)
         <link rel="canonical" href={canonicalUrl} />
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@300;400;600&family=DM+Mono:wght@400&display=swap"
-        />
+        <meta name="theme-color" content="#0F0C0A" />
+        <Font cssVariable="--font-fraunces" preload />
+        <Font cssVariable="--font-cinzel" preload />
+        <Font cssVariable="--font-cormorant" preload />
+        <Font cssVariable="--font-unifraktur" />
     </head>
     <body>
         <SiteHeader />
-        <main>
+        <main class="shell">
             <slot />
         </main>
         <SiteFooter />

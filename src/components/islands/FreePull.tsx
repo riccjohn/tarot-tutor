@@ -3,6 +3,7 @@ import type { ComposedCard } from '../../lib/content/compose'
 import type { Card } from '../../lib/deck'
 import { drawFreely, type Draw } from '../../lib/draw'
 import { getCardImage } from '../../lib/images'
+import CardPlate from './CardPlate'
 
 /**
  * The self-directed reading page's island: unlike the daily draw, every
@@ -45,8 +46,12 @@ export interface FreePullProps {
  * arc context for majors), then the symbol walkthrough, then the common
  * reading, then the invitation prompt.
  *
- * Astro components cannot be rendered inside a React island, so this
- * mirrors `CardSections.astro`'s markup contract (same `data-testid`s, same
+ * The card's own art is rendered through `CardPlate` (Phase 7), the same
+ * frame-and-stage markup the daily draw uses — `revealed` defaults to
+ * `true` there, so a pulled card appears already face-up with no flip
+ * animation, cooler than the daily draw's turning ritual. Astro components
+ * cannot be rendered inside a React island, so the sections below still
+ * mirror `CardSections.astro`'s markup contract (same `data-testid`s, same
  * relative order) rather than reusing it directly. `CardSections.astro`
  * remains the ordering authority for card pages; if its order ever changes,
  * this must change with it.
@@ -61,6 +66,7 @@ function DrawnCard({
     const composed = compose(draw.card)
     const { card, own, suit, number, rank, majorArc } = composed
     const image = getCardImage(card.id)
+    const cardSuit = suit?.suit ?? 'major'
 
     return (
         <div
@@ -83,16 +89,12 @@ function DrawnCard({
 
             <h1 data-testid="card-name">{card.name}</h1>
 
-            <img
-                data-testid="card-image"
-                src={image.src}
-                srcSet={image.srcset}
-                sizes={image.sizes}
-                width={image.width}
-                height={image.height}
-                alt={`${card.name} tarot card`}
-                loading="lazy"
-                decoding="async"
+            <CardPlate
+                suit={cardSuit}
+                cardId={card.id}
+                cardName={card.name}
+                image={image}
+                reversed={draw.reversed}
             />
 
             {suit && (
@@ -168,13 +170,15 @@ export default function FreePull({
             <button type="button" onClick={() => setDraws(draw(count))}>
                 Pull
             </button>
-            {draws.map((d) => (
-                <DrawnCard
-                    key={`${d.card.id}-${d.reversed}`}
-                    draw={d}
-                    compose={resolvedCompose}
-                />
-            ))}
+            <div data-testid="pull-row">
+                {draws.map((d) => (
+                    <DrawnCard
+                        key={`${d.card.id}-${d.reversed}`}
+                        draw={d}
+                        compose={resolvedCompose}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
