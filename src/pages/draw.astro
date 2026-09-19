@@ -52,17 +52,5 @@ for (const card of DECK) {
 -->
 <BaseLayout title="Free Pull">
     <PageHeader eyebrow="Self-directed reading" title="Free pull" />
-    <p class="draw-lede">
-        Pull one card, or several — as many times as you like. Nothing here is
-        locked to today.
-    </p>
     <FreePull composedById={composedById} client:idle />
 </BaseLayout>
-
-<style>
-    .draw-lede {
-        max-width: 46ch;
-        color: var(--color-ink-soft);
-        margin-block: -0.5rem 1rem;
-    }
-</style>
