@@ -19,7 +19,7 @@ export interface LearnIndexEntry {
     description: string
     /** Declared position in the track. The index must sort by this, not by filesystem or alphabetical order. */
     order: number
-    status: 'draft' | 'edited'
+    status: 'draft' | 'review' | 'edited'
 }
 
 export interface Props {

@@ -8,7 +8,7 @@ export interface Props {
 const { status } = Astro.props
 ---
 
-{status === 'draft' && (
+{status !== 'edited' && (
     <p data-testid="draft-badge">
         Draft — this reading is still being written and may change.
     </p>

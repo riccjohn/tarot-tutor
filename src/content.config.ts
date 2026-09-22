@@ -6,7 +6,7 @@ import { COURT_RANKS, PIP_RANKS, SUITS } from './lib/deck'
  * Content is drafted first and edited afterwards, so every piece tracks its own
  * state. The UI marks drafts honestly rather than passing them off as finished.
  */
-const status = z.enum(['draft', 'edited']).default('draft')
+const status = z.enum(['draft', 'review', 'edited']).default('draft')
 
 /**
  * The 78 per-card pieces.

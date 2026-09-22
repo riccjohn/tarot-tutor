@@ -74,7 +74,7 @@ function DrawnCard({
             data-card-id={card.id}
             data-reversed={String(draw.reversed)}
         >
-            {composed.status === 'draft' && (
+            {composed.status !== 'edited' && (
                 <p data-testid="draft-badge">
                     Draft — this reading is still being written and may change.
                 </p>
