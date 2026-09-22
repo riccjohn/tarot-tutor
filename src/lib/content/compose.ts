@@ -25,7 +25,7 @@ import {
 } from '../deck'
 
 /** Content is drafted first and edited afterwards; every piece tracks which. */
-export type PieceStatus = 'draft' | 'edited'
+export type PieceStatus = 'draft' | 'review' | 'edited'
 
 /**
  * A minimal stand-in for an Astro content collection entry: an id plus its
@@ -146,7 +146,8 @@ export interface ComposedCard {
  * present in `collections`.
  */
 function weakest(statuses: PieceStatus[]): PieceStatus {
-    return statuses.includes('draft') ? 'draft' : 'edited'
+    if (statuses.includes('draft')) return 'draft'
+    return statuses.includes('review') ? 'review' : 'edited'
 }
 
 export function composeCard(

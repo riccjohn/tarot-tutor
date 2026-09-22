@@ -1,36 +1,43 @@
 ---
 name: Past, Present, Direction
 cardCount: 3
-summary: Three cards laid left to right, tracing where a situation came
-    from, where it stands now, and where it's currently leaning.
+summary: Three cards laid left to right. The first holds what the situation
+    grew out of, the second what it is now, the third where it currently
+    leans.
 positions:
     - label: Past
-      meaning: What's already settled or already happened, feeding into the
-          situation as it stands now. Not a verdict on the past — just the
-          part of it still doing work in the present.
+      meaning: What has already happened or settled and still feeds the
+          situation. This is not a verdict on the past. It is the part of it
+          still at work today.
       x: 0
       y: 0
     - label: Present
-      meaning: What the situation actually looks like right now, stripped
-          of momentum from either side. Often the card worth sitting with
-          longest, since it's the one describing the least settled ground.
+      meaning: The situation as it stands now, without momentum from either
+          side. It is often the card to sit with longest, because it
+          describes the least settled ground.
       x: 1
       y: 0
     - label: Direction
-      meaning: Not a fixed outcome — a reading of where things are leaning
-          if nothing changes. Treated as one likely direction among others,
-          not a prediction the reader is bound to.
+      meaning: Where things lean if nothing changes. It is not an outcome. It
+          is one likely course among several, and nothing binds you to it.
       x: 2
       y: 0
-variantNote: The same three-position layout is widely taught under other
-    labels, most commonly Situation / Action / Outcome. The positions carry
-    the same weight either way; only the framing language differs.
+variantNote: Three cards in a row is one of the most widely taught layouts,
+    and its labels are contested. Past, Present, Direction is the version
+    this site uses. Others read the same row as Situation, Action, Outcome,
+    or as Mind, Body, Spirit, which changes the question the row asks and not
+    its shape. This site's version follows time, and readers who prefer
+    another set of labels are reading a different spread on the same
+    geometry.
 order: 2
-status: draft
+status: review
 ---
 
-A step up from a single card without the density of a larger spread: three
-positions in a row, each reframing the same situation from a different point
-in its timeline. The middle position tends to be the most informative,
-precisely because it isn't doing the easier work of narrating a settled past
-or a hoped-for future — it's stating what's actually true right now.
+Three positions in a row, each looking at the same situation from a different
+point in its timeline. It is a step up from a single card without the density
+of a larger spread.
+
+Cards are read left to right, but the middle one usually does the most work.
+The Past card narrates what is settled and the Direction card looks ahead,
+while the Present card states what is true right now. Read it first if you
+are short on time, then read outward from it.
