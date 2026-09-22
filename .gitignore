@@ -28,3 +28,9 @@ pnpm-debug.log*
 .light
 # yaks task graph
 .yaks/
+
+# agent harness: the committed parts are .claude/settings.json and
+# .claude/hooks/. Worktrees are scratch checkouts and personal settings
+# overrides are per-machine, so neither belongs in the repo.
+.claude/worktrees/
+.claude/settings.local.json
