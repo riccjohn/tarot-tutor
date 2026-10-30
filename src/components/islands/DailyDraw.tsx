@@ -67,17 +67,14 @@ const NOSCRIPT_REVEAL_CSS = `
 `.trim()
 
 /**
- * Renders one drawn card's teaching content in the same locked order as
- * `src/components/CardSections.astro`: image, then whichever structural
+ * Renders one drawn card's teaching content in the locked order pinned by
+ * `src/pages/__tests__/section-order-contract.ts`: image, then whichever structural
  * section(s) its kind carries (suit+number for pips, suit+rank for courts,
  * arc context for majors), then the symbol walkthrough, then the common
  * reading, then the invitation prompt.
  *
- * Astro components cannot be rendered inside a React island, so this
- * mirrors `CardSections.astro`'s markup contract (same `data-testid`s, same
- * relative order) rather than reusing it directly. `CardSections.astro`
- * remains the ordering authority for card pages; if its order ever changes,
- * this must change with it.
+ * `FreePull.tsx` emits the same contract; if the order ever changes, both
+ * must change.
  *
  * The card's own art (`card-image`) is rendered by `CardPlate`, not here —
  * this only renders the sections that follow it.

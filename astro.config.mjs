@@ -48,14 +48,5 @@ export default defineConfig({
             styles: ['normal', 'italic'],
             fallbacks: ['Georgia', 'serif'],
         },
-        {
-            provider: fontProviders.google(),
-            name: 'UnifrakturMaguntia',
-            cssVariable: '--font-unifraktur',
-            // Wordmark and lesson drop caps only — a single static weight.
-            weights: [400],
-            styles: ['normal'],
-            fallbacks: ['serif'],
-        },
     ],
 })

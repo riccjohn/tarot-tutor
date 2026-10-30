@@ -21,19 +21,16 @@
 
 @theme {
     /*
-     * Four voices, each doing one job. Cinzel sets labels, numerals and
+     * Three voices, each doing one job. Cinzel sets labels, numerals and
      * nav (small caps energy without faking small caps). Cormorant
-     * Garamond's genuine italic carries headings and card names at 40px
-     * and up. Fraunces sets body copy. UnifrakturMaguntia is reserved for
-     * the wordmark and lesson drop caps — never for word-scale body text.
-     * All four are self-hosted and preloaded through the Astro Fonts API
+     * Garamond's genuine italic carries the wordmark, headings and card
+     * names. Fraunces sets body copy. All three are self-hosted and preloaded through the Astro Fonts API
      * (see the `fonts:` array in astro.config.mjs and `<Font>` in
      * BaseLayout.astro), never a Google Fonts <link>.
      */
     --font-label: var(--font-cinzel), Georgia, serif;
     --font-display: var(--font-cormorant), 'Iowan Old Style', Palatino, serif;
     --font-body: var(--font-fraunces), Georgia, serif;
-    --font-blackletter: var(--font-unifraktur), serif;
 
     /*
      * OKLCH throughout: perceptually even, no HSL blue-shift. Base palette
@@ -224,15 +221,19 @@
      * a page opts a child into a narrower span with `grid-column` inline
      * rather than the shell dictating one column width for every page.
      */
+    /* `--gutter` is in px (not rem) so scripts can read it back with
+     * `parseFloat` — the deck viewer bleeds its swipe tracks by it. */
     .shell {
+        --gutter: 16px;
         margin-inline: auto;
         max-width: 72rem;
-        padding-inline: 1rem;
+        padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+        padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
     }
 
     @media (min-width: 48rem) {
         .shell {
-            padding-inline: 2rem;
+            --gutter: 32px;
         }
     }
 
@@ -256,6 +257,13 @@
         }
     }
 
+    /* Full-screen tools lay themselves out; island wrappers are
+     * `display: contents`, so the 12-column grid would trap them in one. */
+    main.shell--flush {
+        display: block;
+        padding-block: 0;
+    }
+
     img {
         max-width: 100%;
         height: auto;
@@ -269,49 +277,6 @@
         text-transform: uppercase;
         color: var(--color-muted);
         margin-block: 0 0.5rem;
-    }
-
-    /*
-     * `PageHeader`'s background sigil: a faint wash behind the eyebrow and
-     * title, never a loud graphic. Targeted structurally (by the ornament's
-     * own `data-testid`, scoped under `.page-header`) rather than from a
-     * scoped style in `PageHeader.astro`, because the ornament is a
-     * separate `Ornament` component instance and a class passed to a child
-     * component as a prop never carries the parent's Astro style scope.
-     */
-    .page-header [data-testid='ornament'] {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        width: min(600px, 140%);
-        opacity: 0.06;
-        color: var(--color-accent);
-        pointer-events: none;
-    }
-
-    /* The footer's centred sigil, styled the same structural way and for
-     * the same reason as the page-header ornament above. */
-    .site-footer [data-testid='ornament'] {
-        width: 1.75rem;
-        height: 1.75rem;
-        color: var(--color-accent-soft);
-        margin-bottom: 1.25rem;
-    }
-
-    /*
-     * The daily-draw hero's watermark: larger and fainter than
-     * `PageHeader`'s (a full-viewport hero can carry a bigger, quieter
-     * mark), styled the same structural way and for the same reason.
-     */
-    .daily-hero [data-testid='ornament'] {
-        position: absolute;
-        width: min(900px, 140vw);
-        left: 50%;
-        top: 50%;
-        translate: -50% -50%;
-        opacity: 0.04;
-        color: var(--color-accent);
-        pointer-events: none;
     }
 
     [data-testid='roman-date'] {
@@ -367,8 +332,7 @@
      * sections read as one.
      */
     [data-testid='reversal-note'],
-    [data-testid='reversal-badge'],
-    [data-testid='spread-reversal-note'] {
+    [data-testid='reversal-badge'] {
         display: block;
         max-width: 34ch;
         margin-block: -1.25rem 2rem;
@@ -411,130 +375,14 @@
         border-top: 1px solid var(--color-border);
     }
 
-    /* --- Index listings (spreads, learn) --- */
-    [data-testid='spread-index-entry'],
-    [data-testid='learn-index-entry'] {
-        display: block;
-        padding-block: 1.1rem;
-        border-bottom: 1px solid var(--color-border);
-        color: var(--color-ink);
-        font-family: var(--font-display);
-        font-size: 1.35rem;
-        letter-spacing: -0.015em;
-        text-decoration: none;
-        transition:
-            color 0.25s var(--ease-brand),
-            padding-left 0.25s var(--ease-brand);
-    }
-
-    [data-testid='spread-index-entry']:hover,
-    [data-testid='learn-index-entry']:hover {
-        color: var(--color-accent);
-        padding-left: 0.4rem;
-    }
-
-    [data-testid='spread-extends'] {
-        display: block;
-        font-family: var(--font-label);
-        font-size: 0.7rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--color-muted);
-        margin-block: -0.5rem 0.75rem;
-    }
-
-    /* --- Variant notes: contested material, shown as disagreement --- */
-    [data-testid='spread-variant-note'] {
-        margin-top: 2.5rem;
-        padding: 1.1rem 1.25rem;
-        background-color: var(--color-paper-sunk);
-        border-left: 2px solid var(--color-border);
-        color: var(--color-ink-soft);
-        font-size: 0.92rem;
-        max-width: none;
-    }
-
-    /* --- Learn entry navigation --- */
-    [data-testid='learn-prev-link'],
-    [data-testid='learn-next-link'] {
-        font-size: 0.9rem;
-    }
-
-    /*
-     * The lesson body reads as a manuscript page: a sunken panel measured
-     * to a comfortable prose width, set apart from the page ground the
-     * title/description sit on. Its content arrives via `set:html` (raw
-     * markdown-rendered HTML the Astro compiler never sees), so every rule
-     * below is structural, against the `data-testid` contract, rather than
-     * a scoped style in `[slug].astro` — a scoped selector there would
-     * never match this content, the same reason the drop-cap rule already
-     * lived here before this phase.
-     */
-    [data-testid='learn-body'] {
-        max-width: 62ch;
-        margin-top: 2rem;
-        padding: clamp(1.5rem, 5vw, 3rem);
-        background-color: var(--color-ink-850);
-        border: 1px solid var(--color-border);
-    }
-
-    [data-testid='learn-body'] > :last-child {
-        margin-bottom: 0;
-    }
-
-    /*
-     * The one other place UnifrakturMaguntia appears (besides the
-     * wordmark): a manuscript drop cap on the lesson's opening paragraph.
-     */
-    [data-testid='learn-body'] > p:first-of-type::first-letter {
-        float: left;
-        font-family: var(--font-blackletter);
-        font-size: 4.6em;
-        line-height: 0.82;
-        padding: 0.06em 0.12em 0 0;
-        color: var(--color-accent);
-    }
-
-    /* Chapter headings inside the lesson body get a gilt rule beneath them. */
-    [data-testid='learn-body'] h2 {
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid var(--color-accent-soft);
-    }
-
-    /* A quoted aside, set off with a gilt hairline rather than quote marks. */
-    [data-testid='learn-body'] blockquote {
-        margin: 2rem 0;
-        padding: 0.2rem 0 0.2rem 1.4rem;
-        border-left: 1px solid var(--color-accent);
-        font-style: italic;
-        color: var(--color-ink-soft);
-    }
-
-    [data-testid='learn-body'] ul {
-        padding-left: 1.2rem;
-    }
-
-    [data-testid='learn-body'] li {
-        margin-bottom: 0.5rem;
-    }
-
-    [data-testid='learn-body'] li::marker {
-        content: '\2726  ';
-        color: var(--color-accent);
-        font-size: 0.7em;
-    }
 }
 
 /*
  * The card unit, styled against its `data-testid` contract rather than in a
  * scoped block.
  *
- * `CardSections.astro` and the two React islands emit the same contract by
- * design, because an Astro component cannot render inside a React island.
- * Scoped `<style>` in the Astro component therefore reached the card pages
- * and silently missed the home page and /draw entirely — the card rendered
- * at full source width there. Styling the contract keeps the three renderers
- * looking like one product.
+ * `DailyDraw.tsx` and `FreePull.tsx` emit the same contract, and React
+ * islands cannot carry scoped `<style>`, so the contract is styled here.
  */
 @layer components {
     [data-testid='card-image'] {
@@ -623,31 +471,15 @@
 }
 
 /*
- * Card presentation primitives (Phase 3): the reversed rotation, the
- * engraved `.plate` frame shared by `CardFrame` and `CardBack`, their
- * corner ornaments, and the muted-thumb treatment for deck-grid listings.
- * Rules target the components' `data-testid` contract, matching the
- * pattern above rather than scoped `<style>`, since `CardImage` is reused
- * bare (no frame) on some pages and framed on others.
+ * Card presentation primitives: the reversed rotation, and the engraved
+ * plate frame and corner ornaments `CardPlate.tsx` draws on its front and
+ * back faces. Rules target its `data-testid` contract, matching the pattern
+ * above.
  */
 @layer components {
     /* Reversal rotates the art element itself, never a wrapping container. */
     [data-testid='card-image'][data-reversed='true'] {
         rotate: 180deg;
-    }
-
-    /*
-     * Thumbs sleep in muted tone until the link they sit inside is hovered
-     * or focused, when the plate wakes to full colour.
-     */
-    [data-testid='card-image'][data-variant='thumb'] {
-        filter: sepia(0.4) saturate(0.6) brightness(0.8) contrast(1.05);
-        transition: filter 0.35s var(--ease-brand);
-    }
-
-    a:hover [data-testid='card-image'][data-variant='thumb'],
-    a:focus-visible [data-testid='card-image'][data-variant='thumb'] {
-        filter: none;
     }
 
     /* The engraved plate frame: a dark mat, gilt hairline, deep drop shadow. */
@@ -990,5 +822,414 @@
             flex-wrap: wrap;
             overflow-x: visible;
         }
+    }
+}
+
+/*
+ * The deck viewer (`DeckViewer.tsx`): filter chips and zoom in a sticky
+ * toolbar, over a grid, a single-card swipe track, or the suit-compare
+ * table. Swipe tracks bleed to the screen edge by `--gutter`.
+ */
+@layer components {
+    .deck-viewer {
+        --bleed: calc(-1 * var(--gutter));
+    }
+
+    .deck-viewer__toolbar {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 5;
+        display: grid;
+        gap: 0.5rem;
+        margin-inline: var(--bleed);
+        padding: 0.35rem var(--gutter) 0.6rem;
+        background-color: var(--color-paper);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .deck-viewer__chips {
+        display: flex;
+        gap: 0.4rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin-inline: var(--bleed);
+        padding-inline: var(--gutter);
+    }
+
+    .deck-viewer__chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .deck-viewer button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .deck-viewer .deck-viewer__chip {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--font-label);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        line-height: 1;
+        padding: 0.55rem 0.8rem;
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        color: var(--color-ink-soft);
+    }
+
+    .deck-viewer__chip .suit-sigil {
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+
+    .deck-viewer .deck-viewer__chip[aria-pressed='true'] {
+        color: var(--color-paper);
+        background-color: var(--color-ink);
+        border-color: var(--color-ink);
+    }
+
+    .deck-viewer__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        min-height: 2.15rem;
+    }
+
+    .deck-viewer__segment {
+        display: inline-flex;
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .deck-viewer .deck-viewer__segment button {
+        font-family: var(--font-label);
+        font-size: 0.66rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 0.45rem 0.65rem;
+        color: var(--color-muted);
+    }
+
+    .deck-viewer .deck-viewer__segment button[aria-pressed='true'] {
+        background-color: var(--color-paper-sunk);
+        color: var(--color-accent);
+    }
+
+    .deck-viewer__count,
+    .deck-viewer__zoom output,
+    .deck-viewer__position {
+        font-family: var(--font-label);
+        font-size: 0.66rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .deck-viewer__zoom {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.15rem;
+        margin-left: auto;
+    }
+
+    .deck-viewer__zoom output {
+        min-width: 4.2rem;
+        text-align: center;
+        white-space: nowrap;
+        color: var(--color-ink-soft);
+    }
+
+    .deck-viewer .deck-viewer__zoom button,
+    .deck-viewer .deck-viewer__arrows button {
+        width: 2.15rem;
+        height: 2.15rem;
+        border: 1px solid var(--color-border);
+        border-radius: 50%;
+        font-size: 1.15rem;
+        line-height: 1;
+        color: var(--color-ink);
+    }
+
+    .deck-viewer .deck-viewer__arrows button {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .deck-viewer .deck-viewer__zoom button:disabled,
+    .deck-viewer .deck-viewer__arrows button:disabled {
+        color: var(--color-border);
+        cursor: default;
+    }
+
+    .deck-viewer__stage {
+        padding-block: 1rem 2.5rem;
+    }
+
+    /* --- Card button, shared by every presentation --- */
+    .deck-viewer .deck-viewer__card {
+        display: grid;
+        gap: 0.35rem;
+        width: 100%;
+        text-align: left;
+    }
+
+    .deck-viewer__art {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: var(--aspect-card);
+        object-fit: cover;
+        border-radius: 4px;
+        background-color: var(--color-paper-sunk);
+        box-shadow:
+            0 0 0 1px var(--color-border),
+            var(--shadow-2);
+        transition:
+            transform 0.25s var(--ease-brand),
+            box-shadow 0.25s var(--ease-brand);
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .deck-viewer__card:hover .deck-viewer__art {
+        box-shadow:
+            0 0 0 1px var(--color-accent-soft),
+            var(--shadow-2);
+    }
+
+    .deck-viewer__card:active .deck-viewer__art {
+        transform: scale(0.97);
+    }
+
+    .deck-viewer__name {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 0.98rem;
+        line-height: 1.15;
+        color: var(--color-ink-soft);
+    }
+
+    /* --- Grid --- */
+    .deck-viewer__grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+        gap: calc(1.4rem - var(--cols) * 0.12rem)
+            calc(1rem - var(--cols) * 0.09rem);
+    }
+
+    .deck-viewer__group {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+    }
+
+    .deck-viewer__group:first-child {
+        padding-top: 0;
+    }
+
+    .deck-viewer__group .suit-sigil {
+        width: 0.9rem;
+        height: 0.9rem;
+        flex: none;
+    }
+
+    .deck-viewer__group h2 {
+        margin: 0;
+        font-family: var(--font-label);
+        font-style: normal;
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: inherit;
+    }
+
+    .deck-viewer__group::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background-color: var(--color-border);
+    }
+
+    /* --- Single card --- */
+    .deck-viewer__one-up {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .deck-viewer__track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+        margin-inline: var(--bleed);
+    }
+
+    .deck-viewer__track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .deck-viewer__slide {
+        flex: 0 0 100%;
+        display: grid;
+        place-items: center;
+        padding-inline: var(--gutter);
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .deck-viewer__slide .deck-viewer__art {
+        width: auto;
+        height: var(--slide-h);
+        border-radius: 8px;
+    }
+
+    .deck-viewer__caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .deck-viewer__caption p {
+        margin: 0;
+    }
+
+    .deck-viewer__title {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.6rem;
+        line-height: 1.1;
+        text-wrap: balance;
+    }
+
+    .deck-viewer__arrows {
+        display: flex;
+        gap: 0.4rem;
+        flex: none;
+    }
+
+    /* --- Compare suits --- */
+    .deck-viewer__compare-scroller {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        margin-inline: var(--bleed);
+    }
+
+    .deck-viewer__compare-scroller::-webkit-scrollbar {
+        display: none;
+    }
+
+    .deck-viewer__compare-table {
+        display: grid;
+        grid-template-columns: var(--label-w) repeat(14, var(--col-w));
+        row-gap: var(--row-gap);
+        width: max-content;
+        padding-right: var(--gutter);
+    }
+
+    .deck-viewer__compare-row {
+        display: contents;
+    }
+
+    .deck-viewer__corner,
+    .deck-viewer__suit {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        padding-left: var(--gutter);
+        background-color: var(--color-paper);
+    }
+
+    .deck-viewer__rank {
+        text-align: center;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: var(--color-ink);
+        scroll-margin-left: var(--label-w);
+    }
+
+    .deck-viewer__rank[data-snap='true'] {
+        scroll-snap-align: start;
+    }
+
+    .deck-viewer__suit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        box-shadow: 8px 0 10px -6px var(--color-paper);
+    }
+
+    .deck-viewer__suit span {
+        writing-mode: vertical-rl;
+        rotate: 180deg;
+        font-family: var(--font-label);
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .deck-viewer__suit .suit-sigil {
+        width: 0.85rem;
+        height: 0.85rem;
+    }
+
+    .deck-viewer__cell {
+        display: grid;
+        place-items: center;
+        padding-inline: 4px;
+    }
+
+    .deck-viewer__cell .deck-viewer__card {
+        width: auto;
+    }
+
+    .deck-viewer__cell .deck-viewer__art {
+        width: auto;
+        height: var(--card-h);
+    }
+
+    .deck-viewer__pager {
+        display: flex;
+        justify-content: center;
+        gap: 0.4rem;
+        padding-top: 0.75rem;
+    }
+
+    .deck-viewer__pager i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--color-border);
+        transition: background-color 0.2s var(--ease-brand);
+    }
+
+    .deck-viewer__pager i[data-on='true'] {
+        background-color: var(--color-accent);
     }
 }
