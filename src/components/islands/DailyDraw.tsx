@@ -2,7 +2,11 @@
  * The home-page island: one card locked to today's local date, with an
  * optional second card.
  *
- * Card selection is driven entirely by the `dateKey` prop through
+ * The page mounts this `client:only`, without a `dateKey`, so the date is
+ * the visitor's own local day when they open it — never the day the static
+ * site was built. Tests pass a fixed `dateKey` instead.
+ *
+ * Card selection is driven entirely by that date key through
  * `drawForDate` from `src/lib/draw.ts` — no `Math.random()` on this path, no
  * duplicate randomness inside the island. The primary card is drawn with
  * `drawForDate(DAILY_SPREAD_ID, 1, dateKey)`; the optional second card, once
@@ -33,7 +37,7 @@ import {
     type ComposedCard,
     type ContentCollections,
 } from '../../lib/content/compose'
-import { drawForDate } from '../../lib/draw'
+import { drawForDate, localDateKey } from '../../lib/draw'
 import { getCardImage } from '../../lib/images'
 import { romanDate } from '../../lib/ornament'
 import CardPlate from './CardPlate'
@@ -45,8 +49,11 @@ export const DAILY_SPREAD_ID = 'daily'
 export const DAILY_SECOND_SPREAD_ID = 'daily-second'
 
 export interface DailyDrawProps {
-    /** Today's local date key (`YYYY-MM-DD`), injectable so tests never depend on the real clock. */
-    dateKey: string
+    /**
+     * Local date key (`YYYY-MM-DD`). Omit to use the visitor's clock; tests
+     * pass one so they never depend on the real date.
+     */
+    dateKey?: string
     /** The full set of source content collections `composeCard` draws from. */
     collections: ContentCollections
 }
@@ -162,7 +169,11 @@ function DrawnCardSections({
     )
 }
 
-export default function DailyDraw({ dateKey, collections }: DailyDrawProps) {
+export default function DailyDraw({
+    dateKey: fixedDateKey,
+    collections,
+}: DailyDrawProps) {
+    const [dateKey] = useState(() => fixedDateKey ?? localDateKey())
     const [revealed, setRevealed] = useState(false)
     const [showSecond, setShowSecond] = useState(false)
     const nameRef = useRef<HTMLHeadingElement>(null)
