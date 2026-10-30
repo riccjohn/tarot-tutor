@@ -7,7 +7,10 @@ import { defineConfig, fontProviders } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://dailytarottutor.com',
+    // Served from a subfolder on GitHub Pages; root-relative paths in the
+    // code go through `withBase` (src/lib/base.ts) to pick this up.
+    site: 'https://riccjohn.github.io',
+    base: '/tarot-tutor',
     // Static output: the same build serves the web PWA and, later, wraps
     // unchanged inside Capacitor for iOS/Android.
     output: 'static',

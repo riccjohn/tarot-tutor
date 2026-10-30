@@ -6,6 +6,7 @@
  */
 
 import cardImages from '../data/card-images.json'
+import { withBase } from './base'
 
 type CardImageManifest = typeof cardImages
 type ManifestEntry = CardImageManifest[keyof CardImageManifest]
@@ -35,13 +36,13 @@ export function getCardImage(id: string): CardImageAttrs {
     }
 
     const srcset = entry.avif
-        .map((rung) => `${rung.src} ${rung.width}w`)
+        .map((rung) => `${withBase(rung.src)} ${rung.width}w`)
         .join(', ')
 
     return {
         srcset,
         sizes: '(min-width: 48rem) 320px, 45vw',
-        src: entry.fallback.src,
+        src: withBase(entry.fallback.src),
         width: entry.fallback.width,
         height: entry.fallback.height,
     }

@@ -8,11 +8,13 @@ import {
     type ContentCollections,
 } from '../lib/content/compose'
 import { DECK } from '../lib/deck'
-import { localDateKey } from '../lib/draw'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 /**
  * Today's card, then a free pull underneath.
+ *
+ * `DailyDraw` is `client:only` so it reads today's date from the visitor's
+ * clock; rendered here at build time it would be stuck on the build day.
  *
  * `DailyDraw` takes the raw collections (plain `{ id, data }` entries, which
  * survive Astro's island prop serialization) and composes inside the island.
@@ -40,12 +42,11 @@ for (const card of DECK) {
     composedById[card.id] = composeCard(card, collections)
 }
 
-const dateKey = localDateKey()
 ---
 
 <BaseLayout title="Draw">
     <section class="draw-section">
-        <DailyDraw dateKey={dateKey} collections={collections} client:idle />
+        <DailyDraw collections={collections} client:only="react" />
     </section>
 
     <section class="draw-section">
