@@ -1,24 +1,27 @@
 ---
 import { SITE_NAME } from '../config/site'
+import { withBase } from '../lib/base'
 
 /**
  * The site's only navigation: a wordmark and two destinations, on one line
  * at every width so it costs as little height as possible above the cards.
  */
 
+const home = withBase('/')
 const links = [
-    { href: '/', label: 'Cards' },
-    { href: '/draw/', label: 'Draw' },
+    { href: home, label: 'Cards' },
+    { href: withBase('/draw/'), label: 'Draw' },
 ]
 
-/** `/` must match exactly, or it would claim every page. */
-const path = Astro.url.pathname
+/** Home must match exactly, or it would claim every page. */
+const trim = (value: string) => value.replace(/\/+$/, '')
+const path = trim(Astro.url.pathname)
 const isCurrent = (href: string) =>
-    href === '/' ? path === '/' : path.startsWith(href)
+    href === home ? path === trim(home) : path.startsWith(trim(href))
 ---
 
 <header class="site-header shell">
-    <a class="site-header__mark" href="/">
+    <a class="site-header__mark" href={home}>
         {SITE_NAME}
     </a>
 

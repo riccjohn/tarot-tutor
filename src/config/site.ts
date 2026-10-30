@@ -15,4 +15,4 @@ export const SITE_TAGLINE =
     'Learn to read tarot structurally: suit, number and symbol, not memorized meanings.'
 
 /** Canonical production URL, without a trailing slash. */
-export const SITE_URL = 'https://dailytarottutor.com'
+export const SITE_URL = 'https://riccjohn.github.io'

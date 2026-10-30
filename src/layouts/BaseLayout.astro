@@ -3,6 +3,7 @@ import { Font } from 'astro:assets'
 import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from '../config/site'
+import { withBase } from '../lib/base'
 import '../styles/global.css'
 
 interface Props {
@@ -29,7 +30,7 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL)
             content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
         <meta name="generator" content={Astro.generator} />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
         <link rel="canonical" href={canonicalUrl} />
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
