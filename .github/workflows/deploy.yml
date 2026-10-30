@@ -1,5 +1,7 @@
 # Builds the static site and publishes it to GitHub Pages
-# (https://riccjohn.github.io/tarot-tutor/) on every push to main.
+# (https://riccjohn.github.io/tarot-tutor/) on every push to main. Readers
+# reach it at https://arcanegrain.dev/tarot-tutor/ through the blog's
+# Netlify proxy.
 name: Deploy to GitHub Pages
 
 on:

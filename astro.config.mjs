@@ -7,9 +7,11 @@ import { defineConfig, fontProviders } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
-    // Served from a subfolder on GitHub Pages; root-relative paths in the
-    // code go through `withBase` (src/lib/base.ts) to pick this up.
-    site: 'https://riccjohn.github.io',
+    // Lives at arcanegrain.dev/tarot-tutor/. GitHub Pages hosts the build at
+    // riccjohn.github.io/tarot-tutor/, and the blog's Netlify `_redirects`
+    // proxies the path through, so both share this base. Root-relative
+    // paths in the code go through `withBase` (src/lib/base.ts).
+    site: 'https://arcanegrain.dev',
     base: '/tarot-tutor',
     // Static output: the same build serves the web PWA and, later, wraps
     // unchanged inside Capacitor for iOS/Android.
