@@ -35,21 +35,13 @@ import {
 } from './section-order-contract'
 
 /**
- * Home-page contract for the daily draw (Phase 7, L4 boundary).
+ * Contract for the daily draw (Phase 7, L4 boundary).
  *
- * This file exercises `DailyDraw` (a React island) two ways, per the plan's
- * architectural constraint:
- *
- * - "render the React island directly": via `@testing-library/react`'s
- *   `render`, which mounts real markup into jsdom so the second-card
- *   affordance can actually be clicked (`fireEvent.click`), not merely
- *   inspected as a static string.
- * - "render the page shell via astro/container": `CardSections.astro` (the
- *   component that already enforces the locked section order on every card
- *   page — see `card-page.test.ts`) is rendered through
- *   `experimental_AstroContainer` with the SAME composed card the island
- *   receives, so the two renderings' section order can be compared directly
- *   rather than asserted against each in isolation.
+ * This file renders `DailyDraw` (a React island) directly via
+ * `@testing-library/react`'s `render`, which mounts real markup into jsdom
+ * so the second-card affordance can actually be clicked (`fireEvent.click`),
+ * not merely inspected as a static string. Section order is pinned to the
+ * shared sequences in `./section-order-contract`.
  *
  * File is `.ts`, not `.tsx` — deliberately. Vite's default esbuild loader for
  * `.ts` files does not enable JSX, so this file uses `createElement` rather
@@ -355,14 +347,8 @@ describe('daily draw: optional second card', () => {
 
 describe('daily draw: locked section order matches a card page', () => {
     /*
-        This file cannot render `CardSections.astro` to compare the two
-        renderers directly: importing a `.astro` component while a DOM
-        global exists resolves it to the client build, where
-        `isAstroComponentFactory` is undefined and `AstroContainer` throws
-        `NoMatchingRenderer`. So each renderer is pinned to the shared
-        sequences in `./section-order-contract` from the environment it
-        needs — the Astro side in `card-page.test.ts` under node, the React
-        side here under jsdom. Either one drifting fails its own file.
+        Both draw islands are pinned to the shared sequences in
+        `./section-order-contract`; either one drifting fails its own file.
     */
     it.each([
         // Match on the `kind` discriminant, not on field presence: a

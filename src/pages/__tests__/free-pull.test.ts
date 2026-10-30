@@ -58,9 +58,8 @@ function testIdsInOrder(root: Element): (string | null)[] {
  * for courts, arc context for majors), then the symbol walkthrough, then the
  * common reading, then the invitation prompt.
  *
- * Mirrors `src/components/CardSections.astro`'s contract exactly — same
- * `data-testid`s, same relative order — since the plan requires this page to
- * reuse that contract rather than reimplementing a parallel one.
+ * The same contract `DailyDraw.tsx` emits — same `data-testid`s, same
+ * relative order — so the two draw islands read as one product.
  */
 function assertLockedSectionOrder(cardEl: Element) {
     const ids = testIdsInOrder(cardEl)

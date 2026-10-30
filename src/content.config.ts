@@ -105,48 +105,10 @@ const majorsArc = defineCollection({
     }),
 })
 
-/** Spread geometry and per-position semantics. */
-const spreads = defineCollection({
-    loader: glob({ base: './src/content/spreads', pattern: '**/*.{md,mdx}' }),
-    schema: z.object({
-        name: z.string(),
-        cardCount: z.number().int().min(1).max(78),
-        summary: z.string().min(1),
-        positions: z
-            .array(
-                z.object({
-                    label: z.string().min(1),
-                    meaning: z.string().min(1),
-                    /** Abstract grid coordinates, not pixels — where this position sits in the layout. */
-                    x: z.number(),
-                    y: z.number(),
-                })
-            )
-            .min(1),
-        /** Notes where this layout's lineage is disputed. */
-        variantNote: z.string().optional(),
-        order: z.number().int(),
-        status,
-    }),
-})
-
-/** The beginner learning track. */
-const learn = defineCollection({
-    loader: glob({ base: './src/content/learn', pattern: '**/*.{md,mdx}' }),
-    schema: z.object({
-        title: z.string(),
-        description: z.string().min(1),
-        order: z.number().int(),
-        status,
-    }),
-})
-
 export const collections = {
     cards,
     suits,
     numbers,
     ranks,
     majorsArc,
-    spreads,
-    learn,
 }

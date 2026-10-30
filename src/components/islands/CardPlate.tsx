@@ -2,11 +2,8 @@
  * The daily draw's flip stage: an engraved card back that turns to reveal
  * the drawn card's plate.
  *
- * Mirrors `CardFrame.astro` and `CardBack.astro`'s markup contract (same
- * `data-testid`s, same corner ornaments) rather than rendering them
- * directly — an Astro component cannot render inside a React island, the
- * same constraint `DailyDraw.tsx` and `FreePull.tsx` already work around
- * for `CardSections.astro`.
+ * Emits the `card-frame` / `card-back` markup contract (same
+ * `data-testid`s, same corner ornaments) that `global.css` styles.
  *
  * `revealed` defaults to `true` so a non-flip usage (the optional second
  * card, which appears already face-up with no turning animation) gets the

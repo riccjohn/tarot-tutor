@@ -1,25 +1,23 @@
 ---
 import { getCollection } from 'astro:content'
+import DailyDraw from '../components/islands/DailyDraw'
 import FreePull from '../components/islands/FreePull'
-import PageHeader from '../components/PageHeader.astro'
 import {
     composeCard,
     type ComposedCard,
     type ContentCollections,
 } from '../lib/content/compose'
 import { DECK } from '../lib/deck'
+import { localDateKey } from '../lib/draw'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 /**
- * The self-directed reading page: unlimited pulls via `drawFreely`, never
- * `drawForDate` (that's the daily draw's page, not this one).
+ * Today's card, then a free pull underneath.
  *
- * `FreePull`'s `compose` prop is a function, and Astro serializes island
- * props across the client boundary — a function can't survive that. So
- * instead of passing `compose` here, this frontmatter does the composition
- * once for the whole deck (mirroring `src/pages/cards/[id].astro`'s
- * content-wiring) and hands the island a plain, serializable
- * `Record<card id, ComposedCard>` to look up from after each pull.
+ * `DailyDraw` takes the raw collections (plain `{ id, data }` entries, which
+ * survive Astro's island prop serialization) and composes inside the island.
+ * `FreePull` can't take a `compose` function across that boundary, so the
+ * whole deck is composed here once and handed over as a lookup.
  */
 const [cards, suits, numbers, ranks, majorsArc] = await Promise.all([
     getCollection('cards'),
@@ -41,16 +39,38 @@ const composedById: Record<string, ComposedCard> = {}
 for (const card of DECK) {
     composedById[card.id] = composeCard(card, collections)
 }
+
+const dateKey = localDateKey()
 ---
 
-<!--
-  `PageHeader`'s plain title stage stands in for the daily draw's
-  candle-lit hero here (no full-viewport `.daily-hero` wrapper, no
-  `Ornament kind="hero"` watermark centred behind a date) — this page pulls
-  on demand, never locked to a date, so it reads cooler than the ritual
-  home page rather than borrowing its glow.
--->
-<BaseLayout title="Free Pull">
-    <PageHeader eyebrow="Self-directed reading" title="Free pull" />
-    <FreePull composedById={composedById} client:idle />
+<BaseLayout title="Draw">
+    <section class="draw-section">
+        <DailyDraw dateKey={dateKey} collections={collections} client:idle />
+    </section>
+
+    <section class="draw-section">
+        <p class="eyebrow">Free pull</p>
+        <h2>Pull as many as you like</h2>
+        <FreePull composedById={composedById} client:idle />
+    </section>
 </BaseLayout>
+
+<style>
+    /* `overflow-x: clip` keeps the card's candle halo from widening the page. */
+    .draw-section {
+        text-align: center;
+        display: grid;
+        justify-items: center;
+        overflow-x: clip;
+    }
+
+    .draw-section + .draw-section {
+        margin-top: 3rem;
+        padding-top: 3rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .draw-section h2 {
+        margin-top: 0;
+    }
+</style>

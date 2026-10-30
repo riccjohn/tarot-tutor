@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import { getViteConfig } from 'astro/config'
+import { configDefaults } from 'vitest/config'
 
 /**
  * Routed through Astro's own Vite config rather than a bare Vitest config.
@@ -13,5 +14,8 @@ export default getViteConfig({
     test: {
         environment: 'node',
         setupFiles: ['./src/test-setup.ts'],
+        // Agent worktrees under .claude/ carry their own node_modules (a
+        // second React), so their copies of these tests must not run here.
+        exclude: [...configDefaults.exclude, '.claude/**'],
     },
 })

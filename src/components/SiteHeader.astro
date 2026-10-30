@@ -2,28 +2,19 @@
 import { SITE_NAME } from '../config/site'
 
 /**
- * The site's only navigation.
- *
- * Every route existed before this component did and none of them were
- * reachable: the layout rendered a bare `<main>`, so the home page shipped
- * zero internal links. Routes existing in the build is not the same thing as
- * a reader being able to get to them.
- *
- * Deliberately small — a wordmark and four destinations. The product asks for
- * a daily card, not a session, so the chrome should get out of the way.
+ * The site's only navigation: a wordmark and two destinations, on one line
+ * at every width so it costs as little height as possible above the cards.
  */
 
 const links = [
-    { href: '/cards/', label: 'Cards' },
-    { href: '/spreads/', label: 'Spreads' },
+    { href: '/', label: 'Cards' },
     { href: '/draw/', label: 'Draw' },
-    { href: '/learn/', label: 'Learn' },
-    { href: '/about/', label: 'About' },
 ]
 
-/** Marks the section the reader is in, matching on the path prefix. */
+/** `/` must match exactly, or it would claim every page. */
 const path = Astro.url.pathname
-const isCurrent = (href: string) => path === href || path.startsWith(href)
+const isCurrent = (href: string) =>
+    href === '/' ? path === '/' : path.startsWith(href)
 ---
 
 <header class="site-header shell">
@@ -48,68 +39,47 @@ const isCurrent = (href: string) => path === href || path.startsWith(href)
         position: relative;
         z-index: 1;
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: flex-start;
-        padding-block: 1.5rem 1.25rem;
-        border-bottom: 1px solid var(--color-border);
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 0.9rem 0.5rem;
     }
 
-    /* The one other place UnifrakturMaguntia appears besides the lesson
-     * drop cap: the wordmark itself, set large enough to read as a mark
-     * rather than a label. */
     .site-header__mark {
-        font-family: var(--font-blackletter);
-        font-size: 1.7rem;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.35rem;
         line-height: 1;
-        letter-spacing: 0.01em;
-        color: var(--color-ink);
+        letter-spacing: -0.01em;
+        color: var(--color-accent);
         text-decoration: none;
     }
 
     .site-header__nav {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem 1.4rem;
+        gap: 1.25rem;
     }
 
-    /* Cinzel nav: "small caps energy" via uppercase + tracking rather than
-     * a faked `font-variant: small-caps`, which Cinzel doesn't carry true
-     * small-cap glyphs for. */
     .site-header__nav a {
         font-family: var(--font-label);
-        font-size: 0.78rem;
-        letter-spacing: 0.09em;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--color-ink-soft);
+        color: var(--color-muted);
         text-decoration: none;
         padding-block: 0.2rem;
-        border-bottom: 2px solid transparent;
+        border-bottom: 1px solid transparent;
         transition:
             color 0.25s var(--ease-brand),
             border-color 0.25s var(--ease-brand);
     }
 
-    /* Small text stays bone; gilt only marks state through the rule. */
     .site-header__nav a:hover {
         color: var(--color-ink);
-        border-bottom-color: var(--color-accent-soft);
     }
 
     .site-header__nav a[aria-current='page'] {
         color: var(--color-ink);
         border-bottom-color: var(--color-accent);
-    }
-
-    /* Wordmark and nav sit on one line once there is room for both; below
-     * this the nav wraps onto its own line(s) rather than hiding behind a
-     * hamburger. */
-    @media (min-width: 34rem) {
-        .site-header {
-            flex-direction: row;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 2rem;
-        }
     }
 </style>

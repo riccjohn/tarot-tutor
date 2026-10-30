@@ -10,9 +10,11 @@ interface Props {
     title?: string
     /** Overrides the default site tagline for this page's meta description. */
     description?: string
+    /** Drops the footer and the generous top/bottom padding, for full-screen tools. */
+    flush?: boolean
 }
 
-const { title, description = SITE_TAGLINE } = Astro.props
+const { title, description = SITE_TAGLINE, flush = false } = Astro.props
 
 const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME
 const canonicalUrl = new URL(Astro.url.pathname, SITE_URL)
@@ -35,13 +37,12 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL)
         <Font cssVariable="--font-fraunces" preload />
         <Font cssVariable="--font-cinzel" preload />
         <Font cssVariable="--font-cormorant" preload />
-        <Font cssVariable="--font-unifraktur" />
     </head>
     <body>
         <SiteHeader />
-        <main class="shell">
+        <main class:list={['shell', { 'shell--flush': flush }]}>
             <slot />
         </main>
-        <SiteFooter />
+        {!flush && <SiteFooter />}
     </body>
 </html>
