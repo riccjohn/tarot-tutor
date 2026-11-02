@@ -1,4 +1,4 @@
-import { glob } from 'astro/loaders'
+import { file, glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 import { COURT_RANKS, PIP_RANKS, SUITS } from './lib/deck'
 
@@ -81,30 +81,33 @@ const ranks = defineCollection({
     }),
 })
 
-/** Where each major sits in the arc. */
+/**
+ * Where each major sits in the arc, and its one-line theme. Short enough to
+ * keep all 22 in one file, which reads like the table it is.
+ */
 const majorsArc = defineCollection({
-    loader: glob({
-        base: './src/content/majors-arc',
-        pattern: '**/*.{md,mdx}',
-    }),
-    schema: z.object({
-        cardId: z.string(),
-        number: z.number().int().min(0).max(21),
-        /**
-         * Which row of seven, under the septenary scheme. The Fool is 0 and
-         * sits outside the rows. This is one of two common schemes — the
-         * narrative arc is the other — and the content says so.
-         */
-        septenary: z.union([
-            z.literal(0),
-            z.literal(1),
-            z.literal(2),
-            z.literal(3),
-        ]),
-        /** One line naming the card's archetype, for the cheatsheet. */
-        theme: z.string().min(1),
-        status,
-    }),
+    loader: file('./src/content/majors-arc.yaml'),
+    schema: z
+        .object({
+            /** The card id. The file loader requires entries to carry `id`. */
+            id: z.string(),
+            number: z.number().int().min(0).max(21),
+            /**
+             * Which row of seven, under the septenary scheme. The Fool is 0 and
+             * sits outside the rows. This is one of two common schemes — the
+             * narrative arc is the other — and the content says so.
+             */
+            septenary: z.union([
+                z.literal(0),
+                z.literal(1),
+                z.literal(2),
+                z.literal(3),
+            ]),
+            /** One line naming the card's archetype, for the cheatsheet. */
+            theme: z.string().min(1),
+            status,
+        })
+        .transform(({ id, ...rest }) => ({ cardId: id, ...rest })),
 })
 
 export const collections = {

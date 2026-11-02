@@ -25,6 +25,9 @@
  * script describing artwork it hasn't looked at will confabulate, and no
  * schema check catches that.
  *
+ * The majors' arc notes are not touched here either: all 22 live in one
+ * hand-maintained file, `src/content/majors-arc.yaml`.
+ *
  * Spreads are not touched here — all three are hand-written directly in
  * `src/content/spreads/`.
  *
@@ -38,7 +41,6 @@ import { dirname, join } from 'node:path'
 import {
     COURT_RANKS,
     DECK,
-    isMajor,
     PIP_RANKS,
     SUITS,
     type Card,
@@ -84,11 +86,6 @@ const SUIT_ELEMENT: Record<Suit, string> = {
 
 function titleCase(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1)
-}
-
-function septenaryFor(majorNumber: number): 0 | 1 | 2 | 3 {
-    if (majorNumber === 0) return 0
-    return Math.ceil(majorNumber / 7) as 1 | 2 | 3
 }
 
 /** YAML frontmatter needs its multi-word placeholder strings quoted. */
@@ -155,16 +152,6 @@ function rankFrontmatter(rank: CourtRank): string {
 rank: ${rank}
 name: ${yamlString(titleCase(rank))}
 ladderPosition: ${yamlString(DRAFT_LADDER_POSITION)}
-status: draft
----
-`
-}
-
-function majorArcFrontmatter(cardId: string, number: number): string {
-    return `---
-cardId: ${yamlString(cardId)}
-number: ${number}
-septenary: ${septenaryFor(number)}
 status: draft
 ---
 `
@@ -263,18 +250,6 @@ async function main() {
     for (const rank of COURT_RANKS) {
         const path = join(CONTENT_DIR, 'ranks', `${rank}.md`)
         record(await writeIfMissing(path, rankFrontmatter(rank)))
-    }
-
-    // Major arcana arc notes: none hand-written yet.
-    for (const card of DECK) {
-        if (!isMajor(card)) continue
-        const path = join(CONTENT_DIR, 'majors-arc', `${card.id}.md`)
-        record(
-            await writeIfMissing(
-                path,
-                majorArcFrontmatter(card.id, card.number)
-            )
-        )
     }
 
     // Learn track: none hand-written yet.
