@@ -107,6 +107,11 @@ const majorsArc = defineCollection({
             theme: z.string().min(1),
             status,
         })
+        .refine(
+            ({ number, septenary }) =>
+                septenary === (number === 0 ? 0 : Math.ceil(number / 7)),
+            { message: 'septenary does not match the row this number sits in' }
+        )
         .transform(({ id, ...rest }) => ({ cardId: id, ...rest })),
 })
 

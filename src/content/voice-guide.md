@@ -7,9 +7,8 @@ title: Voice guide
 This file is editorial reference, not user-facing copy. It is not part of any
 content collection and is not validated by a schema. Anyone drafting or
 editing a piece in `src/content/` should read this first, and the Three of
-Swords card plus the Swords suit and Three number essays are the worked
-examples to imitate — they are the only pieces besides the spreads currently
-marked `status: 'edited'`.
+Swords card and the Swords suit essay are the worked examples to imitate —
+they are the only pieces currently marked `status: 'edited'`.
 
 ## The register
 

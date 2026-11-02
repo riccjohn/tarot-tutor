@@ -17,8 +17,17 @@ const [suits, numbers, ranks, majorsArc] = await Promise.all([
     getCollection('majorsArc'),
 ])
 
-/** Puts entries in deck order, failing the build if one is missing. */
-function inOrder<T, K>(entries: T[], order: readonly K[], key: (e: T) => K) {
+/** Puts entries in deck order, failing the build on a missing or extra one. */
+function inOrder<T, K>(
+    entries: T[],
+    order: readonly K[],
+    key: (e: T) => K
+): T[] {
+    if (entries.length !== order.length) {
+        throw new Error(
+            `Cheatsheet: expected ${order.length} content pieces, found ${entries.length}`
+        )
+    }
     return order.map((k) => {
         const entry = entries.find((e) => key(e) === k)
         if (!entry) throw new Error(`Cheatsheet: no content piece for "${k}"`)
@@ -33,10 +42,11 @@ const numberRows = inOrder(numbers, PIP_RANKS, (e) => e.data.rank).map(
 const rankRows = inOrder(ranks, COURT_RANKS, (e) => e.data.rank).map(
     (e) => e.data
 )
-const majorRows = majorsArc
-    .map((e) => e.data)
-    .sort((a, b) => a.number - b.number)
-    .map((data) => ({ ...data, name: MAJOR_NAMES[data.number] }))
+const majorRows = inOrder(
+    majorsArc,
+    MAJOR_NAMES.map((_, number) => number),
+    (e) => e.data.number
+).map((e) => ({ ...e.data, name: MAJOR_NAMES[e.data.number] }))
 
 const majorGroups = [
     { label: 'Setting out', cards: majorRows.filter((m) => m.septenary === 0) },
@@ -76,7 +86,9 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                 are archetypes, so each one is read on its own.
             </p>
             <p class="cheatsheet__example">
-                <span class="eyebrow">For example</span>
+                <span class="eyebrow">
+                    For example<span class="sr-only">:</span>
+                </span>
                 <strong>Five of Cups</strong> = Cups (feeling, relationship) +
                 Five (disruption, loss) → an emotional disappointment. The
                 artwork adds the rest: a figure mourning three spilled cups
@@ -100,6 +112,7 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                             <SuitSigil suit={suit.suit} />
                             {suit.name}
                             <span class="cheatsheet__meta">
+                                <span class="sr-only">, element: </span>
                                 {suit.conventionalElement}
                             </span>
                         </dt>
@@ -124,7 +137,10 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                 {numberRows.map((number) => (
                     <div>
                         <dt>
-                            <span class="cheatsheet__numeral">
+                            <span
+                                class="cheatsheet__numeral"
+                                aria-hidden="true"
+                            >
                                 {number.numeral === 1
                                     ? 'A'
                                     : toRoman(number.numeral)}
@@ -168,8 +184,14 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                         {group.cards.map((major) => (
                             <div>
                                 <dt>
-                                    <span class="cheatsheet__numeral">
+                                    <span
+                                        class="cheatsheet__numeral"
+                                        aria-hidden="true"
+                                    >
                                         {toRoman(major.number)}
+                                    </span>
+                                    <span class="sr-only">
+                                        {major.number}:{' '}
                                     </span>
                                     {major.name}
                                 </dt>
@@ -188,12 +210,13 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
         <section aria-labelledby="reversals">
             <h2 id="reversals">Reversals</h2>
             <p>
-                A reversed card is the same card, not a different one. Start
-                from its usual meaning, then ask what's getting in its way:
-                something may be blocking or delaying it, keeping it private
-                rather than out in the world, giving you too much or too little
-                of it, or making you resist it. With a hard card, a reversal can
-                also mean its difficulty is starting to ease.
+                One widely taught way to read a reversal: it's the same card,
+                not a different one. Start from its usual meaning, then ask
+                what's getting in its way: something may be blocking or delaying
+                it, keeping it private rather than out in the world, giving you
+                too much or too little of it, or making you resist it. With a
+                hard card, a reversal can also mean its difficulty is starting
+                to ease.
             </p>
         </section>
     </article>
