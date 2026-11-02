@@ -53,7 +53,6 @@ export interface SuitPieceData {
     name: string
     domain: string
     conventionalElement: string
-    contested?: string
     status: PieceStatus
 }
 

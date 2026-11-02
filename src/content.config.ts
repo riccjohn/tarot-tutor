@@ -49,11 +49,6 @@ const suits = defineCollection({
         /** One line, for card-page summaries. */
         domain: z.string().min(1),
         conventionalElement: z.string().min(1),
-        /**
-         * Where traditions genuinely disagree about this suit's attribution.
-         * Surfaced as teaching material rather than smoothed over.
-         */
-        contested: z.string().optional(),
         status,
     }),
 })

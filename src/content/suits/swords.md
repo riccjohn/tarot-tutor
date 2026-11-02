@@ -3,13 +3,6 @@ suit: swords
 name: Swords
 domain: Thought, conflict, judgment, and the mind's sharper edges.
 conventionalElement: Air
-contested: Swords' elemental attribution is genuinely disputed between
-    traditions. The scheme most familiar from the 1909 deck's usual
-    commentary pairs Swords with Air and Wands with Fire; some earlier
-    continental systems reverse that pairing, giving Swords to Fire and
-    Wands to Air. This site follows the Air-for-Swords scheme because it is
-    the one the surrounding structural material assumes, not because the
-    question is settled.
 status: edited
 ---
 
@@ -29,7 +22,6 @@ not a verdict on the reader.
 
 Traditionally paired with the element Air: intellect, judgment, and
 communication rather than the will (Wands) or the emotion (Cups) most
-readers reach for first. That pairing is not universal — see the note on
-contested attribution above — but it is a useful way to hold the suit in
-mind: Swords cards are asking what is true and what should be said, more
-than they are asking what is wanted or felt.
+readers reach for first. It is a useful way to hold the suit in mind:
+Swords cards are asking what is true and what should be said, more than
+they are asking what is wanted or felt.

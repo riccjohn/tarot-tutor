@@ -120,10 +120,6 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                     </div>
                 ))}
             </dl>
-            <p class="cheatsheet__aside">
-                Traditions disagree on whether Wands or Swords is Fire. This
-                site pairs Wands with Fire and Swords with Air.
-            </p>
         </section>
 
         <section aria-labelledby="numbers">
@@ -201,10 +197,6 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
                     </dl>
                 </>
             ))}
-            <p class="cheatsheet__aside">
-                This follows the 1909 deck's numbering, with Strength at VIII
-                and Justice at XI. Older decks swap the two.
-            </p>
         </section>
 
         <section aria-labelledby="reversals">
@@ -270,15 +262,8 @@ const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
         font-style: normal;
     }
 
-    .cheatsheet__note,
-    .cheatsheet__aside {
+    .cheatsheet__note {
         color: var(--color-ink-soft);
-    }
-
-    .cheatsheet__aside {
-        font-size: 0.9rem;
-        color: var(--color-muted);
-        margin-top: 1rem;
     }
 
     /* Term above definition on phones; side by side once there's room. */
