@@ -1,6 +1,6 @@
 ---
 rank: page
 name: 'Page'
-ladderPosition: 'Draft placeholder — this rank’s ladder position has not been written yet.'
+ladderPosition: 'The student: curious, new to the suit, carrying a message.'
 status: draft
 ---

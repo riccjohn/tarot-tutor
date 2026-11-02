@@ -64,7 +64,7 @@ const numbers = defineCollection({
     schema: z.object({
         rank: z.enum(PIP_RANKS),
         numeral: z.number().int().min(1).max(10),
-        /** One line naming the stage, e.g. "the turn toward conflict". */
+        /** One line naming the stage, e.g. "first result". */
         stage: z.string().min(1),
         status,
     }),
@@ -101,6 +101,8 @@ const majorsArc = defineCollection({
             z.literal(2),
             z.literal(3),
         ]),
+        /** One line naming the card's archetype, for the cheatsheet. */
+        theme: z.string().min(1),
         status,
     }),
 })

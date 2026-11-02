@@ -1,6 +1,6 @@
 ---
 rank: knight
 name: 'Knight'
-ladderPosition: 'Draft placeholder — this rank’s ladder position has not been written yet.'
+ladderPosition: 'The pursuer: the suit in motion, sometimes too much of it.'
 status: draft
 ---

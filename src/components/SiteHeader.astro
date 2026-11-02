@@ -3,7 +3,7 @@ import { SITE_NAME } from '../config/site'
 import { withBase } from '../lib/base'
 
 /**
- * The site's only navigation: a wordmark and two destinations, on one line
+ * The site's only navigation: a wordmark and three destinations, on one line
  * at every width so it costs as little height as possible above the cards.
  */
 
@@ -11,6 +11,7 @@ const home = withBase('/')
 const links = [
     { href: home, label: 'Cards' },
     { href: withBase('/draw/'), label: 'Draw' },
+    { href: withBase('/cheatsheet/'), label: 'Cheatsheet' },
 ]
 
 /** Home must match exactly, or it would claim every page. */

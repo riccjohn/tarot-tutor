@@ -137,8 +137,8 @@ function DrawnCardSections({
 
             {majorArc && (
                 <section data-testid="arc-context">
-                    <p className="eyebrow">Major arc</p>
-                    <p>Septenary {majorArc.septenary}</p>
+                    <p className="eyebrow">Theme</p>
+                    <p>{majorArc.theme}</p>
                 </section>
             )}
 

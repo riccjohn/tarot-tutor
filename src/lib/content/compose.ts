@@ -78,6 +78,7 @@ export interface MajorArcPieceData {
     cardId: string
     number: number
     septenary: 0 | 1 | 2 | 3
+    theme: string
     status: PieceStatus
 }
 

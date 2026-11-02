@@ -64,6 +64,7 @@ function genericCompose(card: Card): ComposedCard {
             cardId: card.id,
             number: card.number,
             septenary: 0,
+            theme: 'Fixture theme',
             status: 'edited',
         }
         return { card, own, majorArc, status: 'edited' }

@@ -1,6 +1,6 @@
 ---
 rank: queen
 name: 'Queen'
-ladderPosition: 'Draft placeholder — this rank’s ladder position has not been written yet.'
+ladderPosition: 'Inward mastery: the suit held, understood, and nurtured.'
 status: draft
 ---
