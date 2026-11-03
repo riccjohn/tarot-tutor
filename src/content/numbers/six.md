@@ -1,6 +1,6 @@
 ---
 rank: six
 numeral: 6
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Recovery: harmony returns, often through give and take.'
 status: draft
 ---

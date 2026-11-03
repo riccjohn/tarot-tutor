@@ -1,6 +1,6 @@
 ---
 rank: king
 name: 'King'
-ladderPosition: 'Draft placeholder — this rank’s ladder position has not been written yet.'
+ladderPosition: 'Outward mastery: the suit directed, decided, and taken responsibility for.'
 status: draft
 ---

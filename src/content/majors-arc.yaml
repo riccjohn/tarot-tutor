@@ -1,0 +1,137 @@
+# The 22 majors, in order. `septenary` is which row of seven a card sits
+# in (the Fool is 0, outside the rows); see src/content.config.ts.
+
+- id: the-fool
+  number: 0
+  septenary: 0
+  theme: 'Beginnings, openness, and a leap taken before knowing where it lands.'
+  status: draft
+
+# Row one: I–VII
+- id: the-magician
+  number: 1
+  septenary: 1
+  theme: 'Will and skill: putting what you already have to work.'
+  status: draft
+
+- id: the-high-priestess
+  number: 2
+  septenary: 1
+  theme: 'Intuition and the unspoken: knowing before you can explain.'
+  status: draft
+
+- id: the-empress
+  number: 3
+  septenary: 1
+  theme: 'Abundance, nurture, and creativity that makes things grow.'
+  status: draft
+
+- id: the-emperor
+  number: 4
+  septenary: 1
+  theme: 'Structure, authority, boundaries, and order.'
+  status: draft
+
+- id: the-hierophant
+  number: 5
+  septenary: 1
+  theme: 'Tradition, teaching, and the beliefs and institutions people share.'
+  status: draft
+
+- id: the-lovers
+  number: 6
+  septenary: 1
+  theme: 'Choosing by your values; union and alignment.'
+  status: draft
+
+- id: the-chariot
+  number: 7
+  septenary: 1
+  theme: 'Determination: steering opposing forces in one direction.'
+  status: draft
+
+# Row two: VIII–XIV
+- id: strength
+  number: 8
+  septenary: 2
+  theme: 'Quiet courage, patience, and gentle mastery of instinct.'
+  status: draft
+
+- id: the-hermit
+  number: 9
+  septenary: 2
+  theme: 'Solitude, reflection, and finding your own light.'
+  status: draft
+
+- id: wheel-of-fortune
+  number: 10
+  septenary: 2
+  theme: 'Cycles, change, and the turns you do not control.'
+  status: draft
+
+- id: justice
+  number: 11
+  septenary: 2
+  theme: 'Fairness, truth, accountability, and cause and effect.'
+  status: draft
+
+- id: the-hanged-man
+  number: 12
+  septenary: 2
+  theme: 'Pause and surrender: seeing things from a new angle.'
+  status: draft
+
+- id: death
+  number: 13
+  septenary: 2
+  theme: 'Endings and transformation: a chapter closing so another can open.'
+  status: draft
+
+- id: temperance
+  number: 14
+  septenary: 2
+  theme: 'Balance, moderation, and patiently blending opposites.'
+  status: draft
+
+# Row three: XV–XXI
+- id: the-devil
+  number: 15
+  septenary: 3
+  theme: 'Attachment and temptation: the chains you could take off.'
+  status: draft
+
+- id: the-tower
+  number: 16
+  septenary: 3
+  theme: 'Sudden upheaval: structures built on false ground coming down.'
+  status: draft
+
+- id: the-star
+  number: 17
+  septenary: 3
+  theme: 'Hope, renewal, and calm after the storm.'
+  status: draft
+
+- id: the-moon
+  number: 18
+  septenary: 3
+  theme: 'Uncertainty, dreams, and fear: what is not clear yet.'
+  status: draft
+
+- id: the-sun
+  number: 19
+  septenary: 3
+  theme: 'Joy, vitality, clarity, and simple success.'
+  status: draft
+
+- id: judgement
+  number: 20
+  septenary: 3
+  theme: 'Awakening and reckoning: answering a call.'
+  status: draft
+
+- id: the-world
+  number: 21
+  septenary: 3
+  theme: 'Completion and integration: a cycle fulfilled.'
+  status: draft

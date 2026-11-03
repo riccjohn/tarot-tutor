@@ -6,9 +6,9 @@
  * data model mirrors the pedagogy. Five of Cups is not a bespoke entry — it is
  * the intersection of `cups` and `five`.
  *
- * Note what is NOT here: elemental correspondences. The Wands/Swords fire-air
- * assignment is genuinely contested between traditions, so it lives in editable
- * content rather than being hardcoded as though it were settled fact.
+ * Note what is NOT here: elemental correspondences. They are interpretive
+ * rather than structural, so they live in editable content (each suit's
+ * `conventionalElement`) rather than being hardcoded.
  */
 
 export const SUITS = ['wands', 'cups', 'swords', 'pentacles'] as const

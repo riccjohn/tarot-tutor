@@ -7,9 +7,8 @@ title: Voice guide
 This file is editorial reference, not user-facing copy. It is not part of any
 content collection and is not validated by a schema. Anyone drafting or
 editing a piece in `src/content/` should read this first, and the Three of
-Swords card plus the Swords suit and Three number essays are the worked
-examples to imitate — they are the only pieces besides the spreads currently
-marked `status: 'edited'`.
+Swords card and the Swords suit essay are the worked examples to imitate —
+they are the only pieces currently marked `status: 'edited'`.
 
 ## The register
 
@@ -74,16 +73,14 @@ hands the specific reading back to the person looking at the card that day.
 It is not rhetorical and it does not have a correct answer implied by the
 rest of the copy.
 
-## Contested points are taught as live disagreements
+## Conventions follow the 1909 deck
 
-Where traditions genuinely disagree — Swords' elemental attribution is the
-standing example, disputed between the Air-for-Swords/Fire-for-Wands scheme
-most familiar from the 1909 deck's usual commentary and older continental
-schemes that swap the two — say so directly in the content. "Some traditions
-hold X, others hold Y, and this site follows X while naming the
-disagreement" is honest. Picking one silently and presenting it as settled
-is not, and an attentive reader who has seen the other scheme elsewhere will
-correctly read the silence as sloppiness rather than confidence.
+Where tarot traditions differ — which element goes with which suit, how the
+majors are numbered — this site follows the classic 1909 deck and the way it
+is usually taught: Wands are Fire, Swords are Air, Strength is VIII and
+Justice is XI. State these plainly as the deck's conventions. Don't survey
+other traditions or note where they disagree; the reader is learning this
+deck, and asides about other schemes add noise rather than confidence.
 
 ## Ethical guardrails
 

@@ -53,7 +53,6 @@ export interface SuitPieceData {
     name: string
     domain: string
     conventionalElement: string
-    contested?: string
     status: PieceStatus
 }
 
@@ -78,6 +77,7 @@ export interface MajorArcPieceData {
     cardId: string
     number: number
     septenary: 0 | 1 | 2 | 3
+    theme: string
     status: PieceStatus
 }
 

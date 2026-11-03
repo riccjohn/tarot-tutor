@@ -158,6 +158,7 @@ function makeMajorArcEntry(
             cardId: card.id,
             number: card.number,
             septenary: septenaryFor(card.number),
+            theme: `Fixture theme for ${card.id}`,
             status,
         },
     }

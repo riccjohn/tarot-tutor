@@ -1,6 +1,6 @@
 ---
 rank: ten
 numeral: 10
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Completion: the cycle at its fullest, and tipping into the next Ace.'
 status: draft
 ---

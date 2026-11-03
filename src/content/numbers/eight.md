@@ -1,6 +1,6 @@
 ---
 rank: eight
 numeral: 8
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Movement: momentum and mastery, or its flip side, feeling stuck.'
 status: draft
 ---

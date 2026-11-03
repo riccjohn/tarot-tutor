@@ -114,7 +114,7 @@ function DrawnCard({
 
             {majorArc && (
                 <section data-testid="arc-context">
-                    <p>Septenary {majorArc.septenary}</p>
+                    <p>{majorArc.theme}</p>
                 </section>
             )}
 

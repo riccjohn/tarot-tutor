@@ -1,6 +1,6 @@
 ---
 rank: nine
 numeral: 9
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Fullness: the suit at its peak, often experienced alone.'
 status: draft
 ---

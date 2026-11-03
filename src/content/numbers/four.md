@@ -1,6 +1,6 @@
 ---
 rank: four
 numeral: 4
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Stability: structure, rest, holding still, and sometimes too still.'
 status: draft
 ---

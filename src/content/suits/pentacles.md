@@ -1,7 +1,7 @@
 ---
 suit: pentacles
 name: 'Pentacles'
-domain: 'Draft placeholder — this suit’s domain line has not been written yet.'
+domain: 'Body, work, money, and the slow business of building what lasts.'
 conventionalElement: 'Earth'
 status: draft
 ---

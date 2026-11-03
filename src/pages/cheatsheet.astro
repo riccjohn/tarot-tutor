@@ -1,0 +1,326 @@
+---
+import { getCollection } from 'astro:content'
+import SuitSigil from '../components/islands/SuitSigil'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { COURT_RANKS, MAJOR_NAMES, PIP_RANKS, SUITS } from '../lib/deck'
+import { suitAccent, toRoman } from '../lib/ornament'
+
+/**
+ * The whole method on one page: the 18 pieces every minor card is built
+ * from, then the 22 majors. Only the one-line fields are shown here; the
+ * longer essays belong on card pages.
+ */
+const [suits, numbers, ranks, majorsArc] = await Promise.all([
+    getCollection('suits'),
+    getCollection('numbers'),
+    getCollection('ranks'),
+    getCollection('majorsArc'),
+])
+
+/** Puts entries in deck order, failing the build on a missing or extra one. */
+function inOrder<T, K>(
+    entries: T[],
+    order: readonly K[],
+    key: (e: T) => K
+): T[] {
+    if (entries.length !== order.length) {
+        throw new Error(
+            `Cheatsheet: expected ${order.length} content pieces, found ${entries.length}`
+        )
+    }
+    return order.map((k) => {
+        const entry = entries.find((e) => key(e) === k)
+        if (!entry) throw new Error(`Cheatsheet: no content piece for "${k}"`)
+        return entry
+    })
+}
+
+const suitRows = inOrder(suits, SUITS, (e) => e.data.suit).map((e) => e.data)
+const numberRows = inOrder(numbers, PIP_RANKS, (e) => e.data.rank).map(
+    (e) => e.data
+)
+const rankRows = inOrder(ranks, COURT_RANKS, (e) => e.data.rank).map(
+    (e) => e.data
+)
+const majorRows = inOrder(
+    majorsArc,
+    MAJOR_NAMES.map((_, number) => number),
+    (e) => e.data.number
+).map((e) => ({ ...e.data, name: MAJOR_NAMES[e.data.number] }))
+
+const majorGroups = [
+    { label: 'Setting out', cards: majorRows.filter((m) => m.septenary === 0) },
+    {
+        label: 'Row one · building a self in the world',
+        cards: majorRows.filter((m) => m.septenary === 1),
+    },
+    {
+        label: 'Row two · turning inward',
+        cards: majorRows.filter((m) => m.septenary === 2),
+    },
+    {
+        label: 'Row three · meeting larger forces',
+        cards: majorRows.filter((m) => m.septenary === 3),
+    },
+]
+
+const hasDrafts = [suitRows, numberRows, rankRows, majorRows]
+    .flat()
+    .some((piece) => piece.status === 'draft')
+---
+
+<BaseLayout
+    title="Cheatsheet"
+    description="How to read any tarot card from its suit, number, rank or archetype."
+>
+    <article class="cheatsheet">
+        <header>
+            <p class="eyebrow">Cheatsheet</p>
+            <h1>Reading any card</h1>
+            <p class="cheatsheet__lede">
+                Every minor card is built from two parts.{' '}
+                <strong>Suit + number</strong> gives you a pip card.{' '}
+                <strong>Suit + rank</strong> gives you a court card. Learn these
+                eighteen pieces and you can work out all 56 minors, then let
+                each card's artwork refine what you've worked out. The 22 majors
+                are archetypes, so each one is read on its own.
+            </p>
+            <p class="cheatsheet__example">
+                <span class="eyebrow">
+                    For example<span class="sr-only">:</span>
+                </span>
+                <strong>Five of Cups</strong> = Cups (feeling, relationship) +
+                Five (disruption, loss) → an emotional disappointment. The
+                artwork adds the rest: a figure mourning three spilled cups
+                while two still stand behind them.
+            </p>
+            {hasDrafts && (
+                <p class="cheatsheet__draft">
+                    Draft: some of these lines are still being written and may
+                    change.
+                </p>
+            )}
+        </header>
+
+        <section aria-labelledby="suits">
+            <h2 id="suits">The suits</h2>
+            <p class="cheatsheet__note">What part of life the card is about.</p>
+            <dl class="cheatsheet__list">
+                {suitRows.map((suit) => (
+                    <div style={`--accent: var(${suitAccent(suit.suit)})`}>
+                        <dt>
+                            <SuitSigil suit={suit.suit} />
+                            {suit.name}
+                            <span class="cheatsheet__meta">
+                                <span class="sr-only">, element: </span>
+                                {suit.conventionalElement}
+                            </span>
+                        </dt>
+                        <dd>{suit.domain}</dd>
+                    </div>
+                ))}
+            </dl>
+        </section>
+
+        <section aria-labelledby="numbers">
+            <h2 id="numbers">The numbers</h2>
+            <p class="cheatsheet__note">
+                How far the suit's story has got. Always read the number through
+                its suit: the Three of Cups and Three of Swords are both first
+                results, but very different ones.
+            </p>
+            <dl class="cheatsheet__list">
+                {numberRows.map((number) => (
+                    <div>
+                        <dt>
+                            <span
+                                class="cheatsheet__numeral"
+                                aria-hidden="true"
+                            >
+                                {number.numeral === 1
+                                    ? 'A'
+                                    : toRoman(number.numeral)}
+                            </span>
+                            {number.rank.charAt(0).toUpperCase() +
+                                number.rank.slice(1)}
+                        </dt>
+                        <dd>{number.stage}</dd>
+                    </div>
+                ))}
+            </dl>
+        </section>
+
+        <section aria-labelledby="court">
+            <h2 id="court">The court</h2>
+            <p class="cheatsheet__note">
+                A way of being you could step into, or a person or role in the
+                situation, shaped by the card's suit.
+            </p>
+            <dl class="cheatsheet__list">
+                {rankRows.map((rank) => (
+                    <div>
+                        <dt>{rank.name}</dt>
+                        <dd>{rank.ladderPosition}</dd>
+                    </div>
+                ))}
+            </dl>
+        </section>
+
+        <section aria-labelledby="majors">
+            <h2 id="majors">The Major Arcana</h2>
+            <p class="cheatsheet__note">
+                Life-scale themes rather than day-to-day situations. One widely
+                taught way to hold them is the Fool's journey: the Fool sets out
+                and meets the other 21 in three rows of seven.
+            </p>
+            {majorGroups.map((group) => (
+                <>
+                    <h3 class="eyebrow">{group.label}</h3>
+                    <dl class="cheatsheet__list">
+                        {group.cards.map((major) => (
+                            <div>
+                                <dt>
+                                    <span
+                                        class="cheatsheet__numeral"
+                                        aria-hidden="true"
+                                    >
+                                        {toRoman(major.number)}
+                                    </span>
+                                    <span class="sr-only">
+                                        {major.number}:{' '}
+                                    </span>
+                                    {major.name}
+                                </dt>
+                                <dd>{major.theme}</dd>
+                            </div>
+                        ))}
+                    </dl>
+                </>
+            ))}
+        </section>
+
+        <section aria-labelledby="reversals">
+            <h2 id="reversals">Reversals</h2>
+            <p>
+                One widely taught way to read a reversal: it's the same card,
+                not a different one. Start from its usual meaning, then ask
+                what's getting in its way: something may be blocking or delaying
+                it, keeping it private rather than out in the world, giving you
+                too much or too little of it, or making you resist it. With a
+                hard card, a reversal can also mean its difficulty is starting
+                to ease.
+            </p>
+        </section>
+    </article>
+</BaseLayout>
+
+<style>
+    .cheatsheet {
+        max-width: 46rem;
+    }
+
+    .cheatsheet h1 {
+        margin-bottom: 0.3em;
+    }
+
+    .cheatsheet__lede {
+        font-size: 1.125rem;
+        color: var(--color-ink-soft);
+    }
+
+    .cheatsheet__example {
+        padding: 1rem 1.25rem;
+        border-left: 2px solid var(--color-accent);
+        background: var(--color-paper-sunk);
+    }
+
+    .cheatsheet__example .eyebrow {
+        display: block;
+    }
+
+    .cheatsheet__draft {
+        font-size: 0.9rem;
+        color: var(--color-ink-soft);
+        padding: 0.5rem 0.9rem;
+        border: 1px solid var(--color-draft);
+        background: var(--color-draft-wash);
+        border-radius: 2px;
+    }
+
+    .cheatsheet section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .cheatsheet h2 {
+        margin-top: 0;
+    }
+
+    .cheatsheet h3.eyebrow {
+        margin-block: 2rem 0.25rem;
+        font-style: normal;
+    }
+
+    .cheatsheet__note {
+        color: var(--color-ink-soft);
+    }
+
+    /* Term above definition on phones; side by side once there's room. */
+    .cheatsheet__list {
+        margin: 0;
+    }
+
+    .cheatsheet__list > div {
+        display: grid;
+        gap: 0.15rem 1.5rem;
+        padding-block: 0.7rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (min-width: 40rem) {
+        .cheatsheet__list > div {
+            grid-template-columns: 13rem 1fr;
+            align-items: baseline;
+        }
+    }
+
+    .cheatsheet__list dt {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+
+    .cheatsheet__list dd {
+        margin: 0;
+    }
+
+    .cheatsheet__list :global(.suit-sigil) {
+        width: 1rem;
+        height: 1rem;
+        align-self: center;
+        color: var(--accent, var(--color-accent));
+    }
+
+    .cheatsheet__numeral,
+    .cheatsheet__meta {
+        font-family: var(--font-label);
+        font-style: normal;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        color: var(--color-accent);
+    }
+
+    .cheatsheet__numeral {
+        min-width: 2.6rem;
+    }
+
+    .cheatsheet__meta {
+        color: var(--color-muted);
+        text-transform: uppercase;
+    }
+</style>

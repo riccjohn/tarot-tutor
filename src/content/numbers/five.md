@@ -1,6 +1,6 @@
 ---
 rank: five
 numeral: 5
-stage: 'Draft placeholder — this number’s stage line has not been written yet.'
+stage: 'Disruption: conflict, loss, the steady four knocked off balance.'
 status: draft
 ---
